@@ -12,8 +12,8 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { Toast, areaData } from '@xxui/mobile'
-import type { PickerValue } from '@xxui/mobile'
+import { Toast, areaData } from 'xxui-mobile'
+import type { PickerValue } from 'xxui-mobile'
 
 const options = areaData
 const value = ref<PickerValue[]>(['330000', '330100', '330106'])

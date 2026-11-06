@@ -43,7 +43,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Toast } from '@xxui/mobile'
+import { Toast } from 'xxui-mobile'
 
 const value1 = ref(1)
 const value2 = ref(1.5)

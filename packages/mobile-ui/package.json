@@ -1,5 +1,5 @@
 {
-  "name": "@xxui/mobile",
+  "name": "xxui-mobile",
   "version": "0.3.0",
   "description": "XXUI - 轻量、可定制的 Vue 3 移动端组件库，支持多主题与暗色模式",
   "keywords": [

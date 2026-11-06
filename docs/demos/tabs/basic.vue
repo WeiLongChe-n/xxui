@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Toast } from '@xxui/mobile'
+import { Toast } from 'xxui-mobile'
 
 const active = ref('goods')
 const active2 = ref('b')

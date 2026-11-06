@@ -11,7 +11,7 @@
 </DemoBlock>
 
 ```ts
-import { ImagePreview } from '@xxui/mobile'
+import { ImagePreview } from 'xxui-mobile'
 
 const instance = ImagePreview({
   images: ['a.jpg', 'b.jpg'],

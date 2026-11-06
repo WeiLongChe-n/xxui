@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useData } from 'vitepress'
-import { brandOptions, setMode, setBrand, useTheme } from '@xxui/mobile'
+import { brandOptions, setMode, setBrand, useTheme } from 'xxui-mobile'
 
 const { isDark } = useData()
 const { mode, brand } = useTheme()

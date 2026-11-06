@@ -11,7 +11,7 @@
 ## 确认与提示
 
 ```ts
-import { Dialog } from '@xxui/mobile'
+import { Dialog } from 'xxui-mobile'
 
 const confirmed = await Dialog.confirm({
   title: '确认删除',

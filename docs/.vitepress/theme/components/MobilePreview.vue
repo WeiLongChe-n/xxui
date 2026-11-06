@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 import { useData } from 'vitepress'
-import { brandOptions, setDefaultTeleportTarget } from '@xxui/mobile'
+import { brandOptions, setDefaultTeleportTarget } from 'xxui-mobile'
 import {
   collectDemoHashes,
   collectStylesByHashes,

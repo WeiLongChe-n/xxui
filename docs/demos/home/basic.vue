@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Toast } from '@xxui/mobile'
+import { Toast } from 'xxui-mobile'
 
 const count = ref(1)
 

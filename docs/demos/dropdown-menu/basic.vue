@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { DropdownValue } from '@xxui/mobile'
+import type { DropdownValue } from 'xxui-mobile'
 
 const sort = ref<DropdownValue>('default')
 const filters = ref<DropdownValue[]>([])

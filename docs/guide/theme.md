@@ -22,7 +22,7 @@ XXUI 的主题不是「打包时选定」的，而是**运行时由 CSS 变量�
 ### 1. 直接调用 API
 
 ```ts
-import { setTheme, setMode, setBrand, toggleMode, resetTheme } from '@xxui/mobile'
+import { setTheme, setMode, setBrand, toggleMode, resetTheme } from 'xxui-mobile'
 
 setTheme({ mode: 'dark', brand: 'ocean' }) // 一次性设置
 setMode('light')                           // 只切换明暗
@@ -36,7 +36,7 @@ resetTheme()                               // 恢复默认（light + default）
 `useTheme()` 返回响应式状态与切换方法，适合自己实现换肤面板：
 
 ```ts
-import { useTheme } from '@xxui/mobile'
+import { useTheme } from 'xxui-mobile'
 
 const {
   mode,          // Ref<'light' | 'dark' | 'auto'>
@@ -113,7 +113,7 @@ localStorage.getItem('xxui-theme') // '{"mode":"dark","brand":"ocean"}'
 如果不希望持久化（例如多租户页面、嵌入式场景）：
 
 ```ts
-import { initTheme } from '@xxui/mobile'
+import { initTheme } from 'xxui-mobile'
 
 initTheme({ storage: false, followSystem: true, defaultTheme: { mode: 'auto', brand: 'default' } })
 ```
@@ -176,7 +176,7 @@ setBrand('brand-red' as BrandName) // 类型上需要扩展 BrandName
 如果希望类型安全，可以扩展联合类型：
 
 ```ts
-declare module '@xxui/mobile' {
+declare module 'xxui-mobile' {
   interface BrandNameMap {
     'brand-red': true
   }

@@ -62,8 +62,8 @@ vela-ui/
 
 ```ts
 import { createApp } from 'vue'
-import XXUI from '@xxui/mobile'
-import '@xxui/mobile/style.css'
+import XXUI from 'xxui-mobile'
+import 'xxui-mobile/style.css'
 import App from './App.vue'
 
 createApp(App).use(XXUI).mount('#app')
@@ -74,7 +74,7 @@ createApp(App).use(XXUI).mount('#app')
 ```
 
 ```ts
-import { setTheme, useTheme, Toast } from '@xxui/mobile'
+import { setTheme, useTheme, Toast } from 'xxui-mobile'
 
 setTheme({ mode: 'dark', brand: 'ocean' })
 
@@ -207,11 +207,11 @@ npm run publish:npm:dry           # 预演，不上传
 
 版本号会同步改写 `packages/mobile-ui/package.json`、根 `package.json`、`src/index.ts` 里的 `version`，以及文档站导航栏的版本号；发布成功后自动提交 `chore(release): vX.Y.Z` 并打 `vX.Y.Z` tag。
 
-脚本依次做这些检查：git 工作区干净 → npm 登录态 → 包名与 scope 归属（含已被占用时的提示）→ 类型检查 → 构建 → 产物入口齐全 → `npm pack` 预检（README / LICENSE / 入口文件是否都在包内）。任一步失败都会回滚版本号改动。
+脚本依次做这些检查：git 工作区干净 → npm 登录态 → 包名可用性（scoped 包还会校验 scope 归属）→ 类型检查 → 构建 → 产物入口齐全 → `npm pack` 预检（README / LICENSE / 入口文件是否都在包内）。任一步失败都会回滚版本号改动。
 
 其它参数：`--tag beta` 发到指定 dist-tag、`--otp <code>` 两步验证码、`--yes` 跳过确认、`--skip-check` 跳过 git 检查、`--no-git` 不提交、`--push` 发布后推送。
 
-> 包是 scoped 的（`@xxui/mobile`），发布前需要 npm 上存在 `@xxui` 这个 scope（个人 scope 与用户名同名，或先建组织）。`publishConfig` 已固定 `access: public` 与官方 registry，所以本机配置的镜像源不影响发布。
+> 包名 `xxui-mobile` 不带 scope，发布后归当前登录账号所有，无需先建组织或同名 scope。`publishConfig` 已固定 `access: public` 与官方 registry，所以本机配置的镜像源不影响发布。
 
 ### 开发辅助脚本
 

@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { Toast } from '@xxui/mobile'
+import { Toast } from 'xxui-mobile'
 
 const onBack = () => Toast('返回上一页')
 const onEdit = () => Toast('编辑')

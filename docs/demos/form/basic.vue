@@ -45,7 +45,7 @@
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { Toast, type FieldRule } from '@xxui/mobile'
+import { Toast, type FieldRule } from 'xxui-mobile'
 
 const formRef = ref<{ validate: () => Promise<boolean>; resetFields: () => void }>()
 

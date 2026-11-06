@@ -51,13 +51,13 @@ features:
   <h2>三十秒上手</h2>
 
 ```bash
-npm i @xxui/mobile
+npm i xxui-mobile
 ```
 
 ```ts
 import { createApp } from 'vue'
-import XXUI from '@xxui/mobile'
-import '@xxui/mobile/style.css'
+import XXUI from 'xxui-mobile'
+import 'xxui-mobile/style.css'
 import App from './App.vue'
 
 createApp(App).use(XXUI).mount('#app')
@@ -71,14 +71,14 @@ createApp(App).use(XXUI).mount('#app')
 </template>
 
 <script setup lang="ts">
-import { Toast } from '@xxui/mobile'
+import { Toast } from 'xxui-mobile'
 </script>
 ```
 
   <h2>主题切换，只需一行</h2>
 
 ```ts
-import { setTheme, useTheme } from '@xxui/mobile'
+import { setTheme, useTheme } from 'xxui-mobile'
 
 // 方式一：直接切换
 setTheme({ mode: 'dark', brand: 'ocean' })

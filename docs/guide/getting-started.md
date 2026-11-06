@@ -26,13 +26,13 @@
 
 ```bash
 # npm
-npm i @xxui/mobile
+npm i xxui-mobile
 
 # pnpm
-pnpm add @xxui/mobile
+pnpm add xxui-mobile
 
 # yarn
-yarn add @xxui/mobile
+yarn add xxui-mobile
 ```
 
 ::: tip 本地开发本仓库
@@ -45,8 +45,8 @@ yarn add @xxui/mobile
 
 ```ts
 import { createApp } from 'vue'
-import XXUI from '@xxui/mobile'
-import '@xxui/mobile/style.css'
+import XXUI from 'xxui-mobile'
+import 'xxui-mobile/style.css'
 import App from './App.vue'
 
 const app = createApp(App)
@@ -80,7 +80,7 @@ app.use(XXUI, { theme: 'light', brand: 'ocean' })
 组件库使用 TypeScript 编写，构建时会输出 `dist/types`，无需额外配置即可获得类型提示：
 
 ```ts
-import type { FieldRule, ThemeConfig, BrandName } from '@xxui/mobile'
+import type { FieldRule, ThemeConfig, BrandName } from 'xxui-mobile'
 ```
 
 如果 `vue-tsc` 报找不到 `*.vue` 的类型，请在 `tsconfig.json` 中加入：

@@ -5,8 +5,8 @@ XXUI 支持 ES Module 的 tree-shaking。全量引入时未被使用的组件不
 ## 手动按需
 
 ```ts
-import { XButton, XCell, XCellGroup } from '@xxui/mobile'
-import '@xxui/mobile/style.css'
+import { XButton, XCell, XCellGroup } from 'xxui-mobile'
+import 'xxui-mobile/style.css'
 ```
 
 组件以 `Vl` 前缀导出，注册后即可使用 `<x-button>`：
@@ -44,8 +44,8 @@ export default defineConfig({
           const component = name.slice(2)
           return {
             name,
-            from: '@xxui/mobile',
-            sideEffects: '@xxui/mobile/style.css',
+            from: 'xxui-mobile',
+            sideEffects: 'xxui-mobile/style.css',
           }
         },
       ],
@@ -62,7 +62,7 @@ export default defineConfig({
 `Toast`、`Dialog` 属于命令式 API，需要显式 import：
 
 ```ts
-import { Toast, Dialog } from '@xxui/mobile'
+import { Toast, Dialog } from 'xxui-mobile'
 ```
 
 它们的样式已包含在 `style.css` 中。
@@ -80,8 +80,8 @@ import { Toast, Dialog } from '@xxui/mobile'
 
 **Q：为什么样式没有生效？**
 
-检查是否引入了 `@xxui/mobile/style.css`。使用自动引入插件时，请确保 `sideEffects` 配置正确，否则可能在打包时被摇掉。
+检查是否引入了 `xxui-mobile/style.css`。使用自动引入插件时，请确保 `sideEffects` 配置正确，否则可能在打包时被摇掉。
 
 **Q：可以只引入某个组件的源码吗？**
 
-可以，直接从源码路径引入：`import XButton from '@xxui/mobile/src/components/button/Button.vue'`，但需要自行处理 SCSS 编译与主题变量导入，不推荐用于生产。
+可以，直接从源码路径引入：`import XButton from 'xxui-mobile/src/components/button/Button.vue'`，但需要自行处理 SCSS 编译与主题变量导入，不推荐用于生产。

@@ -31,7 +31,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Toast, type ActionSheetAction } from '@xxui/mobile'
+import { Toast, type ActionSheetAction } from 'xxui-mobile'
 
 const show1 = ref(false)
 const show2 = ref(false)

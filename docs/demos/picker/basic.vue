@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { PickerConfirmPayload, PickerValue } from '@xxui/mobile'
+import type { PickerConfirmPayload, PickerValue } from 'xxui-mobile'
 
 const show = ref(false)
 const value = ref<PickerValue[]>(['hangzhou'])

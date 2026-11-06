@@ -8,7 +8,7 @@
 
 ### 命名
 
-- 包名改为 `@xxui/mobile`，内部标识同步统一为 `x`：CSS 类名 `x-button`、CSS 变量 `--x-primary`、组件名 `XButton`，全局安装导出 `XXUI`
+- 包名改为 `xxui-mobile`，内部标识同步统一为 `x`：CSS 类名 `x-button`、CSS 变量 `--x-primary`、组件名 `XButton`，全局安装导出 `XXUI`
 - 主题持久化 key 改为 `xxui-theme`；构建产物为 `xxui.mjs` / `xxui.umd.js` / `xxui.css`
 
 ### 文档站

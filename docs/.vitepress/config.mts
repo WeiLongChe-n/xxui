@@ -44,7 +44,7 @@ export default defineConfig({
     },
     resolve: {
       alias: {
-        '@xxui/mobile': `${libRoot}/index.ts`,
+        'xxui-mobile': `${libRoot}/index.ts`,
         '@xxui': libRoot,
         '@demos': fileURLToPath(new URL('../demos', import.meta.url)),
       },

@@ -9,8 +9,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { getAreaText, areaData } from '@xxui/mobile'
-import type { PickerConfirmPayload } from '@xxui/mobile'
+import { getAreaText, areaData } from 'xxui-mobile'
+import type { PickerConfirmPayload } from 'xxui-mobile'
 
 const show = ref(false)
 const codes = ref<(string | number)[]>(['330000', '330100', '330106'])

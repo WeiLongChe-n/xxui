@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue'
-import { Toast } from '@xxui/mobile'
+import { Toast } from 'xxui-mobile'
 
 const form = reactive({
   username: '',

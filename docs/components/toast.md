@@ -11,7 +11,7 @@
 ## 函数式调用
 
 ```ts
-import { Toast } from '@xxui/mobile'
+import { Toast } from 'xxui-mobile'
 
 Toast('这是一条提示')
 Toast.success('保存成功')

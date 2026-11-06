@@ -20,10 +20,10 @@
 ## 安装
 
 ```bash
-npm i @xxui/mobile
+npm i xxui-mobile
 # 或
-pnpm add @xxui/mobile
-yarn add @xxui/mobile
+pnpm add xxui-mobile
+yarn add xxui-mobile
 ```
 
 ## 快速上手
@@ -31,8 +31,8 @@ yarn add @xxui/mobile
 ```ts
 // main.ts
 import { createApp } from 'vue'
-import XXUI from '@xxui/mobile'
-import '@xxui/mobile/style.css'
+import XXUI from 'xxui-mobile'
+import 'xxui-mobile/style.css'
 import App from './App.vue'
 
 createApp(App).use(XXUI).mount('#app')
@@ -41,8 +41,8 @@ createApp(App).use(XXUI).mount('#app')
 按需引入：
 
 ```ts
-import { Button, Toast, setTheme } from '@xxui/mobile'
-import '@xxui/mobile/style.css'
+import { Button, Toast, setTheme } from 'xxui-mobile'
+import 'xxui-mobile/style.css'
 
 setTheme('ocean', 'dark')
 Toast('已切换主题')
@@ -53,7 +53,7 @@ Toast('已切换主题')
 主题由 CSS 变量驱动，运行时修改即可全局生效：
 
 ```ts
-import { setBrand, setMode, toggleMode, resetTheme } from '@xxui/mobile'
+import { setBrand, setMode, toggleMode, resetTheme } from 'xxui-mobile'
 
 setBrand('emerald')  // default | ocean | emerald | violet | sunset | graphite
 setMode('dark')      // light | dark | auto

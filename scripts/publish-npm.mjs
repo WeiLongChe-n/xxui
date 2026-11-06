@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 发布 @xxui/mobile 到 npm，版本号自动自增。
+ * 发布 xxui-mobile 到 npm，版本号自动自增。
  *
  * 用法：
  *   node scripts/publish-npm.mjs                 自动：当前版本还没发布过就发它，否则补丁号自增
@@ -400,7 +400,12 @@ const checkRemoteVersion = async (doc, whoami) => {
 
   ok(`${pkg.name} 在 npm 上尚未存在，将创建新包`)
 
-  if (scope.scoped && scope.occupied) {
+  if (!scope.scoped) {
+    info('包名不带 scope，发布会把它挂到当前账号名下')
+    return
+  }
+
+  if (scope.occupied) {
     const owners = scope.owners?.length ? scope.owners.join(', ') : '未知用户'
     if (scope.ownedByMe) {
       ok(`scope ${scope.scope} 属于当前账号`)
@@ -408,7 +413,7 @@ const checkRemoteVersion = async (doc, whoami) => {
       fail(
         `scope ${scope.scope} 已被占用（${scope.sample} 的维护者：${owners}）\n    当前账号 ${whoami} 无权向该 scope 发包`,
         [
-          `如果 ${owners} 不是你的账号，需要换包名，例如改成 "xxui-mobile"（未占用）`,
+          `如果 ${owners} 不是你的账号，可以改成不带 scope 的包名，例如 "xxui-mobile"`,
           `改完记得同步文档里的 import：docs/.vitepress/config.mts 的 alias、docs/demos/**、README`,
         ].join('\n    '),
       )
@@ -540,7 +545,7 @@ const main = async () => {
     } catch (error) {
       const message = String(error.message || '')
       if (/E403|forbidden|403/.test(message)) {
-        fail('npm 拒绝了发布（403）', '确认当前账号对该 scope / 包名有发布权限；scoped 包需要 --access public 且 scope 归你所有')
+        fail('npm 拒绝了发布（403）', '确认当前账号对自己名下的包名有发布权限；包名被他人占用也会返回 403')
       }
       if (/EOTP|one-time password/i.test(message)) {
         fail('需要两步验证码', '重新执行并带上 --otp <code>')

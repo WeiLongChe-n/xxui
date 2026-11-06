@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Dialog, Toast } from '@xxui/mobile'
+import { Dialog, Toast } from 'xxui-mobile'
 
 const visible = ref(false)
 

@@ -100,7 +100,7 @@ const data = raw.map((item) => ({
 ### 类型
 
 ```ts
-import type { TreeNode, TreeKey } from '@xxui/mobile'
+import type { TreeNode, TreeKey } from 'xxui-mobile'
 ```
 
 <script setup>

@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { ImagePreview } from '@xxui/mobile'
+import { ImagePreview } from 'xxui-mobile'
 
 const palettes = [
   ['#6366f1', '#a855f7'],

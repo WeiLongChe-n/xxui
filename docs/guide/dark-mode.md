@@ -5,7 +5,7 @@
 ## 启用方式
 
 ```ts
-import { setMode, toggleMode } from '@xxui/mobile'
+import { setMode, toggleMode } from 'xxui-mobile'
 
 setMode('dark')   // 固定深色
 setMode('light')  // 固定浅色
@@ -36,7 +36,7 @@ toggleMode()      // 在浅色 / 深色之间切换
 
 ```ts
 import { watch } from 'vue'
-import { isDark, resolvedMode } from '@xxui/mobile'
+import { isDark, resolvedMode } from 'xxui-mobile'
 
 watch(isDark, (dark) => {
   document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#0f1115' : '#ffffff')

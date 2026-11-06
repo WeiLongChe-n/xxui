@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { Toast } from '@xxui/mobile'
+import { Toast } from 'xxui-mobile'
 
 const onClick = () => Toast('点击了单元格')
 </script>

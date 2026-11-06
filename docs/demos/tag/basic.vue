@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { Toast } from '@xxui/mobile'
+import { Toast } from 'xxui-mobile'
 
 const onClose = () => Toast('已关闭')
 </script>

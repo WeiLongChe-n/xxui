@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { TreeNode, TreeKey } from '@xxui/mobile'
+import type { TreeNode, TreeKey } from 'xxui-mobile'
 
 const checked = ref<TreeKey[]>(['xihu'])
 

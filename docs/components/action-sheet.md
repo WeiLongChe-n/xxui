@@ -11,7 +11,7 @@
 ## 数据结构
 
 ```ts
-import type { ActionSheetAction } from '@xxui/mobile'
+import type { ActionSheetAction } from 'xxui-mobile'
 
 const actions: ActionSheetAction[] = [
   { name: '微信支付', subname: '推荐使用', icon: 'service' },

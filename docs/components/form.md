@@ -13,7 +13,7 @@
 规则既可以在 `Form` 的 `rules` 中按字段名统一配置，也可以在 `FormItem` 上用 `rules` 局部覆盖。
 
 ```ts
-import type { FieldRule } from '@xxui/mobile'
+import type { FieldRule } from 'xxui-mobile'
 
 const rules: Record<string, FieldRule[]> = {
   username: [

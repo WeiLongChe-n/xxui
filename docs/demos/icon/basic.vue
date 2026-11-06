@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { iconPaths } from '@xxui/mobile'
+import { iconPaths } from 'xxui-mobile'
 
 const names = Object.keys(iconPaths)
 </script>

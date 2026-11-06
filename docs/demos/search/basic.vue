@@ -32,7 +32,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Toast } from '@xxui/mobile'
+import { Toast } from 'xxui-mobile'
 
 const keyword = ref('')
 const keyword2 = ref('')

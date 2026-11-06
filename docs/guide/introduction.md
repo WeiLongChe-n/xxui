@@ -58,7 +58,7 @@ Toast、Dialog、ActionSheet、Popup、Overlay 这些弹层组件的挂载目标
 | 浏览器 | iOS Safari 12+ / Chrome 80+ | 见下方浏览器支持 |
 
 ::: tip 运行时零依赖
-`@xxui/mobile` 的 `dependencies` 为空，`vue` 作为 peerDependency 由宿主应用提供，因此打包产物不会引入额外运行时。
+`xxui-mobile` 的 `dependencies` 为空，`vue` 作为 peerDependency 由宿主应用提供，因此打包产物不会引入额外运行时。
 :::
 
 ## 浏览器支持

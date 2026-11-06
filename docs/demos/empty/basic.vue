@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { Toast } from '@xxui/mobile'
+import { Toast } from 'xxui-mobile'
 
 const onGo = () => Toast('跳转商品列表')
 </script>

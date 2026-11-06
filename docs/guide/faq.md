@@ -47,7 +47,7 @@ initTheme({ storage: false })
 `lock-scroll` 默认开启。若自定义了弹层容器或使用了 `position: fixed` 的布局，可能需要在打开时手动调用：
 
 ```ts
-import { lockScroll, unlockScroll } from '@xxui/mobile'
+import { lockScroll, unlockScroll } from 'xxui-mobile'
 ```
 
 （当前版本该工具未作为公共 API 导出，可参考源码 `utils/index.ts` 实现。）
@@ -79,13 +79,13 @@ Slider、Swipe、PullRefresh 依赖触摸 / 指针事件。Slider 使用 Pointer
 
 ## 工程化
 
-### TypeScript 报 `Cannot find module '@xxui/mobile'`？
+### TypeScript 报 `Cannot find module 'xxui-mobile'`？
 
 确认 `tsconfig.json` 中的 `moduleResolution` 为 `bundler` 或 `node16`，并且已经安装依赖。
 
 ### 样式重复打包？
 
-如果同时引入 `@xxui/mobile` 与 `@xxui/mobile/style.css`，请确认没有在多个入口重复引入 CSS。构建工具通常会去重，但多页应用需要注意。
+如果同时引入 `xxui-mobile` 与 `xxui-mobile/style.css`，请确认没有在多个入口重复引入 CSS。构建工具通常会去重，但多页应用需要注意。
 
 ### Node 版本不满足导致安装或启动失败？
 
@@ -102,7 +102,7 @@ node -v          # 确认版本
 npm install
 ```
 
-注意这只影响**本仓库的开发与文档站构建**。`@xxui/mobile` 作为依赖被安装到业务项目时不需要 Node，构建产物是纯 ESM / UMD。
+注意这只影响**本仓库的开发与文档站构建**。`xxui-mobile` 作为依赖被安装到业务项目时不需要 Node，构建产物是纯 ESM / UMD。
 
 ### SSR 报 `document is not defined`？
 
