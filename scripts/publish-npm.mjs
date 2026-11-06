@@ -23,7 +23,7 @@
  *      → npm pack 预检 → 发布 → 提交 + 打 tag
  * 任一步失败都会回滚 package.json 与源码里的版本号。
  */
-import { execFileSync } from 'node:child_process'
+import { execFileSync, spawn } from 'node:child_process'
 import { existsSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { createInterface } from 'node:readline/promises'
 import path from 'node:path'
@@ -118,6 +118,39 @@ const npmX = (args, extra = {}) =>
   npmCli
     ? node([npmCli, ...args], extra)
     : run(process.platform === 'win32' ? 'npm.cmd' : 'npm', args, { ...extra, shell: true })
+
+/**
+ * 边跑边把输出转发到终端，同时收集文本用于失败分类。
+ * publish 必须用这个：passkey / WebAuthn 认证要弹出浏览器并在终端等待，
+ * 用 pipe 吞掉输出的话，用户既看不到提示也等不到回调，会一直卡住。
+ */
+const npmStream = (args) =>
+  new Promise((resolve, reject) => {
+    const cmd = npmCli ? process.execPath : process.platform === 'win32' ? 'npm.cmd' : 'npm'
+    const argv = npmCli ? [npmCli, ...args] : args
+    const child = spawn(cmd, argv, {
+      cwd: ROOT,
+      stdio: ['inherit', 'pipe', 'pipe'],
+      shell: !npmCli && process.platform === 'win32',
+    })
+
+    let output = ''
+    const relay = (chunk) => {
+      const text = chunk.toString()
+      output += text
+      process.stdout.write(text)
+    }
+    child.stdout.on('data', relay)
+    child.stderr.on('data', relay)
+
+    child.on('error', reject)
+    child.on('close', (code) => {
+      if (code === 0) return resolve(output)
+      const error = new Error(`npm 退出码 ${code}`)
+      error.output = output
+      reject(error)
+    })
+  })
 
 const sizeOf = (file) => {
   const bytes = statSync(file).size
@@ -448,14 +481,6 @@ const confirm = async (summary) => {
   if (answer.trim().toLowerCase() !== 'yes') fail('已取消发布')
 }
 
-/** 发布遇到 2FA 时在终端里问一次验证码；留空表示放弃重试 */
-const askOtp = async () => {
-  const rl = createInterface({ input: process.stdin, output: process.stdout })
-  const code = await rl.question('  请输入 npm 两步验证码（6 位，直接回车跳过）：')
-  rl.close()
-  return code.trim()
-}
-
 const gitRelease = (version) => {
   if (!options.git) {
     warn('已跳过 git 提交与 tag（--no-git）')
@@ -569,77 +594,53 @@ const main = async () => {
     const args = [...publishArgs]
     if (options.otp) args.push('--otp', options.otp)
 
-    // 用 pipe 而不是 inherit：2FA 的报错文本在 stdout/stderr 里，靠它才能给出准确建议
-    const publishOnce = () => {
-      const output = npmX(args)
-      if (output && output.trim()) console.log(c.dim(output.trim()))
-    }
+    info('发布时如需验证身份：TOTP 账号直接在这里输 6 位码，passkey 账号会弹出浏览器')
 
     let failed = null
     let detail = ''
     try {
-      publishOnce()
+      await npmStream(args)
     } catch (error) {
       failed = error
       detail = String(error.output || error.message || '')
     }
 
     if (failed) {
-      const needsOtp = /two-factor|2fa|one-time password|EOTP/i.test(detail)
+      const needs2fa = /two-factor|2fa|one-time password|EOTP|webauthn|passkey/i.test(detail)
       const forbidden = /E403|403 Forbidden|forbidden/i.test(detail)
 
-      // 关键分叉：账号根本没开 2FA 时问验证码毫无意义，只能先去开
-      if (needsOtp) {
+      // 关键分叉：账号根本没开 2FA 时，等验证码是白等，只能先去开启
+      if (needs2fa) {
         const tfa = accountTfa()
         if (tfa === 'disabled') {
           fail(
-            '账号没有启用两步验证，而 npm 现在强制要求发布前必须开启 2FA',
+            '账号没有启用两步验证，而 npm 强制要求发布前必须开启 2FA',
             [
-              '打开 https://www.npmjs.com/settings/~/profile → Two-Factor Authentication → Enable',
-              '模式选 Authorization and publishing，用验证器 App（Google Authenticator / 1Password / Authy / Microsoft Authenticator）扫码',
-              '把页面给出的 recovery codes 存好，然后执行 npm logout && npm login --auth-type=web 刷新本机会话',
-              '再跑 npm run publish:npm，脚本会提示输入 App 里的 6 位验证码',
+              '打开 https://www.npmjs.com/settings/~/profile → Two-Factor Authentication → Enable 2FA',
+              'npm 现在只支持安全密钥 / passkey：选 Security key → Continue → Add security key',
+              '浏览器弹窗选 Windows Hello（需先在 Windows 设置 → 账户 → 登录选项 里加一个 PIN）',
+              '存好 recovery codes，然后 npm logout && npm login --auth-type=web 刷新本机会话',
             ].join('\n    '),
           )
         }
         info(`账号两步验证状态：${tfa}`)
       }
 
-      // 已开 2FA 的账号：有终端就问一次验证码重试，省得手动加参数
-      if (needsOtp && !options.otp && process.stdin.isTTY) {
-        warn('需要两步验证码才能发布')
-        const code = await askOtp()
-        if (code) {
-          args.push('--otp', code)
-          try {
-            publishOnce()
-            failed = null
-          } catch (retryError) {
-            const retryDetail = String(retryError.output || retryError.message || '')
-            if (/EOTP|one-time password|two-factor|2fa/i.test(retryDetail)) {
-              fail('两步验证码无效或已过期', '重新执行并带上新的 --otp <code>')
-            }
-            throw retryError
-          }
-        }
+      if (needs2fa || forbidden) {
+        fail(
+          needs2fa
+            ? 'npm 要求验证身份后才能发布（403）'
+            : 'npm 拒绝了发布（403）：包名可能已被他人占用，或当前账号无权发布',
+          needs2fa
+            ? [
+                'passkey 账号：重跑 npm run publish:npm，终端会输出一次性链接并打开浏览器，点 Windows Hello 完成',
+                'TOTP 账号：可加 --otp <6 位码> 直接在终端完成',
+                '想完全免交互：建 granular token 并勾选 bypass 2FA，写进 ~/.npmrc（仅限本机使用）',
+              ].join('\n    ')
+            : '确认当前账号对自己名下的包名有发布权限；包名被他人占用也会返回 403',
+        )
       }
-
-      if (failed) {
-        if (needsOtp || forbidden) {
-          fail(
-            needsOtp
-              ? 'npm 要求两步验证（403）'
-              : 'npm 拒绝了发布（403）：包名可能已被他人占用，或当前账号无权发布',
-            needsOtp
-              ? [
-                  '带上验证码重试：npm run publish:npm -- --otp <6 位验证码>',
-                  '想免验证码：npmjs.com → Access Tokens → Generate New Token，选 Automation（或 Granular 勾选 bypass 2FA），写进 ~/.npmrc',
-                ].join('\n    ')
-              : '确认当前账号对自己名下的包名有发布权限；包名被他人占用也会返回 403',
-          )
-        }
-        throw failed
-      }
+      throw failed
     }
 
     published = true
