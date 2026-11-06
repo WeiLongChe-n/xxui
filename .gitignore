@@ -33,3 +33,9 @@ Thumbs.db
 .env
 .env.local
 .env.*.local
+
+# 构建时被移开的旧产物
+docs/.vitepress/.old-dist/
+
+# 构建时被移开的旧产物
+docs/.vitepress/.old-dist/

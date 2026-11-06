@@ -6,8 +6,10 @@
   "description": "Vela UI - 轻量、可定制的移动端组件库",
   "scripts": {
     "dev": "vitepress dev docs --port 5173",
-    "docs:build": "vitepress build docs",
+    "docs:build": "node scripts/build-docs.mjs",
     "docs:preview": "vitepress preview docs --port 4173",
+    "docs:build:gitee": "node scripts/build-docs.mjs vela-ui",
+    "deploy:gitee": "node scripts/deploy-gitee.mjs",
     "build": "vite build --config packages/mobile-ui/vite.config.ts",
     "typecheck": "vue-tsc --noEmit -p packages/mobile-ui/tsconfig.json"
   },

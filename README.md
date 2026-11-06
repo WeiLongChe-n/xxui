@@ -118,6 +118,56 @@ Toast、Dialog、ActionSheet、Popup、Overlay 的演示挂在页面根节点，
 
 为了让组件在沙箱（其他 document）里也能正常工作，`Slider`、`Sticky`、`Tabs`、`List`、`PullRefresh` 已改为通过 `getOwnerWindow(el)` 获取元素所属 window，而非直接用全局 `window`。
 
+## 部署到 Gitee Pages
+
+文档站是纯静态产物，可以直接托管在 Gitee Pages（需在 Gitee 完成实名认证后才能开启该服务）。
+
+### 一次性准备
+
+```bash
+# 1. 在 Gitee 新建仓库（不要勾选「使用 Readme 初始化」）
+# 2. 关联远程并推送源码
+git remote add origin https://gitee.com/<用户名>/<仓库名>.git
+git push -u origin master
+```
+
+### 发布文档站
+
+```bash
+# 只构建，先本地看效果
+npm run docs:build:gitee -- vela-ui
+node scripts/serve-static.mjs docs/.vitepress/dist vela-ui 4180
+# → http://localhost:4180/vela-ui/
+
+# 构建 + 校验 + 推送到 pages 分支
+npm run deploy:gitee -- https://gitee.com/<用户名>/<仓库名>.git
+```
+
+脚本会完成三件事：按 `/<仓库名>/` 子路径构建、校验所有资源引用是否存在、把产物推送到仓库的 `pages` 分支（独立提交历史，不污染源码分支）。
+
+推完之后在 Gitee 仓库页面 **服务 → Gitee Pages** 中选择分支 `pages`、部署目录留空，启动后地址为：
+
+```
+https://<用户名>.gitee.io/<仓库名>/
+```
+
+### 为什么需要单独一套构建参数
+
+纯静态托管有两处和本地开发不同，`docs/.vitepress/config.mts` 里已处理：
+
+| 问题 | 本地开发 | Gitee Pages | 处理方式 |
+| --- | --- | --- | --- |
+| 站点在子路径下 | `base` 为 `/` | `base` 为 `/<仓库名>/` | 读环境变量 `DOCS_BASE` |
+| 链接形式 | `cleanUrls`，`/guide/theme` | 静态服务器不做 URL 重写，必须 `/guide/theme.html` | 部署时关闭 `cleanUrls` |
+
+> 在 Git Bash 里请传**不带前导斜杠**的仓库名（`DOCS_BASE=vela-ui`），否则 MSYS 会把 `/vela-ui/` 当成路径转换成 Git 安装目录下的绝对路径。
+
+如果仓库名就是 `<用户名>.gitee.io`（个人站点仓库），站点位于根路径，用 `DOCS_BASE=/` 构建即可。
+
+### 更新站点
+
+免费版 Gitee Pages 不会在推送后自动重新部署，每次 `npm run deploy:gitee` 之后需要在 Pages 页面手动点一次「更新」。绑定自定义域名或使用 Pro 版可自动部署。
+
 ## 脚本
 
 | 命令 | 说明 |
@@ -125,6 +175,8 @@ Toast、Dialog、ActionSheet、Popup、Overlay 的演示挂在页面根节点，
 | `npm run dev` | 启动文档站开发服务器（5173） |
 | `npm run docs:build` | 构建文档站到 `docs/.vitepress/dist` |
 | `npm run docs:preview` | 预览文档站构建产物（4173） |
+| `npm run docs:build:gitee` | 按 Gitee Pages 子路径构建并自检资源 |
+| `npm run deploy:gitee` | 构建、自检并推送到 Gitee 的 `pages` 分支 |
 | `npm run build` | 构建组件库到 `packages/mobile-ui/dist` |
 | `npm run typecheck` | 使用 vue-tsc 做类型检查 |
 
@@ -140,8 +192,10 @@ Toast、Dialog、ActionSheet、Popup、Overlay 的演示挂在页面根节点，
 | `inspect2.mjs` | `node scripts/inspect2.mjs` | 通过主题切换器切到暗色，读取关键节点的计算样式，确认主题令牌真正生效 |
 | `check404.mjs` | `node scripts/check404.mjs` | 从首页广度优先爬取全部站内链接，报告 >=400 的页面；`BASE=` 可指向预览服务 |
 | `sandbox.mjs` | `node scripts/sandbox.mjs` | 沙箱自检：确认演示确实渲染在 iframe 内、指针拖拽在沙箱 window 上生效、换肤不影响文档站、`--vp-*` 未泄漏 |
+| `verify-static.mjs` | `node scripts/verify-static.mjs <产物目录> <仓库名>` | 静态产物自检：确认 HTML 里所有带 base 前缀的绝对路径都能找到对应文件 |
+| `serve-static.mjs` | `node scripts/serve-static.mjs <产物目录> <仓库名> [端口]` | 极简静态服务器，把产物挂到子路径下，模拟 Gitee Pages 的访问方式 |
 
-> 这些脚本只在本地开发时使用，不影响 `build` 与 `docs:build` 的产物。
+> `verify-static.mjs` 与 `serve-static.mjs` 不依赖 Chrome，部署前排查与预览时使用；其余脚本只在本地开发时使用，不影响 `build` 与 `docs:build` 的产物。
 
 ## 说明与限制
 

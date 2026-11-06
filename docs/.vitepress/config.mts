@@ -3,16 +3,38 @@ import { defineConfig } from 'vitepress'
 
 const libRoot = fileURLToPath(new URL('../../packages/mobile-ui/src', import.meta.url))
 
+/**
+ * 部署到纯静态托管（Gitee Pages / GitHub Pages 等）时的路径处理：
+ *
+ *   DOCS_BASE=/vela-ui/   → 项目型仓库，站点地址 https://<user>.gitee.io/vela-ui/
+ *   DOCS_BASE=/            → 个人站点仓库（<user>.gitee.io），站点在根路径
+ *   不设置                  → 本地开发，base 为 /，链接使用干净的目录形式
+ *
+ * DOCS_STATIC=1 表示「产物要放到纯静态托管」：即使 base 是根路径，也要关闭 cleanUrls。
+ *
+ * 静态托管还要求关闭 cleanUrls：Gitee Pages 不做 URL 重写，
+ * 访问 /guide/theme 不会自动映射到 guide/theme.html，因此链接必须带 .html。
+ */
+const rawBase = process.env.DOCS_BASE ?? ''
+const isStaticDeploy = rawBase !== '' || process.env.DOCS_STATIC === '1'
+
+const base = (() => {
+  if (!isStaticDeploy) return '/'
+  const trimmed = rawBase.replace(/^\/+|\/+$/g, '')
+  return trimmed ? `/${trimmed}/` : '/'
+})()
+
 export default defineConfig({
   lang: 'zh-CN',
   title: 'Vela UI',
   description: '轻量、可定制的 Vue 3 移动端组件库，内置多套主题与暗色模式',
-  cleanUrls: true,
+  base,
+  cleanUrls: !isStaticDeploy,
   lastUpdated: true,
   head: [
     ['meta', { name: 'theme-color', content: '#3b82f6' }],
     ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1,viewport-fit=cover' }],
-    ['link', { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
+    ['link', { rel: 'icon', href: `${base}favicon.svg`, type: 'image/svg+xml' }],
   ],
   vite: {
     css: {
@@ -30,6 +52,11 @@ export default defineConfig({
     server: {
       fs: {
         allow: [fileURLToPath(new URL('../..', import.meta.url))],
+      },
+      watch: {
+        // 产物目录不参与监听：Windows 上被监听的目录无法重命名，
+        // 会导致「开发服务器开着时执行构建」失败
+        ignored: ['**/dist/**', '**/.old-dist/**', '**/.temp/**'],
       },
     },
   },
