@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { addUnit, createNamespace, nextZIndex, useLockScroll } from '../../utils'
+import { useTeleportTarget } from '../../utils/teleport'
 import VlOverlay from '../overlay/Overlay.vue'
 import VlIcon from '../icon/Icon.vue'
 
@@ -40,7 +41,6 @@ const props = withDefaults(
     overlay: true,
     closeOnClickOverlay: false,
     lockScroll: true,
-    teleport: 'body',
   },
 )
 
@@ -55,6 +55,9 @@ const emit = defineEmits<{
 }>()
 
 const { bem } = createNamespace('popup')
+
+/** 未显式指定时跟随上下文 / 全局默认（沙箱预览会改写） */
+const teleportTarget = useTeleportTarget(props.teleport)
 
 const localZIndex = ref(props.zIndex || nextZIndex())
 const durationStyle = computed(() =>
@@ -116,7 +119,7 @@ const onClickClose = async (event: MouseEvent) => {
 </script>
 
 <template>
-  <Teleport :to="teleport" :disabled="!teleport">
+  <Teleport :to="teleportTarget" :disabled="!teleportTarget">
     <VlOverlay
       v-if="show && overlay"
       :z-index="style.zIndex"

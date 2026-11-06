@@ -4,7 +4,7 @@
 
 ## 基础用法
 
-<DemoBlock title="提示形态" description="文本、成功、失败、加载中，以及位置、遮罩、自定义图标等变体" :code="code" :mobile="false">
+<DemoBlock title="提示形态" description="文本、成功、失败、加载中，以及位置、遮罩、自定义图标等变体" :code="code">
   <ToastBasic />
 </DemoBlock>
 

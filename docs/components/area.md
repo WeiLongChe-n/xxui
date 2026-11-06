@@ -6,7 +6,7 @@
 
 `v-model` 绑定省、市、区的行政区划代码数组。组件内置了数据，无需额外引入。
 
-<DemoBlock title="三级联动" description="滚动选择省 / 市 / 区，确认后回填" :code="code" :mobile="false" background="page">
+<DemoBlock title="三级联动" description="滚动选择省 / 市 / 区，确认后回填" :code="code" background="page">
   <AreaBasic />
 </DemoBlock>
 

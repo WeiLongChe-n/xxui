@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 import { useData } from 'vitepress'
-import { brandOptions } from '@vela/mobile'
-import { collectDemoStyles, collectVelaStyles, SANDBOX_BASE_STYLES } from '../utils/sandbox'
+import { brandOptions, setDefaultTeleportTarget } from '@vela/mobile'
+import {
+  collectDemoHashes,
+  collectStylesByHashes,
+  collectVelaStyles,
+  SANDBOX_BASE_STYLES,
+} from '../utils/sandbox'
+import { resetStageDemo, stageActiveId, stageBody } from '../utils/demo-stage'
 
 type BrandName = (typeof brandOptions)[number]['name']
 
@@ -14,8 +20,10 @@ const props = withDefaults(
     background?: 'card' | 'page' | 'transparent'
     /** 屏幕最大高度，超出后内部滚动 */
     maxHeight?: number
+    /** 舞台模式：承接全页示例，高度锁定并对外暴露沙箱 body */
+    stage?: boolean
   }>(),
-  { padding: 'normal', background: 'card', maxHeight: 470 },
+  { padding: 'normal', background: 'card', maxHeight: 470, stage: false },
 )
 
 const { isDark } = useData()
@@ -32,8 +40,9 @@ const frameBrand = ref<BrandName>('default')
 const resetKey = ref(0)
 const fullscreen = ref(false)
 
-/** 演示自身的 scoped 样式是否已注入（每个沙箱只注入一次） */
-let demoStylesInjected = false
+/** 已注入沙箱的演示 scoped hash，切换示例时只补新的 */
+const injectedHashes = new Set<string>()
+let demoStyleEl: HTMLStyleElement | null = null
 
 let resizeObserver: ResizeObserver | null = null
 
@@ -61,6 +70,9 @@ onBeforeUnmount(() => {
   window.removeEventListener('keydown', onKeydown)
   resizeObserver?.disconnect()
   document.body.style.overflow = ''
+  detachPortal?.()
+  setDefaultTeleportTarget('body')
+  if (props.stage) stageBody.value = null
 })
 
 watch(fullscreen, (v) => {
@@ -81,7 +93,8 @@ function setupSandbox() {
   const doc = el?.contentDocument
   if (!doc) return
 
-  demoStylesInjected = false
+  injectedHashes.clear()
+  demoStyleEl = null
 
   doc.open()
   doc.write('<!doctype html><html><head><meta charset="utf-8"></head><body></body></html>')
@@ -96,11 +109,35 @@ function setupSandbox() {
   applyTheme()
   applyBodyStyle()
   bodyTarget.value = doc.body
+  if (props.stage) stageBody.value = doc.body
+  bindPortalTarget(doc)
 
   nextTick(() => {
     observeHeight()
     syncHeight()
   })
+}
+
+let detachPortal: (() => void) | null = null
+
+/**
+ * 让弹层落进沙箱。
+ *
+ * Dialog / Toast / Popup 默认 Teleport 到 body，而 body 是宿主文档，
+ * 弹层会盖在手机上而不是手机里。这里在沙箱内按下指针时把默认目标改成
+ * 演示所在的容器（舞台模式下就是当前激活示例的包裹层）。
+ */
+function bindPortalTarget(doc: Document) {
+  detachPortal?.()
+
+  const onPointerDown = (event: Event) => {
+    const target = event.target as Element | null
+    const hold = target?.closest?.('.vl-demo-hold')
+    setDefaultTeleportTarget((hold as HTMLElement | null) ?? doc.body)
+  }
+
+  doc.addEventListener('pointerdown', onPointerDown, true)
+  detachPortal = () => doc.removeEventListener('pointerdown', onPointerDown, true)
 }
 
 function applyTheme(doc = sandboxDoc.value) {
@@ -123,6 +160,22 @@ function applyBodyStyle(doc = sandboxDoc.value) {
 }
 
 watch([frameDark, frameBrand], () => applyTheme())
+watch([() => props.padding, () => props.background], () => applyBodyStyle())
+
+/** 舞台模式下示例切换：补注入新示例的样式，并把沙箱滚回顶部 */
+watch(stageActiveId, async () => {
+  if (!props.stage) return
+  await nextTick()
+  refreshDemoStyles()
+  const doc = sandboxDoc.value
+  if (doc) {
+    doc.documentElement.scrollTop = 0
+    doc.body.scrollTop = 0
+  }
+  // 新示例的内容可能分帧渲染，再补两次
+  setTimeout(refreshDemoStyles, 60)
+  setTimeout(refreshDemoStyles, 220)
+})
 
 /** 内容高度跟随内容变化，超出 maxHeight 后由沙箱内部滚动 */
 function observeHeight() {
@@ -139,27 +192,33 @@ function observeHeight() {
  * 注入演示自己的 scoped 样式。
  *
  * 演示是 Teleport 进 iframe 的，插进去之后才能从节点上读到 data-v-* 标记，
- * 所以这里等 body 有内容后再收集；命中一次就不再重复。
+ * 所以这里等 body 有内容后再收集。舞台模式下多个示例共用一个沙箱，
+ * 按 hash 增量补注入，切换示例时不会重复写入。
  */
-function ensureDemoStyles() {
-  if (demoStylesInjected) return
+function refreshDemoStyles() {
   const doc = sandboxDoc.value
   if (!doc || !doc.body.children.length) return
 
-  const css = collectDemoStyles(doc.body)
+  const hashes = collectDemoHashes(doc.body).filter((h) => !injectedHashes.has(h))
+  if (!hashes.length) return
+
+  hashes.forEach((h) => injectedHashes.add(h))
+  const css = collectStylesByHashes(hashes)
   if (!css) return
 
-  const style = doc.createElement('style')
-  style.dataset.vela = 'demo'
-  style.textContent = css
-  doc.head.appendChild(style)
-  demoStylesInjected = true
+  if (!demoStyleEl) {
+    demoStyleEl = doc.createElement('style')
+    demoStyleEl.dataset.vela = 'demo'
+    doc.head.appendChild(demoStyleEl)
+  }
+  demoStyleEl.textContent += `\n${css}`
 }
 
 function syncHeight() {
   const doc = sandboxDoc.value
   if (!doc) return
-  ensureDemoStyles()
+  refreshDemoStyles()
+  if (props.stage) return
   contentHeight.value = doc.documentElement.scrollHeight
 }
 
@@ -172,13 +231,23 @@ const frameHeight = computed(() => {
 const brandColor = (hue: number, saturation: string) => `hsl(${hue} ${saturation} 55%)`
 
 function reset() {
+  if (props.stage) {
+    resetStageDemo()
+    nextTick(() => setTimeout(refreshDemoStyles, 0))
+    return
+  }
   resetKey.value += 1
   nextTick(() => setTimeout(syncHeight, 0))
 }
+
+defineExpose({
+  /** 供舞台在示例切换后立刻刷新一次样式 */
+  refreshDemoStyles,
+})
 </script>
 
 <template>
-  <div class="mp">
+  <div :class="['mp', { 'mp--stage': stage }]">
     <!-- 工具条：换肤 / 明暗 / 重置 / 全屏，作用于沙箱内部，不影响文档站 -->
     <div class="mp__toolbar">
       <div class="mp__brands" role="group" aria-label="切换手机内主题色">
@@ -239,7 +308,7 @@ function reset() {
           <iframe
             ref="iframe"
             class="mp__frame"
-            :style="{ height: frameHeight }"
+            :style="stage ? undefined : { height: frameHeight }"
             sandbox="allow-same-origin"
             title="组件交互预览"
           />
@@ -407,6 +476,35 @@ function reset() {
   width: 100%;
   border: 0;
   background: transparent;
+}
+
+/* ---------- 舞台模式（文档右侧单例预览） ---------- */
+.mp--stage {
+  --mp-width: 100%;
+}
+
+/* 高度跟随视口锁定，示例切换时外框不跳动，内容在沙箱内部滚动 */
+.mp--stage .mp__frame {
+  height: clamp(340px, calc(100vh - 276px), 620px);
+}
+
+.mp--stage .mp__hint {
+  display: none;
+}
+
+.mp--stage .mp__toolbar {
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.mp--stage .mp__btn {
+  padding: 4px 8px;
+  font-size: 11px;
+}
+
+.mp--stage .mp__brands {
+  gap: 7px;
+  padding: 4px 8px;
 }
 
 .mp__home-bar {

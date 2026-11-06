@@ -6,7 +6,7 @@
 
 `v-model` 绑定的是**每一列选中值的数组**，`v-model:show` 控制弹层显隐，`confirm` 事件返回完整的选项对象。
 
-<DemoBlock title="单列选择" description="滚动或点击选项，右下角确认后回填" :code="code" :mobile="false" background="page">
+<DemoBlock title="单列选择" description="滚动或点击选项，右下角确认后回填" :code="code" background="page">
   <PickerBasic />
 </DemoBlock>
 
@@ -18,7 +18,7 @@
 
 `columns` 传入二维数组即为多列，每一列各自独立滚动。下面的例子把年、月、日拆成三列。
 
-<DemoBlock title="年月日" description="三列独立滚动，互不影响" :code="code2" :mobile="false" background="page">
+<DemoBlock title="年月日" description="三列独立滚动，互不影响" :code="code2" background="page">
   <PickerMultipleColumns />
 </DemoBlock>
 

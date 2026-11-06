@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { createNamespace } from '../../utils'
+import { useTeleportTarget } from '../../utils/teleport'
 import VlIcon from '../icon/Icon.vue'
 import VlLoading from '../loading/Loading.vue'
 
@@ -22,13 +23,12 @@ const props = withDefaults(
     zIndex?: number
     transparent?: boolean
     textAlign?: 'left' | 'center'
-    teleport?: string
+    teleport?: string | HTMLElement
   }>(),
   {
     type: 'text',
     position: 'middle',
     textAlign: 'center',
-    teleport: 'body',
     zIndex: 9000,
   },
 )
@@ -36,6 +36,8 @@ const props = withDefaults(
 const emit = defineEmits<{ 'update:show': [value: boolean] }>()
 
 const { bem } = createNamespace('toast')
+
+const teleportTarget = useTeleportTarget(props.teleport)
 
 const iconName = computed(() => {
   if (props.icon) return props.icon
@@ -54,7 +56,7 @@ const classes = computed(() => [
 </script>
 
 <template>
-  <Teleport :to="teleport">
+  <Teleport :to="teleportTarget">
     <Transition name="vl-fade">
       <div
         v-if="show"

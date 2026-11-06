@@ -4,7 +4,7 @@
 
 ## 基础用法
 
-<DemoBlock title="遮罩层" description="点击遮罩可以关闭，也可以用它包裹自定义内容" :code="code" :mobile="false">
+<DemoBlock title="遮罩层" description="点击遮罩可以关闭，也可以用它包裹自定义内容" :code="code">
   <OverlayBasic />
 </DemoBlock>
 

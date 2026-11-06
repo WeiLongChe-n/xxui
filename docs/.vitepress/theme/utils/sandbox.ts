@@ -74,7 +74,12 @@ export function collectVelaStyles() {
  * 不会把文档站样式一起带进沙箱。
  */
 export function collectDemoStyles(root: Element | null) {
-  if (!root) return ''
+  return collectStylesByHashes(collectDemoHashes(root))
+}
+
+/** 读出一个节点树里出现的 scoped hash 列表 */
+export function collectDemoHashes(root: Element | null): string[] {
+  if (!root) return []
 
   const hashes = new Set<string>()
   const add = (el: Element) => {
@@ -84,9 +89,13 @@ export function collectDemoStyles(root: Element | null) {
   }
   add(root)
   root.querySelectorAll('*').forEach(add)
-  if (!hashes.size) return ''
+  return Array.from(hashes)
+}
 
-  const list = Array.from(hashes)
+/** 按 hash 精确取出对应规则，多个示例可以增量注入、互不重复 */
+export function collectStylesByHashes(hashes: string[]): string {
+  if (!hashes.length) return ''
+
   const out: string[] = []
   for (const sheet of Array.from(document.styleSheets)) {
     let rules: CSSRuleList
@@ -99,8 +108,8 @@ export function collectDemoStyles(root: Element | null) {
     walk(
       rules,
       out,
-      (rule) => list.some((h) => (rule.selectorText || '').includes(`[${h}]`)),
-      (name, cssText) => list.some((h) => name.includes(h) || cssText.includes(h)),
+      (rule) => hashes.some((h) => (rule.selectorText || '').includes(`[${h}]`)),
+      (name, cssText) => hashes.some((h) => name.includes(h) || cssText.includes(h)),
     )
   }
 
@@ -128,4 +137,8 @@ body::-webkit-scrollbar { display: none; width: 0; height: 0; }
 .demo-col { display: flex; flex-direction: column; gap: 12px; }
 .demo-label { margin: 0 0 8px; font-size: 12px; color: var(--vl-text-color-3, #9699a6); }
 .demo-note { margin: 8px 0 0; font-size: 12px; color: var(--vl-text-color-3, #9699a6); }
+
+/* 右侧舞台：多个示例都挂在同一个沙箱里，只显示当前激活的那个 */
+.vl-demo-hold { display: none; }
+.vl-demo-hold.is-active { display: block; }
 `

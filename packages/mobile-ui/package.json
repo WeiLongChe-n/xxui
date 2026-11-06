@@ -1,6 +1,6 @@
 {
   "name": "@vela/mobile",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Vela UI - 轻量、可定制的 Vue 3 移动端组件库，支持多主题与暗色模式",
   "type": "module",
   "main": "./dist/vela-ui.umd.js",

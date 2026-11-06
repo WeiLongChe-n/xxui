@@ -1,6 +1,6 @@
 {
   "name": "vela-ui",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "description": "Vela UI - 轻量、可定制的移动端组件库",

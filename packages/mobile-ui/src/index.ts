@@ -100,6 +100,7 @@ export type { ActionSheetAction } from './components/action-sheet/types'
 export type { DialogOptions } from './components/dialog/dialog'
 export type { ToastOptions } from './components/toast/toast'
 export type { TreeNode, TreeKey } from './components/tree/types'
+export type { TeleportTarget } from './utils/teleport'
 export type { PickerOption, PickerValue, PickerConfirmPayload } from './components/picker/types'
 export type { AreaOption, AreaValue } from './components/area/types'
 export type { DropdownOption, DropdownValue } from './components/dropdown-menu/types'
@@ -109,6 +110,7 @@ export type {
   ImagePreviewOptions,
   ImagePreviewInstance,
 } from './components/image-preview/types'
+export { setDefaultTeleportTarget } from './utils/teleport'
 export { areaData } from './components/area/area-data'
 export { getAreaText } from './components/area/utils'
 export { ImagePreview }
@@ -229,7 +231,7 @@ export {
   VlImagePreview,
 }
 
-export const version = '0.2.0'
+export const version = '0.3.0'
 
 const install = (app: App, options: { theme?: ThemeMode; brand?: BrandName } = {}) => {
   components.forEach((component) => {

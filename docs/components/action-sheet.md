@@ -4,7 +4,7 @@
 
 ## 基础用法
 
-<DemoBlock title="动作面板" description="支持标题描述、图标、副标题、禁用项、自定义颜色与面板间距" :code="code" :mobile="false">
+<DemoBlock title="动作面板" description="支持标题描述、图标、副标题、禁用项、自定义颜色与面板间距" :code="code">
   <ActionSheetBasic />
 </DemoBlock>
 

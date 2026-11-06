@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { clamp, createNamespace, getOwnerWindow } from '../../utils'
+import { useTeleportTarget } from '../../utils/teleport'
 import VlIcon from '../icon/Icon.vue'
 import type { ImageSource } from './types'
 
@@ -21,7 +22,6 @@ const props = withDefaults(
     startPosition: 0,
     closeable: true,
     showIndex: true,
-    teleport: 'body',
   },
 )
 
@@ -32,6 +32,8 @@ const emit = defineEmits<{
 }>()
 
 const { bem } = createNamespace('image-preview')
+
+const teleportTarget = useTeleportTarget(props.teleport)
 
 const root = ref<HTMLElement | null>(null)
 const index = ref(0)
@@ -117,7 +119,7 @@ const close = () => {
 </script>
 
 <template>
-  <Teleport :to="teleport" :disabled="!teleport">
+  <Teleport :to="teleportTarget" :disabled="!teleportTarget">
     <Transition name="vl-fade">
       <div v-if="show" ref="root" :class="bem()" @click.self="close">
         <div

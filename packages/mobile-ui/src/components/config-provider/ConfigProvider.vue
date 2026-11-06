@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { createNamespace } from '../../utils'
+import { provideTeleportTarget } from '../../utils/teleport'
 import type { BrandName } from '../../theme'
 
 defineOptions({ name: 'VlConfigProvider' })
@@ -12,10 +13,14 @@ const props = defineProps<{
   brand?: BrandName
   /** 覆盖任意 CSS 变量，如 { '--vl-primary': '#ff5000' } */
   themeVars?: Record<string, string | number>
+  /** 子树内弹层的挂载目标，默认 body */
+  teleport?: string | HTMLElement
   tag?: string
 }>()
 
 const { bem } = createNamespace('config-provider')
+
+provideTeleportTarget(props.teleport)
 
 const style = computed(() => {
   if (!props.themeVars) return undefined

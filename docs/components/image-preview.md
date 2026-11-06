@@ -6,7 +6,7 @@
 
 最常用的方式，调用后立即全屏展示，返回实例可用于关闭或跳转。
 
-<DemoBlock title="点击缩略图预览" description="内置 5 张示例图，可左右滑动切换" :code="code" :mobile="false" background="page">
+<DemoBlock title="点击缩略图预览" description="内置 5 张示例图，可左右滑动切换" :code="code" background="page">
   <PreviewBasic />
 </DemoBlock>
 
@@ -35,7 +35,7 @@ instance.swipeTo(1)
 
 - 图片地址支持字符串，也支持 `{ url, alt }` 对象。
 - 单张图片不会响应滑动，点击任意位置或右上角按钮关闭。
-- 命令式调用挂载在 `body` 上，可用 `teleport` 指定其它容器。
+- 命令式调用默认挂载在 `body`，可用 `teleport` 指定其它容器；宿主也可用 `setDefaultTeleportTarget(el)` 统一改写。
 
 ## API
 
@@ -47,7 +47,7 @@ instance.swipeTo(1)
 | startPosition | 初始位置，从 0 开始 | `number` | `0` |
 | closeable | 是否显示关闭按钮 | `boolean` | `true` |
 | showIndex | 是否显示页码 | `boolean` | `true` |
-| teleport | 挂载节点 | `string \| HTMLElement` | `'body'` |
+| teleport | 挂载节点，默认跟随上下文 | `string \| HTMLElement` | `'body'` |
 | onChange | 切换图片回调 | `(index: number) => void` | - |
 | onClose | 关闭回调 | `() => void` | - |
 
@@ -67,7 +67,7 @@ instance.swipeTo(1)
 | startPosition | 初始位置 | `number` | `0` |
 | closeable | 是否显示关闭按钮 | `boolean` | `true` |
 | showIndex | 是否显示页码 | `boolean` | `true` |
-| teleport | 挂载节点 | `string \| HTMLElement` | `'body'` |
+| teleport | 挂载节点，默认跟随上下文 | `string \| HTMLElement` | `'body'` |
 
 ### 组件 Events
 

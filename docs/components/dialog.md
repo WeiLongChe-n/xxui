@@ -4,7 +4,7 @@
 
 ## 基础用法
 
-<DemoBlock title="对话框形态" description="确认框、提示框、圆角按钮主题、异步关闭与组件式用法" :code="code" :mobile="false">
+<DemoBlock title="对话框形态" description="确认框、提示框、圆角按钮主题、异步关闭与组件式用法" :code="code">
   <DialogBasic />
 </DemoBlock>
 

@@ -4,7 +4,7 @@
 
 ## 基础用法
 
-<DemoBlock title="五个方向" description="支持上、下、左、右、居中五个方向，可开启圆角与关闭按钮" :code="code" :mobile="false">
+<DemoBlock title="五个方向" description="支持上、下、左、右、居中五个方向，可开启圆角与关闭按钮" :code="code">
   <PopupBasic />
 </DemoBlock>
 
@@ -71,7 +71,7 @@
 | safeAreaInsetTop | 适配顶部安全区 | `boolean` | `false` |
 | duration | 动画时长（秒） | `number \| string` | `0.3` |
 | zIndex | 层级 | `number` | 自动递增 |
-| teleport | 挂载节点 | `string \| HTMLElement` | `body` |
+| teleport | 挂载节点，默认跟随上下文（见 `setDefaultTeleportTarget`） | `string \| HTMLElement` | `body` |
 | beforeClose | 关闭前拦截 | `() => boolean \| Promise<boolean>` | - |
 
 ## Events

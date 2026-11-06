@@ -1,4 +1,5 @@
 import { onBeforeUnmount, watch, type ComputedRef, type Ref } from 'vue'
+import { getTeleportDocument } from './teleport'
 
 export const inBrowser = typeof window !== 'undefined'
 
@@ -29,10 +30,12 @@ export const nextZIndex = () => ++zIndexSeed
 let lockCount = 0
 let savedOverflow = ''
 let savedPaddingRight = ''
+let lockedDoc: Document | null = null
 
-const isScrollable = (el: Element | null): boolean => {
-  while (el && el !== document.body && el !== document.documentElement) {
-    const style = window.getComputedStyle(el)
+const isScrollable = (el: Element | null, doc: Document): boolean => {
+  const win = doc.defaultView ?? window
+  while (el && el !== doc.body && el !== doc.documentElement) {
+    const style = win.getComputedStyle(el)
     const overflowY = style.overflowY
     if ((overflowY === 'auto' || overflowY === 'scroll') && el.scrollHeight > el.clientHeight) {
       return true
@@ -43,22 +46,26 @@ const isScrollable = (el: Element | null): boolean => {
 }
 
 const onTouchMove = (event: TouchEvent) => {
-  if (!isScrollable(event.target as Element)) {
+  const doc = (event.target as Node | null)?.ownerDocument ?? lockedDoc ?? document
+  if (!isScrollable(event.target as Element, doc)) {
     event.preventDefault()
   }
 }
 
-export function lockScroll() {
+export function lockScroll(target?: Document) {
   if (!inBrowser) return
   if (lockCount === 0) {
-    savedOverflow = document.body.style.overflow
-    savedPaddingRight = document.body.style.paddingRight
-    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
-    document.body.style.overflow = 'hidden'
+    const doc = target ?? getTeleportDocument() ?? document
+    const win = doc.defaultView
+    lockedDoc = doc
+    savedOverflow = doc.body.style.overflow
+    savedPaddingRight = doc.body.style.paddingRight
+    const scrollbarWidth = win ? win.innerWidth - doc.documentElement.clientWidth : 0
+    doc.body.style.overflow = 'hidden'
     if (scrollbarWidth > 0) {
-      document.body.style.paddingRight = `${scrollbarWidth}px`
+      doc.body.style.paddingRight = `${scrollbarWidth}px`
     }
-    document.addEventListener('touchmove', onTouchMove, { passive: false })
+    doc.addEventListener('touchmove', onTouchMove, { passive: false })
   }
   lockCount += 1
 }
@@ -67,9 +74,11 @@ export function unlockScroll() {
   if (!inBrowser) return
   lockCount = Math.max(lockCount - 1, 0)
   if (lockCount === 0) {
-    document.body.style.overflow = savedOverflow
-    document.body.style.paddingRight = savedPaddingRight
-    document.removeEventListener('touchmove', onTouchMove)
+    const doc = lockedDoc ?? document
+    doc.body.style.overflow = savedOverflow
+    doc.body.style.paddingRight = savedPaddingRight
+    doc.removeEventListener('touchmove', onTouchMove)
+    lockedDoc = null
   }
 }
 

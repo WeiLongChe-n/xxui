@@ -45,6 +45,7 @@
 | theme | 局部明暗模式 | `light \| dark` | 继承全局 |
 | brand | 局部品牌配色 | `BrandName` | 继承全局 |
 | themeVars | 覆盖 CSS 变量 | `Record<string, string \| number>` | - |
+| teleport | 子树内弹层的挂载目标 | `string \| HTMLElement` | `body` |
 | tag | 渲染的标签 | `string` | `div` |
 
 ## Slots

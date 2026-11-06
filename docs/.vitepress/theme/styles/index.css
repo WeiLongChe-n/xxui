@@ -175,3 +175,22 @@
   width: 0;
   height: 0;
 }
+
+/* ---------------------------------------------
+ * 右侧统一预览盒
+ * 宽屏时正文让出右侧一列，全页交互都收进这个盒子，
+ * 目录（outline）让位，避免两块内容抢同一列。
+ * ------------------------------------------- */
+@media (min-width: 1280px) {
+  html.has-demo-stage .VPDoc {
+    padding-right: clamp(368px, 29vw, 404px);
+  }
+
+  html.has-demo-stage .VPDoc .aside {
+    display: none;
+  }
+
+  html.has-demo-stage .VPDoc.has-aside .content-container {
+    max-width: 720px;
+  }
+}

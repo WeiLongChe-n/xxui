@@ -105,18 +105,21 @@ npm run dev
 
 ### 交互预览
 
-每个组件页顶部都有一个手机形态的实时预览：组件真实渲染、可直接点击，外层套了 iPhone 样式的机身、状态栏与 Home 指示条。
+组件页右侧固定一个手机形态的实时预览：组件真实渲染、可直接点击，外层套了 iPhone 样式的机身、状态栏与 Home 指示条。
+
+整个页面只有这一个预览盒，左侧只放说明与代码；滚动到哪个示例、或点击哪张卡片，右侧就切换过去（`IntersectionObserver` 式的滚动联动 + 点击切换）。窄于 1280px 时自动回落到卡片内嵌手机框。
 
 预览内容跑在 **iframe 沙箱**里 —— 组件库样式被注入沙箱内部，文档站样式不会进入，两边互不干扰。预览上方工具条只作用于沙箱：
 
 - 六个色点切换预览内品牌配色；
 - 「深色 / 浅色」切换预览内明暗，不影响文档站；
-- 「重置」重新挂载演示，复位弹窗 / 开关等状态；
+- 「重置」重新挂载当前示例，复位弹窗 / 开关等状态；
 - 「全屏」放大预览，`Esc` 退出。
 
-Toast、Dialog、ActionSheet、Popup、Overlay 的演示挂在页面根节点，放进手机框会被裁切，所以这几个页面用整页演示（`<DemoBlock :mobile="false">`）。
+为了让组件在沙箱（其他 document）里也能正常工作：
 
-为了让组件在沙箱（其他 document）里也能正常工作，`Slider`、`Sticky`、`Tabs`、`List`、`PullRefresh` 已改为通过 `getOwnerWindow(el)` 获取元素所属 window，而非直接用全局 `window`。
+- `Slider`、`Sticky`、`Tabs`、`List`、`PullRefresh` 通过 `getOwnerWindow(el)` 获取元素所属 window，而非直接用全局 `window`；
+- 弹层组件的挂载目标可被宿主改写：`setDefaultTeleportTarget(el)` 与 `<ConfigProvider teleport="...">`，文档站据此把 Dialog / Toast / Popup / ImagePreview 挂进沙箱，弹层只覆盖手机屏幕。
 
 ## 部署到 Gitee Pages
 

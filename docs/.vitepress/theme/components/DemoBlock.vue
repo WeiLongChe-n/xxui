@@ -1,8 +1,17 @@
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, useId, watch } from 'vue'
 import { useData } from 'vitepress'
 import { highlight } from '../utils/highlight'
 import MobilePreview from './MobilePreview.vue'
+import {
+  activateDemo,
+  registerDemo,
+  stageActiveId,
+  stageBody,
+  stageResetKey,
+  stageWide,
+  unregisterDemo,
+} from '../utils/demo-stage'
 
 const props = withDefaults(
   defineProps<{
@@ -17,18 +26,44 @@ const props = withDefaults(
     background?: 'card' | 'page' | 'transparent'
     /** 是否默认展示代码 */
     defaultOpen?: boolean
-    /** 是否用手机外框包裹演示（弹层类组件建议关闭） */
-    mobile?: boolean
-    /** 手机屏幕最大高度 */
+    /** 手机屏幕最大高度（窄屏内嵌时生效） */
     maxHeight?: number
   }>(),
-  { lang: 'vue', padding: 'normal', background: 'card', mobile: true, maxHeight: 470 },
+  { lang: 'vue', padding: 'normal', background: 'card', maxHeight: 470 },
 )
 
 const { isDark } = useData()
 const open = ref(props.defaultOpen || false)
 const html = ref('')
 const copied = ref(false)
+
+const rootEl = ref<HTMLElement | null>(null)
+
+/** SSR 安全的自增标识，保证服务端与客户端一致 */
+const demoId = `demo-${useId()}`
+
+/** 宽屏才把交互收进右侧盒子，窄屏回落到卡片内嵌 */
+const useStage = computed(() => stageWide.value)
+const active = computed(() => useStage.value && stageActiveId.value === demoId)
+
+/** 重置时只重挂载当前激活的示例，切走再切回仍保留交互状态 */
+const renderKey = ref(0)
+watch(stageResetKey, () => {
+  if (active.value) renderKey.value += 1
+})
+
+onMounted(() => {
+  if (!rootEl.value) return
+  registerDemo({
+    id: demoId,
+    el: rootEl.value,
+    title: props.title ?? '',
+    padding: props.padding,
+    background: props.background,
+  })
+})
+
+onBeforeUnmount(() => unregisterDemo(demoId))
 
 const render = async () => {
   if (!props.code) return
@@ -53,37 +88,53 @@ const copy = async () => {
   }
 }
 
-const bodyClass = computed(() =>
-  props.mobile
-    ? ['demo-block__body', 'demo-block__body--mobile']
-    : [
-        'demo-block__body',
-        `demo-block__body--${props.padding}`,
-        `demo-block__body--${props.background}`,
-      ],
-)
-
 const lines = computed(() => (props.code ? props.code.trim().split('\n').length : 0))
 </script>
 
 <template>
-  <section class="demo-block">
-    <header v-if="title || description" class="demo-block__header">
-      <h3 v-if="title" class="demo-block__title">{{ title }}</h3>
-      <p v-if="description" class="demo-block__desc">{{ description }}</p>
+  <section
+    ref="rootEl"
+    class="demo-block"
+    :class="{ 'is-active': active, 'is-stage': useStage }"
+  >
+    <header
+      class="demo-block__header"
+      :class="{ 'demo-block__header--clickable': useStage }"
+      @click="useStage && activateDemo(demoId)"
+    >
+      <div class="demo-block__heading">
+        <h3 v-if="title" class="demo-block__title">{{ title }}</h3>
+        <p v-if="description" class="demo-block__desc">{{ description }}</p>
+      </div>
+
+      <span v-if="useStage" class="demo-block__badge" :class="{ 'is-on': active }">
+        {{ active ? '预览中' : '查看' }}
+      </span>
     </header>
 
-    <div :class="bodyClass">
-      <MobilePreview
-        v-if="mobile"
-        :padding="padding"
-        :background="background"
-        :max-height="maxHeight"
-      >
+    <!-- 宽屏：交互内容 Teleport 进右侧唯一的沙箱，这里只留提示 -->
+    <div v-if="useStage" class="demo-block__hint">
+      <span class="demo-block__hint-arrow" aria-hidden="true">→</span>
+      <span>交互演示在右侧预览框中，点击本卡片可切换</span>
+    </div>
+
+    <!-- 窄屏：卡片内嵌手机框，行为与之前一致 -->
+    <div v-else class="demo-block__body demo-block__body--mobile">
+      <MobilePreview :padding="padding" :background="background" :max-height="maxHeight">
         <slot />
       </MobilePreview>
-      <slot v-else />
     </div>
+
+    <Teleport v-if="useStage && stageBody" :to="stageBody">
+      <div
+        :key="renderKey"
+        class="vl-demo-hold"
+        :class="{ 'is-active': active }"
+        :data-demo="demoId"
+      >
+        <slot />
+      </div>
+    </Teleport>
 
     <footer v-if="code" class="demo-block__footer">
       <button type="button" class="demo-block__action" @click="toggle">
@@ -109,15 +160,34 @@ const lines = computed(() => (props.code ? props.code.trim().split('\n').length 
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
   border-radius: 14px;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .demo-block:hover {
   border-color: var(--vp-c-brand-2);
 }
 
+.demo-block.is-active {
+  border-color: var(--vp-c-brand-1);
+  box-shadow: 0 0 0 3px var(--vp-c-brand-soft);
+}
+
 .demo-block__header {
-  padding: 18px 20px 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16px 20px 0;
+}
+
+.demo-block__header--clickable {
+  padding-bottom: 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.demo-block__heading {
+  min-width: 0;
 }
 
 .demo-block__title {
@@ -132,6 +202,50 @@ const lines = computed(() => (props.code ? props.code.trim().split('\n').length 
   font-size: 13px;
   line-height: 1.6;
   color: var(--vp-c-text-2);
+}
+
+.demo-block__badge {
+  flex: none;
+  padding: 2px 9px;
+  font-size: 11px;
+  color: var(--vp-c-text-3);
+  white-space: nowrap;
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 999px;
+  transition: color 0.2s, background 0.2s, border-color 0.2s;
+}
+
+.demo-block__badge.is-on {
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-soft);
+  border-color: var(--vp-c-brand-2);
+}
+
+/* 宽屏提示条：说明交互去右侧看，同时撑起卡片高度，滚动联动更稳 */
+.demo-block__hint {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 0 20px 14px;
+  padding: 14px 16px;
+  font-size: 12.5px;
+  color: var(--vp-c-text-3);
+  background:
+    radial-gradient(circle at 1px 1px, var(--vp-c-divider) 1px, transparent 0) 0 0 / 16px 16px,
+    var(--vp-c-bg-soft);
+  border: 1px dashed var(--vp-c-divider);
+  border-radius: 10px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.demo-block.is-active .demo-block__hint {
+  color: var(--vp-c-brand-1);
+  border-color: var(--vp-c-brand-2);
+}
+
+.demo-block__hint-arrow {
+  font-size: 14px;
 }
 
 .demo-block__body {
