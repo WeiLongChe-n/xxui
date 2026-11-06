@@ -382,6 +382,17 @@ const checkAuth = async (optional = false) => {
   }
 }
 
+/** 读取账号的两步验证状态：disabled / auth-only / auth-and-writes / unknown */
+const accountTfa = () => {
+  try {
+    const output = npmX(['profile', 'get', '--registry', REGISTRY])
+    const m = /two-factor auth:\s*(\S+)/.exec(output)
+    return m ? m[1].toLowerCase() : 'unknown'
+  } catch {
+    return 'unknown'
+  }
+}
+
 const checkRemoteVersion = async (doc, whoami) => {
   const scope = await inspectScope(pkg.name, whoami)
 
@@ -577,9 +588,26 @@ const main = async () => {
       const needsOtp = /two-factor|2fa|one-time password|EOTP/i.test(detail)
       const forbidden = /E403|403 Forbidden|forbidden/i.test(detail)
 
-      // 开了 2FA 的账号：有终端就问一次验证码重试，省得手动加参数
+      // 关键分叉：账号根本没开 2FA 时问验证码毫无意义，只能先去开
+      if (needsOtp) {
+        const tfa = accountTfa()
+        if (tfa === 'disabled') {
+          fail(
+            '账号没有启用两步验证，而 npm 现在强制要求发布前必须开启 2FA',
+            [
+              '打开 https://www.npmjs.com/settings/~/profile → Two-Factor Authentication → Enable',
+              '模式选 Authorization and publishing，用验证器 App（Google Authenticator / 1Password / Authy / Microsoft Authenticator）扫码',
+              '把页面给出的 recovery codes 存好，然后执行 npm logout && npm login --auth-type=web 刷新本机会话',
+              '再跑 npm run publish:npm，脚本会提示输入 App 里的 6 位验证码',
+            ].join('\n    '),
+          )
+        }
+        info(`账号两步验证状态：${tfa}`)
+      }
+
+      // 已开 2FA 的账号：有终端就问一次验证码重试，省得手动加参数
       if (needsOtp && !options.otp && process.stdin.isTTY) {
-        warn('账号开启了两步验证，需要验证码才能发布')
+        warn('需要两步验证码才能发布')
         const code = await askOtp()
         if (code) {
           args.push('--otp', code)
