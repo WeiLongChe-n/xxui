@@ -47,8 +47,18 @@ import VlList from './components/list/List.vue'
 import VlPullRefresh from './components/pull-refresh/PullRefresh.vue'
 import VlGrid from './components/grid/Grid.vue'
 import VlGridItem from './components/grid/GridItem.vue'
+import VlRow from './components/row/Row.vue'
+import VlCol from './components/row/Col.vue'
+import VlTree from './components/tree/Tree.vue'
+import VlPicker from './components/picker/Picker.vue'
+import VlArea from './components/area/Area.vue'
+import VlCascader from './components/cascader/Cascader.vue'
+import VlDropdownMenu from './components/dropdown-menu/DropdownMenu.vue'
+import VlDropdownItem from './components/dropdown-menu/DropdownItem.vue'
+import VlImagePreview from './components/image-preview/ImagePreview.vue'
 
 import { Toast } from './components/toast/toast'
+import { ImagePreview } from './components/image-preview/image-preview'
 import { Dialog } from './components/dialog/dialog'
 import {
   initTheme,
@@ -89,6 +99,19 @@ export type { FieldRule, ValidateTrigger } from './components/form/types'
 export type { ActionSheetAction } from './components/action-sheet/types'
 export type { DialogOptions } from './components/dialog/dialog'
 export type { ToastOptions } from './components/toast/toast'
+export type { TreeNode, TreeKey } from './components/tree/types'
+export type { PickerOption, PickerValue, PickerConfirmPayload } from './components/picker/types'
+export type { AreaOption, AreaValue } from './components/area/types'
+export type { DropdownOption, DropdownValue } from './components/dropdown-menu/types'
+export type {
+  ImageSource,
+  ImagePreviewItem,
+  ImagePreviewOptions,
+  ImagePreviewInstance,
+} from './components/image-preview/types'
+export { areaData } from './components/area/area-data'
+export { getAreaText } from './components/area/utils'
+export { ImagePreview }
 
 export const components = [
   VlButton,
@@ -137,6 +160,15 @@ export const components = [
   VlPullRefresh,
   VlGrid,
   VlGridItem,
+  VlRow,
+  VlCol,
+  VlTree,
+  VlPicker,
+  VlArea,
+  VlCascader,
+  VlDropdownMenu,
+  VlDropdownItem,
+  VlImagePreview,
 ]
 
 export {
@@ -186,9 +218,18 @@ export {
   VlPullRefresh,
   VlGrid,
   VlGridItem,
+  VlRow,
+  VlCol,
+  VlTree,
+  VlPicker,
+  VlArea,
+  VlCascader,
+  VlDropdownMenu,
+  VlDropdownItem,
+  VlImagePreview,
 }
 
-export const version = '0.1.0'
+export const version = '0.2.0'
 
 const install = (app: App, options: { theme?: ThemeMode; brand?: BrandName } = {}) => {
   components.forEach((component) => {

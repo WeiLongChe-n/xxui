@@ -107,7 +107,7 @@ import type { FieldRule, ThemeConfig, BrandName } from '@vela/mobile'
 ## 下一步
 
 - [主题定制](/guide/theme)：换肤、暗色模式、自定义品牌色
-- [组件总览](/components/button)：46 个组件的用法与 API
+- [组件总览](/components/button)：55 个组件的用法与 API
 
 <script setup>
 import VelaHomeDemo from '../demos/home/basic.vue'

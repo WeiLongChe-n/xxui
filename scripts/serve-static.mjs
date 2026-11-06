@@ -55,15 +55,29 @@ const server = http.createServer((req, res) => {
     return
   }
 
-  fs.readFile(file, (err, buf) => {
-    if (err) {
+  // 依次尝试：原路径 → 补 .html → 目录 index.html（兼容 cleanUrls）
+  const candidates = [file, `${file}.html`, path.join(file, 'index.html')]
+
+  const send = (index) => {
+    if (index >= candidates.length) {
       res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' })
       res.end('404 ' + rel)
       return
     }
-    res.writeHead(200, { 'Content-Type': TYPES[path.extname(file)] || 'application/octet-stream' })
-    res.end(buf)
-  })
+    const current = candidates[index]
+    fs.readFile(current, (err, buf) => {
+      if (err) {
+        send(index + 1)
+        return
+      }
+      res.writeHead(200, {
+        'Content-Type': TYPES[path.extname(current)] || 'application/octet-stream',
+      })
+      res.end(buf)
+    })
+  }
+
+  send(0)
 })
 
 server.listen(port, '127.0.0.1', () => {

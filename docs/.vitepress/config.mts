@@ -71,7 +71,7 @@ export default defineConfig({
       { text: '组件', link: '/components/button', activeMatch: '/components/' },
       { text: '主题', link: '/guide/theme' },
       {
-        text: 'v0.1.0',
+        text: 'v0.2.0',
         items: [
           { text: '更新日志', link: '/guide/changelog' },
           { text: '常见问题', link: '/guide/faq' },
@@ -111,6 +111,7 @@ export default defineConfig({
             { text: 'Button 按钮', link: '/components/button' },
             { text: 'Icon 图标', link: '/components/icon' },
             { text: 'Cell 单元格', link: '/components/cell' },
+            { text: 'Row 栅格布局', link: '/components/row' },
             { text: 'Grid 宫格', link: '/components/grid' },
             { text: 'Divider 分割线', link: '/components/divider' },
             { text: 'Badge 徽标', link: '/components/badge' },
@@ -129,6 +130,9 @@ export default defineConfig({
             { text: 'Slider 滑块', link: '/components/slider' },
             { text: 'Rate 评分', link: '/components/rate' },
             { text: 'Search 搜索', link: '/components/search' },
+            { text: 'Picker 滚轮选择', link: '/components/picker' },
+            { text: 'Area 省市区', link: '/components/area' },
+            { text: 'Cascader 级联选择', link: '/components/cascader' },
           ],
         },
         {
@@ -152,11 +156,14 @@ export default defineConfig({
             { text: 'Tabbar 标签栏', link: '/components/tabbar' },
             { text: 'Tabs 标签页', link: '/components/tabs' },
             { text: 'Steps 步骤条', link: '/components/steps' },
+            { text: 'DropdownMenu 下拉筛选', link: '/components/dropdown-menu' },
           ],
         },
         {
           text: '展示组件',
           items: [
+            { text: 'Tree 树形选择', link: '/components/tree' },
+            { text: 'ImagePreview 图片预览', link: '/components/image-preview' },
             { text: 'Collapse 折叠面板', link: '/components/collapse' },
             { text: 'Swipe 轮播', link: '/components/swipe' },
             { text: 'Empty 空状态', link: '/components/empty' },

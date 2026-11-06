@@ -120,9 +120,10 @@ body {
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-body::-webkit-scrollbar { width: 3px; }
-body::-webkit-scrollbar-thumb { background: var(--vl-border-color, #ebedf0); border-radius: 3px; }
+body::-webkit-scrollbar { display: none; width: 0; height: 0; }
 .demo-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 .demo-col { display: flex; flex-direction: column; gap: 12px; }
 .demo-label { margin: 0 0 8px; font-size: 12px; color: var(--vl-text-color-3, #9699a6); }

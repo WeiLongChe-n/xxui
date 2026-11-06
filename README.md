@@ -2,9 +2,9 @@
 
 Vue 3 + TypeScript 移动端组件库，内置多套主题与暗色模式，附带完整的技术文档站。
 
-- 46 个组件，覆盖基础 / 表单 / 反馈 / 导航 / 展示五大类
+- 55 个组件，覆盖基础 / 表单 / 反馈 / 导航 / 展示五大类
 - 主题由 CSS 变量与色相令牌驱动：6 套品牌配色 × 明暗双模式，运行时切换无需重新编译
-- 命令式组件（Toast / Dialog）与组件式并存
+- 命令式组件（Toast / Dialog / ImagePreview）与组件式并存
 - 移动端细节：0.5px 细边框、安全区、滚动锁定、手势拖拽、懒渲染
 
 ## 环境要求
@@ -43,7 +43,7 @@ npm run docs:build
 vela-ui/
 ├── packages/mobile-ui/        # 组件库源码
 │   ├── src/
-│   │   ├── components/        # 46 个组件
+│   │   ├── components/        # 55 个组件
 │   │   ├── styles/            # 主题变量、mixin、过渡动效
 │   │   ├── theme/             # 主题运行时（切换 / 持久化 / 跟随系统）
 │   │   ├── utils/             # BEM、手势、滚动锁定、挂载工具
@@ -52,7 +52,7 @@ vela-ui/
 │   └── tsconfig.json
 ├── docs/                      # VitePress 文档站
 │   ├── guide/                 # 指南：上手、主题、暗色、适配、FAQ、更新日志
-│   ├── components/            # 36 篇组件文档
+│   ├── components/            # 43 篇组件文档
 │   ├── demos/                 # 在线示例（通过 ?raw 展示源码）
 │   └── .vitepress/            # 站点配置、自定义主题与主题切换器
 └── scripts/                   # 截图与页面巡检脚本（开发辅助）
@@ -99,7 +99,7 @@ npm run dev
 
 - 指南：`/guide/introduction`
 - 主题定制：`/guide/theme`
-- 组件：`/components/button` 起共 36 篇
+- 组件：`/components/button` 起共 43 篇
 
 文档站内右上角提供主题切换器，可实时预览 6 套配色与明暗模式。
 

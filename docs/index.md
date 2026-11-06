@@ -4,7 +4,7 @@ layout: home
 hero:
   name: Vela UI
   text: 移动端组件库
-  tagline: 面向 Vue 3 + TypeScript 的轻量组件库。46 个开箱即用的组件，内置 6 套品牌配色与暗色模式，一行代码完成主题切换。
+  tagline: 面向 Vue 3 + TypeScript 的轻量组件库。49 个开箱即用的组件，内置 6 套品牌配色与暗色模式，一行代码完成主题切换。
   actions:
     - theme: brand
       text: 快速上手
