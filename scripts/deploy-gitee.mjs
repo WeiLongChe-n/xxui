@@ -40,12 +40,19 @@ const repoName =
     .filter(Boolean)
     .pop()
 
+// 个人站点仓库（<user>.gitee.io）的站点在根路径，不需要 base 前缀
+const isUserSite = /\.gitee\.io$/i.test(repoName)
+const baseName = isUserSite ? '' : repoName
+const siteUrl = isUserSite
+  ? `https://${repoName}/`
+  : `https://<用户名>.gitee.io/${repoName}/`
+
 console.log(`仓库: ${repo}`)
-console.log(`仓库名: ${repoName}  →  base: /${repoName}/`)
+console.log(`仓库名: ${repoName}  →  base: ${baseName ? `/${baseName}/` : '/'}`)
 
 // 1. 构建
 console.log('\n[1/3] 构建文档站')
-buildDocs(repoName, true)
+buildDocs(baseName, true)
 
 if (!fs.existsSync(path.join(distDir, 'index.html'))) {
   console.error('构建产物缺少 index.html，中止')
@@ -54,7 +61,7 @@ if (!fs.existsSync(path.join(distDir, 'index.html'))) {
 
 // 2. 自检
 console.log('\n[2/3] 校验产物资源引用')
-verifyStatic(repoName)
+verifyStatic(baseName)
 
 // 3. 推送到 pages 分支
 console.log('\n[3/3] 推送到 pages 分支')
@@ -88,7 +95,7 @@ try {
   console.log(`\n✓ 已推送到 ${repo} 的 ${BRANCH} 分支`)
   console.log('\n接下来在 Gitee 仓库页面操作一次：')
   console.log(`  服务 → Gitee Pages → 部署分支选 ${BRANCH}、部署目录留空 → 启动服务`)
-  console.log(`  站点地址: https://<用户名>.gitee.io/${repoName}/`)
+  console.log(`  站点地址: ${siteUrl}`)
 } finally {
   try {
     fs.rmSync(tmp, { recursive: true, force: true, maxRetries: 2 })

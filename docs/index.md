@@ -35,7 +35,9 @@ features:
   <div class="home-env">
     <div class="home-env__head">
       <span class="home-env__title">环境要求</span>
-      <a class="home-env__link" href="/guide/getting-started">完整版本说明 →</a>
+      <!-- 原生 HTML 里的链接不会被 VitePress 改写，因此写成相对路径 + .html，
+           这样在本地开发、根路径部署、子路径部署三种情况下都能命中 -->
+      <a class="home-env__link" href="guide/getting-started.html">完整版本说明 →</a>
     </div>
     <div class="home-env__list">
       <div class="home-env__item"><span>Node.js</span><b>≥ 18.0.0</b><em>推荐 20 / 22 LTS</em></div>

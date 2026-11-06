@@ -162,7 +162,11 @@ https://<用户名>.gitee.io/<仓库名>/
 
 > 在 Git Bash 里请传**不带前导斜杠**的仓库名（`DOCS_BASE=vela-ui`），否则 MSYS 会把 `/vela-ui/` 当成路径转换成 Git 安装目录下的绝对路径。
 
-如果仓库名就是 `<用户名>.gitee.io`（个人站点仓库），站点位于根路径，用 `DOCS_BASE=/` 构建即可。
+如果仓库名就是 `<用户名>.gitee.io`（个人站点仓库），站点位于根路径，用下面的命令构建，脚本会自动识别并省略 base 前缀：
+
+```bash
+node scripts/deploy-gitee.mjs https://gitee.com/<用户名>/<用户名>.gitee.io.git
+```
 
 ### 更新站点
 
