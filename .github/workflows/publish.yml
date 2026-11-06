@@ -1,0 +1,96 @@
+name: publish
+
+# 触发方式：
+#   1. 推版本 tag（v0.3.0）→ 自动发布
+#   2. 手动触发（Actions 页面 Run workflow），可指定 dist-tag
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      dist-tag:
+        description: '发布到哪个 dist-tag'
+        required: false
+        default: latest
+        type: choice
+        options:
+          - latest
+          - beta
+          - next
+
+# Trusted Publishing 靠 OIDC 换临时凭证，必须给 id-token: write
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: build & publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 准备 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: 升级 npm
+        run: |
+          # Trusted Publishing 要求 npm >= 11.5.1、Node >= 22.14
+          npm install -g npm@latest
+          node --version
+          npm --version
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 校验 tag 与版本号一致
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          TAG="${GITHUB_REF_NAME#v}"
+          PKG=$(node -p "require('./packages/mobile-ui/package.json').version")
+          echo "tag=$TAG  package.json=$PKG"
+          if [ "$TAG" != "$PKG" ]; then
+            echo "::error::tag $TAG 与 packages/mobile-ui/package.json 的版本 $PKG 不一致"
+            exit 1
+          fi
+
+      - name: 类型检查
+        run: npm run typecheck
+
+      - name: 构建
+        run: npm run build
+
+      - name: 校验构建产物
+        run: |
+          for f in xxui.mjs xxui.umd.js xxui.css types/index.d.ts; do
+            if [ ! -f "packages/mobile-ui/dist/$f" ]; then
+              echo "::error::缺少产物 dist/$f"
+              exit 1
+            fi
+          done
+          ls -lh packages/mobile-ui/dist
+
+      - name: 发布到 npm
+        run: |
+          # 不传 --otp、不读 .npmrc 里的 token：npm 会自动检测 GitHub Actions 的 OIDC 环境
+          npm publish packages/mobile-ui \
+            --registry https://registry.npmjs.org/ \
+            --tag "${{ inputs.dist-tag || 'latest' }}"
+
+      - name: 输出结果
+        run: |
+          VER=$(node -p "require('./packages/mobile-ui/package.json').version")
+          echo "### 已发布 xxui-mobile@$VER" >> "$GITHUB_STEP_SUMMARY"
+          echo "https://www.npmjs.com/package/xxui-mobile/v/$VER" >> "$GITHUB_STEP_SUMMARY"

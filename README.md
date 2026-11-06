@@ -188,30 +188,46 @@ node scripts/deploy-gitee.mjs https://gitee.com/<用户名>/<用户名>.gitee.io
 | `npm run deploy:gitee` | 构建、自检并推送到 Gitee 的 `pages` 分支 |
 | `npm run build` | 构建组件库到 `packages/mobile-ui/dist` |
 | `npm run typecheck` | 使用 vue-tsc 做类型检查 |
-| `npm run publish:npm` | 自动定版本、构建并发布到 npm |
-| `npm run publish:npm:dry` | 只跑发布流程，不上传、不打 tag |
+| `npm run publish:npm` | 本地发布（首发/应急）：自动定版本、构建并发布到 npm |
+| `npm run publish:npm:dry` | 只跑本地发布流程，不上传、不打 tag |
+| `npm run release` | 打 tag 并推送，由 GitHub Actions 发布 |
+| `npm run release:dry` | 预演 release，不写文件、不推送 |
 
 ## 发布到 npm
 
-发布脚本在 `scripts/publish-npm.mjs`，一条命令完成版本号、构建、校验与发布。
+**常规路径：GitHub Actions + Trusted Publishing（OIDC）。** 不需要 token、不需要验证码，凭证由 GitHub 每次发布时临时签发。
 
 ```bash
-npm login --registry https://registry.npmjs.org/   # 首次需要登录
-
-npm run publish:npm               # 当前版本没发布过就发它，否则补丁号自增
-node scripts/publish-npm.mjs minor  # 次版本自增
-node scripts/publish-npm.mjs major  # 主版本自增
-node scripts/publish-npm.mjs 1.0.0  # 指定版本
-npm run publish:npm:dry           # 预演，不上传
+npm run release            # 自动定版本（有 feat 走 minor，否则 patch）→ 提交 → 打 tag → 推送
+npm run release:minor      # 强制次版本，0.3.0 → 0.4.0
+npm run release:patch      # 强制补丁号，0.3.0 → 0.3.1
+npm run release:dry        # 预演，只打印不执行
 ```
 
-版本号会同步改写 `packages/mobile-ui/package.json`、根 `package.json`、`src/index.ts` 里的 `version`，以及文档站导航栏的版本号；发布成功后自动提交 `chore(release): vX.Y.Z` 并打 `vX.Y.Z` tag。
+本地脚本 `scripts/release-tag.mjs` 只做四件事：同步版本号（`packages/mobile-ui/package.json`、根 `package.json`、`src/index.ts`、文档站导航栏）→ 提交 `chore(release): vX.Y.Z` → 打 `vX.Y.Z` tag → 推送。推送后 `.github/workflows/publish.yml` 接手，跑类型检查、构建、产物校验，再用 OIDC 身份 `npm publish`。
 
-脚本依次做这些检查：git 工作区干净 → npm 登录态 → 包名可用性（scoped 包还会校验 scope 归属）→ 类型检查 → 构建 → 产物入口齐全 → `npm pack` 预检（README / LICENSE / 入口文件是否都在包内）。任一步失败都会回滚版本号改动。
+CI 侧有三个前提，都在 npm 网页上配一次：
 
-其它参数：`--tag beta` 发到指定 dist-tag、`--otp <code>` 两步验证码、`--yes` 跳过确认、`--skip-check` 跳过 git 检查、`--no-git` 不提交、`--push` 发布后推送。
+1. 包的 **Settings → Trusted publisher** 加一条 GitHub Actions，填 `Organization or user`、`Repository`、`Workflow filename`（只填文件名 `publish.yml`，大小写必须完全一致）
+2. 勾上 **Allow npm publish**（2026-09-03 之后新建的配置默认只允许 `npm stage publish`，不勾就直接发布会被拒）
+3. 配好后 **2 天内**必须有一次性成功发布，否则配置过期作废，得删了重建
 
-> 包名 `xxui-mobile` 不带 scope，发布后归当前登录账号所有，无需先建组织或同名 scope。`publishConfig` 已固定 `access: public` 与官方 registry，所以本机配置的镜像源不影响发布。
+包内 `repository.url` 必须与 GitHub 仓库完全一致，npm 靠它校验 OIDC 身份。
+
+### 首次发布
+
+npm 的 Trusted Publisher 只能挂在「已存在的包」上，所以新包的首发必须本地完成，且对新包首发 npm 会强制 2FA：
+
+```bash
+npm login --auth-type=web --registry https://registry.npmjs.org/   # 把终端给出的链接在手机上打开、用 passkey 确认
+npm run publish:npm
+```
+
+账号是 security key / passkey 时，`npm publish` 会打印 `https://www.npmjs.com/auth/cli/...`，在浏览器（或手机）确认即可，不要往 `--otp` 里塞 recovery code。首发成功后再配 trusted publisher，之后全部交给 CI。
+
+`scripts/publish-npm.mjs` 的本地流程：git 工作区干净 → npm 登录态 → 包名可用性 → 类型检查 → 构建 → 产物入口齐全 → `npm pack` 预检。任一步失败都会回滚版本号改动。可用参数：`--tag beta`、`--yes`、`--skip-check`、`--no-git`、`--push`。
+
+> 包名 `xxui-mobile` 不带 scope，发布后归当前 npm 账号所有。`publishConfig` 已固定 `access: public` 与官方 registry，本机镜像源不影响发布。
 
 ### 开发辅助脚本
 
