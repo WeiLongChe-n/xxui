@@ -52,6 +52,25 @@ jobs:
           node --version
           npm --version
 
+      - name: 配置 registry（OIDC 前提）
+        run: |
+          # npm 只会对「有 registry 条目、但没有 _authToken」的环境发起 OIDC 换取。
+          # 只要存在任何 _authToken（哪怕是空串或占位符 XXXXX-XXXXX），
+          # npm 就认为已登录，直接跳过 OIDC，报 ENEEDAUTH。
+          npm config set registry https://registry.npmjs.org/
+          npm config delete //registry.npmjs.org/:_authToken 2>/dev/null || true
+          echo "registry = $(npm config get registry)"
+          echo "npm     = $(npm --version)"
+          if [ -n "$ACTIONS_ID_TOKEN_REQUEST_URL" ]; then
+            echo "OIDC 环境变量已注入 ✓"
+          else
+            echo "::error::缺少 ACTIONS_ID_TOKEN_REQUEST_URL，检查 permissions: id-token: write"
+            exit 1
+          fi
+          if npm config get //registry.npmjs.org/:_authToken >/dev/null 2>&1; then
+            echo "::warning::检测到残留 _authToken，可能阻断 OIDC"
+          fi
+
       - name: 安装依赖
         run: npm ci
 
@@ -97,9 +116,9 @@ jobs:
         if: steps.check.outputs.exists == 'false'
         run: |
           # 必须写 ./ 前缀：npm 会把 packages/mobile-ui 当成 GitHub 的 owner/repo 简写去 ls-remote
-          # 不传 --otp、不读 token：npm 自动检测 GitHub Actions 的 OIDC 环境
+          # 不传 --otp、不传 token、也不传 --registry：registry 由上一步写入 .npmrc，
+          # npm 才会把它当作「可做 OIDC 交换的注册源」。
           npm publish ./packages/mobile-ui \
-            --registry https://registry.npmjs.org/ \
             --tag "${{ inputs.dist-tag || 'latest' }}"
 
       - name: 输出结果
