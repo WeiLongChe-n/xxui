@@ -177,20 +177,49 @@
 }
 
 /* ---------------------------------------------
+ * 文档框架
+ * 参考 Vant 文档的比例：侧栏收窄、正文更宽、留白更舒展
+ * ------------------------------------------- */
+:root {
+  --vp-sidebar-width: 240px;
+}
+
+@media (min-width: 960px) {
+  .VPDoc {
+    padding: 40px 28px 0;
+  }
+}
+
+@media (min-width: 1280px) {
+  .VPDoc .content {
+    min-width: 0;
+    max-width: 720px;
+  }
+
+  .VPDoc.has-aside .content-container {
+    max-width: 664px;
+  }
+}
+
+/* ---------------------------------------------
  * 右侧统一预览盒
  * 宽屏时正文让出右侧一列，全页交互都收进这个盒子，
  * 目录（outline）让位，避免两块内容抢同一列。
  * ------------------------------------------- */
 @media (min-width: 1280px) {
   html.has-demo-stage .VPDoc {
-    padding-right: clamp(368px, 29vw, 404px);
+    padding-right: clamp(352px, 29vw, 412px);
   }
 
   html.has-demo-stage .VPDoc .aside {
     display: none;
   }
 
+  html.has-demo-stage .VPDoc .content {
+    max-width: 760px;
+  }
+
   html.has-demo-stage .VPDoc.has-aside .content-container {
-    max-width: 720px;
+    max-width: 704px;
   }
 }

@@ -481,11 +481,54 @@ defineExpose({
 /* ---------- 舞台模式（文档右侧单例预览） ---------- */
 .mp--stage {
   --mp-width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
 }
 
-/* 高度跟随视口锁定，示例切换时外框不跳动，内容在沙箱内部滚动 */
+/* 工具条固定，手机填满剩余高度，切换示例时外框不跳动 */
+.mp--stage .mp__toolbar {
+  flex: none;
+}
+
+.mp--stage .mp__stage {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.mp--stage .mp__device {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.mp--stage .mp__bezel {
+  flex: 1;
+  min-height: 0;
+}
+
 .mp--stage .mp__frame {
-  height: clamp(340px, calc(100vh - 276px), 620px);
+  flex: 1;
+  min-height: 0;
+  height: auto;
+}
+
+/* 全屏时恢复按内容取高，避免机身被拉长 */
+.mp--stage .mp__stage--fullscreen {
+  flex: none;
+}
+
+.mp--stage .mp__stage--fullscreen .mp__device {
+  height: auto;
+}
+
+.mp--stage .mp__stage--fullscreen .mp__frame {
+  flex: none;
+  height: min(72vh, 720px);
 }
 
 .mp--stage .mp__hint {
