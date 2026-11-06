@@ -1,34 +1,34 @@
 <template>
   <div class="demo-col">
-    <vl-cell-group inset title="复选框组">
-      <vl-cell title="选择口味">
+    <x-cell-group inset title="复选框组">
+      <x-cell title="选择口味">
         <template #value>
           <span class="hint">{{ checked.length }} 项已选</span>
         </template>
-      </vl-cell>
+      </x-cell>
       <div class="padding">
-        <vl-checkbox-group v-model="checked" :max="2">
-          <vl-checkbox v-for="item in flavors" :key="item" :name="item">{{ item }}</vl-checkbox>
-        </vl-checkbox-group>
+        <x-checkbox-group v-model="checked" :max="2">
+          <x-checkbox v-for="item in flavors" :key="item" :name="item">{{ item }}</x-checkbox>
+        </x-checkbox-group>
         <p class="demo-note">最多可选 2 项</p>
       </div>
-    </vl-cell-group>
+    </x-cell-group>
 
-    <vl-cell-group inset title="纵向排列">
+    <x-cell-group inset title="纵向排列">
       <div class="padding">
-        <vl-checkbox-group v-model="checked2" direction="vertical">
-          <vl-checkbox name="a">已阅读《用户协议》</vl-checkbox>
-          <vl-checkbox name="b">接收活动通知</vl-checkbox>
-          <vl-checkbox name="c" disabled>已下架选项</vl-checkbox>
-        </vl-checkbox-group>
+        <x-checkbox-group v-model="checked2" direction="vertical">
+          <x-checkbox name="a">已阅读《用户协议》</x-checkbox>
+          <x-checkbox name="b">接收活动通知</x-checkbox>
+          <x-checkbox name="c" disabled>已下架选项</x-checkbox>
+        </x-checkbox-group>
       </div>
-    </vl-cell-group>
+    </x-cell-group>
 
-    <vl-cell-group inset title="独立使用">
+    <x-cell-group inset title="独立使用">
       <div class="padding">
-        <vl-checkbox v-model="single" shape="round">圆形复选框</vl-checkbox>
+        <x-checkbox v-model="single" shape="round">圆形复选框</x-checkbox>
       </div>
-    </vl-cell-group>
+    </x-cell-group>
   </div>
 </template>
 
@@ -52,6 +52,6 @@ const single = ref(true)
 
 .hint {
   font-size: 12px;
-  color: var(--vl-text-color-3);
+  color: var(--x-text-color-3);
 }
 </style>

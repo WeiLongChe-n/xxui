@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { addUnit, createNamespace } from '../../utils'
-import VlLoading from '../loading/Loading.vue'
+import XLoading from '../loading/Loading.vue'
 
-defineOptions({ name: 'VlSwitch' })
+defineOptions({ name: 'XSwitch' })
 
 const props = withDefaults(
   defineProps<{
@@ -35,8 +35,8 @@ const checked = computed(() => props.modelValue === props.activeValue)
 const style = computed(() => ({
   fontSize: addUnit(props.size),
   backgroundColor: checked.value
-    ? props.activeColor || 'var(--vl-primary)'
-    : props.inactiveColor || 'var(--vl-text-color-4)',
+    ? props.activeColor || 'var(--x-primary)'
+    : props.inactiveColor || 'var(--x-text-color-4)',
   opacity: props.disabled || props.loading ? 0.55 : 1,
 }))
 
@@ -59,7 +59,7 @@ const onClick = (event: MouseEvent) => {
     @click="onClick"
   >
     <span :class="bem('node')">
-      <VlLoading v-if="loading" :size="12" color="currentColor" />
+      <XLoading v-if="loading" :size="12" color="currentColor" />
     </span>
     <span v-if="activeText || inactiveText" :class="bem('text')">
       {{ checked ? activeText : inactiveText }}
@@ -70,7 +70,7 @@ const onClick = (event: MouseEvent) => {
 <style lang="scss">
 @use '../../styles/mixins' as *;
 
-.vl-switch {
+.x-switch {
   @include reset-button;
 
   display: inline-flex;
@@ -84,9 +84,9 @@ const onClick = (event: MouseEvent) => {
   line-height: 1;
   vertical-align: middle;
   cursor: pointer;
-  background: var(--vl-text-color-4);
+  background: var(--x-text-color-4);
   border-radius: 1em;
-  transition: background-color var(--vl-duration-fast);
+  transition: background-color var(--x-duration-fast);
 
   &__node {
     display: flex;
@@ -95,11 +95,11 @@ const onClick = (event: MouseEvent) => {
     justify-content: center;
     width: 0.8em;
     height: 0.8em;
-    color: var(--vl-primary);
+    color: var(--x-primary);
     background: #fff;
     border-radius: 50%;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-    transition: transform var(--vl-duration-fast) var(--vl-ease);
+    transition: transform var(--x-duration-fast) var(--x-ease);
   }
 
   &--checked {

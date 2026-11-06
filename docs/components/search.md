@@ -11,7 +11,7 @@
 ## 事件
 
 ```vue
-<vl-search v-model="keyword" @search="onSearch" @cancel="onCancel" />
+<x-search v-model="keyword" @search="onSearch" @cancel="onCancel" />
 ```
 
 - `search`：回车或点击右侧图标时触发；
@@ -21,8 +21,8 @@
 ## 外观
 
 ```vue
-<vl-search v-model="keyword" shape="round" :show-action="false" />
-<vl-search v-model="keyword" background="var(--vl-primary-light)" action-text="搜索" />
+<x-search v-model="keyword" shape="round" :show-action="false" />
+<x-search v-model="keyword" background="var(--x-primary-light)" action-text="搜索" />
 ```
 
 ## API
@@ -32,7 +32,7 @@
 | modelValue | 搜索关键词 | `string` | - |
 | placeholder | 占位提示 | `string` | `搜索` |
 | shape | 外观 | `square \| round` | `square` |
-| background | 组件背景色 | `string` | `--vl-background` |
+| background | 组件背景色 | `string` | `--x-background` |
 | showAction | 是否显示右侧按钮 | `boolean` | `true` |
 | actionText | 右侧按钮文字 | `string` | `取消` |
 | clearable | 是否可清空 | `boolean` | `true` |

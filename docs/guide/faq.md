@@ -6,11 +6,11 @@
 
 1. 确认调用的是组件库导出的方法（`setTheme` / `setBrand` / `useTheme`），而不是自己改 `document` 属性后又被打断；
 2. 如果组件在 `<iframe>` 或 Shadow DOM 中，主题属性需要设置在对应的根节点上；
-3. 检查是否有样式写死了颜色值（如 `#3b82f6`），请改用 `var(--vl-primary)`。
+3. 检查是否有样式写死了颜色值（如 `#3b82f6`），请改用 `var(--x-primary)`。
 
 ### Toast / Dialog 不跟随局部主题？
 
-函数式组件挂载在 `document.body`，只响应 `html` 上的全局主题。需要在局部主题里使用弹层时，请使用组件形式的 `<vl-toast>` / `<vl-dialog>`。
+函数式组件挂载在 `document.body`，只响应 `html` 上的全局主题。需要在局部主题里使用弹层时，请使用组件形式的 `<x-toast>` / `<x-dialog>`。
 
 ### 换肤后自定义页面的颜色没变？
 
@@ -18,15 +18,15 @@
 
 ```css
 .my-card {
-  color: var(--vl-text-color);
-  background: var(--vl-background-2);
-  border: 1px solid var(--vl-border-color);
+  color: var(--x-text-color);
+  background: var(--x-background-2);
+  border: 1px solid var(--x-border-color);
 }
 ```
 
 ### 如何让主题在刷新后保持？
 
-默认已持久化到 `localStorage`（键名 `vela-ui-theme`）。如果使用了自定义存储策略，可以关闭内置持久化：
+默认已持久化到 `localStorage`（键名 `xxui-theme`）。如果使用了自定义存储策略，可以关闭内置持久化：
 
 ```ts
 initTheme({ storage: false })
@@ -39,7 +39,7 @@ initTheme({ storage: false })
 弹层默认使用自增 `z-index`（从 2000 起）。如果页面中存在更高层级的元素（如第三方地图、视频控件），可以显式指定：
 
 ```vue
-<vl-popup v-model:show="show" :z-index="5000" />
+<x-popup v-model:show="show" :z-index="5000" />
 ```
 
 ### 页面滚动了但弹层没锁住？
@@ -47,7 +47,7 @@ initTheme({ storage: false })
 `lock-scroll` 默认开启。若自定义了弹层容器或使用了 `position: fixed` 的布局，可能需要在打开时手动调用：
 
 ```ts
-import { lockScroll, unlockScroll } from '@vela/mobile'
+import { lockScroll, unlockScroll } from '@xxui/mobile'
 ```
 
 （当前版本该工具未作为公共 API 导出，可参考源码 `utils/index.ts` 实现。）
@@ -79,13 +79,13 @@ Slider、Swipe、PullRefresh 依赖触摸 / 指针事件。Slider 使用 Pointer
 
 ## 工程化
 
-### TypeScript 报 `Cannot find module '@vela/mobile'`？
+### TypeScript 报 `Cannot find module '@xxui/mobile'`？
 
 确认 `tsconfig.json` 中的 `moduleResolution` 为 `bundler` 或 `node16`，并且已经安装依赖。
 
 ### 样式重复打包？
 
-如果同时引入 `@vela/mobile` 与 `@vela/mobile/style.css`，请确认没有在多个入口重复引入 CSS。构建工具通常会去重，但多页应用需要注意。
+如果同时引入 `@xxui/mobile` 与 `@xxui/mobile/style.css`，请确认没有在多个入口重复引入 CSS。构建工具通常会去重，但多页应用需要注意。
 
 ### Node 版本不满足导致安装或启动失败？
 
@@ -102,7 +102,7 @@ node -v          # 确认版本
 npm install
 ```
 
-注意这只影响**本仓库的开发与文档站构建**。`@vela/mobile` 作为依赖被安装到业务项目时不需要 Node，构建产物是纯 ESM / UMD。
+注意这只影响**本仓库的开发与文档站构建**。`@xxui/mobile` 作为依赖被安装到业务项目时不需要 Node，构建产物是纯 ESM / UMD。
 
 ### SSR 报 `document is not defined`？
 
@@ -112,7 +112,7 @@ npm install
 
 ### 支持 Vue 2 吗？
 
-不支持。Vela UI 基于 Vue 3 的 Composition API 与 Teleport 实现。
+不支持。XXUI 基于 Vue 3 的 Composition API 与 Teleport 实现。
 
 ### 可以商用吗？
 

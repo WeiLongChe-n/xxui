@@ -3,7 +3,7 @@ import { computed, provide } from 'vue'
 import { createNamespace } from '../../utils'
 import { CHECKBOX_GROUP_KEY, type CheckboxValue } from './context'
 
-defineOptions({ name: 'VlCheckboxGroup' })
+defineOptions({ name: 'XCheckboxGroup' })
 
 const props = withDefaults(
   defineProps<{
@@ -54,7 +54,7 @@ provide(CHECKBOX_GROUP_KEY, {
 </template>
 
 <style lang="scss">
-.vl-checkbox-group {
+.x-checkbox-group {
   display: flex;
   flex-wrap: wrap;
   gap: 12px 20px;

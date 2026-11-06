@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { addUnit, createNamespace } from '../../utils'
-import VlLoading from '../loading/Loading.vue'
-import VlIcon from '../icon/Icon.vue'
+import XLoading from '../loading/Loading.vue'
+import XIcon from '../icon/Icon.vue'
 
-defineOptions({ name: 'VlButton' })
+defineOptions({ name: 'XButton' })
 
 const props = defineProps<{
   type?: 'primary' | 'success' | 'warning' | 'danger' | 'default'
@@ -68,22 +68,22 @@ const loadingSize = computed(() => addUnit(props.size === 'mini' || props.size =
     :disabled="disabled || loading"
     @click="onClick"
   >
-    <VlLoading v-if="loading" :size="loadingSize" :class="bem('loading')" />
-    <VlIcon v-else-if="icon && iconPosition !== 'right'" :name="icon" :class="bem('icon')" />
+    <XLoading v-if="loading" :size="loadingSize" :class="bem('loading')" />
+    <XIcon v-else-if="icon && iconPosition !== 'right'" :name="icon" :class="bem('icon')" />
     <span :class="bem('text')">
       <slot>{{ loading && loadingText ? loadingText : '' }}</slot>
     </span>
-    <VlIcon v-if="icon && iconPosition === 'right'" :name="icon" :class="bem('icon')" />
+    <XIcon v-if="icon && iconPosition === 'right'" :name="icon" :class="bem('icon')" />
   </component>
 </template>
 
 <style lang="scss">
 @use '../../styles/mixins' as *;
 
-.vl-button {
-  --vl-button-color: var(--vl-text-color);
-  --vl-button-bg: var(--vl-background-2);
-  --vl-button-border: var(--vl-border-color);
+.x-button {
+  --x-button-color: var(--x-text-color);
+  --x-button-bg: var(--x-background-2);
+  --x-button-border: var(--x-border-color);
 
   position: relative;
   display: inline-flex;
@@ -95,15 +95,15 @@ const loadingSize = computed(() => addUnit(props.size === 'mini' || props.size =
   font-size: 15px;
   font-weight: 500;
   line-height: 1;
-  color: var(--vl-button-color);
+  color: var(--x-button-color);
   white-space: nowrap;
   vertical-align: middle;
-  background: var(--vl-button-bg);
-  border: 1px solid var(--vl-button-border);
+  background: var(--x-button-bg);
+  border: 1px solid var(--x-button-border);
   border-radius: 10px;
   outline: none;
   appearance: none;
-  transition: opacity var(--vl-duration-fast), transform var(--vl-duration-fast);
+  transition: opacity var(--x-duration-fast), transform var(--x-duration-fast);
 
   &::after {
     position: absolute;
@@ -111,7 +111,7 @@ const loadingSize = computed(() => addUnit(props.size === 'mini' || props.size =
     content: '';
     background: #000;
     opacity: 0;
-    transition: opacity var(--vl-duration-fast);
+    transition: opacity var(--x-duration-fast);
   }
 
   &:active::after {
@@ -134,50 +134,50 @@ const loadingSize = computed(() => addUnit(props.size === 'mini' || props.size =
 
   /* 类型 */
   &--primary {
-    --vl-button-color: #fff;
-    --vl-button-bg: var(--vl-primary);
-    --vl-button-border: var(--vl-primary);
+    --x-button-color: #fff;
+    --x-button-bg: var(--x-primary);
+    --x-button-border: var(--x-primary);
   }
 
   &--success {
-    --vl-button-color: #fff;
-    --vl-button-bg: var(--vl-success);
-    --vl-button-border: var(--vl-success);
+    --x-button-color: #fff;
+    --x-button-bg: var(--x-success);
+    --x-button-border: var(--x-success);
   }
 
   &--warning {
-    --vl-button-color: #fff;
-    --vl-button-bg: var(--vl-warning);
-    --vl-button-border: var(--vl-warning);
+    --x-button-color: #fff;
+    --x-button-bg: var(--x-warning);
+    --x-button-border: var(--x-warning);
   }
 
   &--danger {
-    --vl-button-color: #fff;
-    --vl-button-bg: var(--vl-danger);
-    --vl-button-border: var(--vl-danger);
+    --x-button-color: #fff;
+    --x-button-bg: var(--x-danger);
+    --x-button-border: var(--x-danger);
   }
 
   &--default {
-    --vl-button-color: var(--vl-text-color);
-    --vl-button-bg: var(--vl-background-2);
-    --vl-button-border: var(--vl-border-color);
+    --x-button-color: var(--x-text-color);
+    --x-button-bg: var(--x-background-2);
+    --x-button-border: var(--x-border-color);
   }
 
   /* 朴素 */
   &--plain {
     background: transparent;
-    border-color: var(--vl-button-bg);
-    color: var(--vl-button-bg);
+    border-color: var(--x-button-bg);
+    color: var(--x-button-bg);
 
     &::after {
       display: none;
     }
   }
 
-  &--plain.vl-button--default {
-    background: var(--vl-background-2);
-    border-color: var(--vl-border-color);
-    color: var(--vl-text-color-2);
+  &--plain.x-button--default {
+    background: var(--x-background-2);
+    border-color: var(--x-border-color);
+    color: var(--x-text-color-2);
   }
 
   /* 尺寸 */
@@ -231,7 +231,7 @@ const loadingSize = computed(() => addUnit(props.size === 'mini' || props.size =
       position: absolute;
       inset: 0;
       content: '';
-      border: 1px solid var(--vl-button-border);
+      border: 1px solid var(--x-button-border);
       border-radius: inherit;
       transform: scale(0.5);
       transform-origin: 0 0;

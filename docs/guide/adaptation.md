@@ -1,6 +1,6 @@
 # 国际化与适配
 
-Vela UI 默认使用 `px` 布局，不强制任何适配方案，因此可以自由选择 viewport、rem 或 vw 方案。
+XXUI 默认使用 `px` 布局，不强制任何适配方案，因此可以自由选择 viewport、rem 或 vw 方案。
 
 ## Viewport 配置
 
@@ -16,20 +16,20 @@ Vela UI 默认使用 `px` 布局，不强制任何适配方案，因此可以自
 
 ```css
 :root {
-  --vl-safe-top: env(safe-area-inset-top, 0px);
-  --vl-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --x-safe-top: env(safe-area-inset-top, 0px);
+  --x-safe-bottom: env(safe-area-inset-bottom, 0px);
 }
 ```
 
-- `<vl-nav-bar fixed safe-area-inset-top>` 自动增加顶部内边距；
-- `<vl-tabbar>` 默认适配底部安全区；
-- `<vl-popup position="bottom" safe-area-inset-bottom>` 同样支持。
+- `<x-nav-bar fixed safe-area-inset-top>` 自动增加顶部内边距；
+- `<x-tabbar>` 默认适配底部安全区；
+- `<x-popup position="bottom" safe-area-inset-bottom>` 同样支持。
 
 如果你的页面有自定义的固定底栏，记得加上：
 
 ```css
 .my-footer {
-  padding-bottom: var(--vl-safe-bottom);
+  padding-bottom: var(--x-safe-bottom);
 }
 ```
 
@@ -59,8 +59,8 @@ module.exports = {
 
 ```css
 :root {
-  --vl-font-size: 15px;
-  --vl-cell-font-size: 16px;
+  --x-font-size: 15px;
+  --x-cell-font-size: 16px;
 }
 ```
 
@@ -71,9 +71,9 @@ module.exports = {
 ```css
 @media (min-width: 768px) {
   :root {
-    --vl-font-size: 15px;
-    --vl-cell-font-size: 16px;
-    --vl-radius: 10px;
+    --x-font-size: 15px;
+    --x-cell-font-size: 16px;
+    --x-radius: 10px;
   }
 }
 ```

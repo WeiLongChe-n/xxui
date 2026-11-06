@@ -6,4 +6,4 @@ export interface SwipeContext {
   register: () => void
 }
 
-export const SWIPE_KEY: InjectionKey<SwipeContext> = Symbol('vl-swipe')
+export const SWIPE_KEY: InjectionKey<SwipeContext> = Symbol('x-swipe')

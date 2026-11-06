@@ -3,7 +3,7 @@ import { computed, provide, ref } from 'vue'
 import { createNamespace } from '../../utils'
 import { STEPS_KEY } from './context'
 
-defineOptions({ name: 'VlSteps' })
+defineOptions({ name: 'XSteps' })
 
 const props = withDefaults(
   defineProps<{
@@ -14,7 +14,7 @@ const props = withDefaults(
     activeIcon?: string
     inactiveIcon?: string
   }>(),
-  { active: 0, direction: 'horizontal', activeColor: 'var(--vl-primary)' },
+  { active: 0, direction: 'horizontal', activeColor: 'var(--x-primary)' },
 )
 
 const { bem } = createNamespace('steps')
@@ -39,10 +39,10 @@ provide(STEPS_KEY, {
 </template>
 
 <style lang="scss">
-.vl-steps {
+.x-steps {
   display: flex;
   padding: 16px 8px;
-  background: var(--vl-background-2);
+  background: var(--x-background-2);
 
   &--vertical {
     flex-direction: column;

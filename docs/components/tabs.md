@@ -11,18 +11,18 @@
 ## 基本结构
 
 ```vue
-<vl-tabs v-model="active">
-  <vl-tab name="a" title="商品详情">内容 A</vl-tab>
-  <vl-tab name="b" title="规格参数">内容 B</vl-tab>
-</vl-tabs>
+<x-tabs v-model="active">
+  <x-tab name="a" title="商品详情">内容 A</x-tab>
+  <x-tab name="b" title="规格参数">内容 B</x-tab>
+</x-tabs>
 ```
 
-`<vl-tab>` 的 `name` 与 `Tabs` 的 `v-model` 对应；不传 `name` 时使用索引。
+`<x-tab>` 的 `name` 与 `Tabs` 的 `v-model` 对应；不传 `name` 时使用索引。
 
 ## 卡片风格
 
 ```vue
-<vl-tabs v-model="active" type="card">...</vl-tabs>
+<x-tabs v-model="active" type="card">...</x-tabs>
 ```
 
 卡片风格会把每个标签渲染为胶囊按钮，选中项使用主色背景，适合二级筛选。
@@ -30,11 +30,11 @@
 ## 吸顶
 
 ```vue
-<vl-sticky>
-  <vl-tabs v-model="active" sticky :offset-top="46">
+<x-sticky>
+  <x-tabs v-model="active" sticky :offset-top="46">
     ...
-  </vl-tabs>
-</vl-sticky>
+  </x-tabs>
+</x-sticky>
 ```
 
 - `sticky`：Tabs 自带的吸顶能力；
@@ -47,19 +47,19 @@
 ## 导航扩展
 
 ```vue
-<vl-tabs v-model="active">
-  <vl-tab name="a" title="推荐">...</vl-tab>
+<x-tabs v-model="active">
+  <x-tab name="a" title="推荐">...</x-tab>
   <template #nav-right>
-    <vl-icon name="filter" />
+    <x-icon name="filter" />
   </template>
-</vl-tabs>
+</x-tabs>
 ```
 
 ## 徽标
 
 ```vue
-<vl-tab name="comment" title="评价" :badge="12" />
-<vl-tab name="notice" title="通知" dot />
+<x-tab name="comment" title="评价" :badge="12" />
+<x-tab name="notice" title="通知" dot />
 ```
 
 ## API
@@ -70,10 +70,10 @@
 | --- | --- | --- | --- |
 | modelValue | 当前激活的 name | `string \| number` | - |
 | type | 风格 | `line \| card` | `line` |
-| color | 选中主色 | `string` | `--vl-primary` |
+| color | 选中主色 | `string` | `--x-primary` |
 | background | 导航背景色 | `string` | - |
 | titleActiveColor | 选中文字颜色 | `string` | `color` |
-| titleInactiveColor | 未选中文字颜色 | `string` | `--vl-text-color-2` |
+| titleInactiveColor | 未选中文字颜色 | `string` | `--x-text-color-2` |
 | lineWidth | 下划线宽度 | `number \| string` | 标题宽度的 60% |
 | lineHeight | 下划线高度 | `number \| string` | `3` |
 | sticky | 是否吸顶 | `boolean` | `false` |

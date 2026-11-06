@@ -2,9 +2,9 @@
 import { computed, inject } from 'vue'
 import { createNamespace } from '../../utils'
 import { STEPS_KEY, type StepStatus } from './context'
-import VlIcon from '../icon/Icon.vue'
+import XIcon from '../icon/Icon.vue'
 
-defineOptions({ name: 'VlStep' })
+defineOptions({ name: 'XStep' })
 
 const props = defineProps<{
   title?: string
@@ -17,7 +17,7 @@ const props = defineProps<{
 
 const parent = inject(STEPS_KEY, null)
 if (!parent) {
-  throw new Error('[Vela UI] <vl-step> 必须放在 <vl-steps> 内部使用')
+  throw new Error('[XXUI] <x-step> 必须放在 <x-steps> 内部使用')
 }
 
 const { bem } = createNamespace('step')
@@ -46,7 +46,7 @@ const circleStyle = computed(() => {
     return { color: '#fff', background: parent.activeColor.value, borderColor: parent.activeColor.value }
   }
   if (currentStatus.value === 'error') {
-    return { color: '#fff', background: 'var(--vl-danger)', borderColor: 'var(--vl-danger)' }
+    return { color: '#fff', background: 'var(--x-danger)', borderColor: 'var(--x-danger)' }
   }
   return {}
 })
@@ -62,7 +62,7 @@ const circleStyle = computed(() => {
   >
     <div :class="bem('head')">
       <div :class="bem('circle')" :style="circleStyle">
-        <VlIcon v-if="iconName" :name="iconName" />
+        <XIcon v-if="iconName" :name="iconName" />
         <slot v-else name="icon">{{ index + 1 }}</slot>
       </div>
       <div v-if="!isLast" :class="bem('line')">
@@ -81,7 +81,7 @@ const circleStyle = computed(() => {
 </template>
 
 <style lang="scss">
-.vl-step {
+.x-step {
   position: relative;
   flex: 1;
   overflow: hidden;
@@ -100,26 +100,26 @@ const circleStyle = computed(() => {
     height: 22px;
     font-size: 12px;
     font-weight: 500;
-    color: var(--vl-text-color-3);
-    background: var(--vl-background-2);
-    border: 1px solid var(--vl-border-color);
+    color: var(--x-text-color-3);
+    background: var(--x-background-2);
+    border: 1px solid var(--x-border-color);
     border-radius: 50%;
-    transition: background-color var(--vl-duration-fast), border-color var(--vl-duration-fast);
+    transition: background-color var(--x-duration-fast), border-color var(--x-duration-fast);
   }
 
   &__line {
     flex: 1;
     height: 1px;
     margin: 0 6px;
-    background: var(--vl-border-color);
+    background: var(--x-border-color);
   }
 
   &__line-inner {
     display: block;
     width: 0;
     height: 100%;
-    background: var(--vl-primary);
-    transition: width var(--vl-duration) var(--vl-ease);
+    background: var(--x-primary);
+    transition: width var(--x-duration) var(--x-ease);
   }
 
   &--finish &__line-inner {
@@ -132,33 +132,33 @@ const circleStyle = computed(() => {
 
   &__title {
     font-size: 14px;
-    color: var(--vl-text-color);
+    color: var(--x-text-color);
   }
 
   &__description {
     margin-top: 4px;
     font-size: 12px;
     line-height: 18px;
-    color: var(--vl-text-color-3);
+    color: var(--x-text-color-3);
   }
 
   &--wait &__title {
-    color: var(--vl-text-color-3);
+    color: var(--x-text-color-3);
   }
 
   &--error &__title {
-    color: var(--vl-danger);
+    color: var(--x-danger);
   }
 
   /* 垂直排列 */
   &--vertical {
     display: flex;
 
-    .vl-step__head {
+    .x-step__head {
       flex-direction: column;
     }
 
-    .vl-step__line {
+    .x-step__line {
       flex: 1;
       width: 1px;
       height: auto;
@@ -166,24 +166,24 @@ const circleStyle = computed(() => {
       margin: 4px 0;
     }
 
-    .vl-step__line-inner {
+    .x-step__line-inner {
       width: 100%;
       height: 0;
-      transition: height var(--vl-duration) var(--vl-ease);
+      transition: height var(--x-duration) var(--x-ease);
     }
 
-    &.vl-step--finish .vl-step__line-inner {
+    &.x-step--finish .x-step__line-inner {
       width: 100%;
       height: 100%;
     }
 
-    .vl-step__body {
+    .x-step__body {
       flex: 1;
       padding: 0 0 20px 12px;
     }
   }
 
-  &--vertical:last-child .vl-step__body {
+  &--vertical:last-child .x-step__body {
     padding-bottom: 0;
   }
 }

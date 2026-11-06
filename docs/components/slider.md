@@ -11,7 +11,7 @@
 ## 范围与步长
 
 ```vue
-<vl-slider v-model="value" :min="100" :max="1000" :step="100" />
+<x-slider v-model="value" :min="100" :max="1000" :step="100" />
 ```
 
 数值会按 `step` 就近取整，并自动 clamp 到 `[min, max]`。
@@ -19,7 +19,7 @@
 ## 样式
 
 ```vue
-<vl-slider v-model="value" :bar-height="8" :button-size="28" active-color="#8b4ef5" />
+<x-slider v-model="value" :bar-height="8" :button-size="28" active-color="#8b4ef5" />
 ```
 
 ## 事件时机
@@ -29,7 +29,7 @@
 - `dragStart` / `dragEnd`：手势开始与结束。
 
 ```vue
-<vl-slider v-model="price" @change="fetchList" @drag-end="onEnd" />
+<x-slider v-model="price" @change="fetchList" @drag-end="onEnd" />
 ```
 
 ## API
@@ -43,8 +43,8 @@
 | disabled | 是否禁用 | `boolean` | `false` |
 | barHeight | 轨道高度 | `string \| number` | `4` |
 | buttonSize | 滑块尺寸 | `string \| number` | `22` |
-| activeColor | 已选中颜色 | `string` | `--vl-primary` |
-| inactiveColor | 轨道颜色 | `string` | `--vl-background-3` |
+| activeColor | 已选中颜色 | `string` | `--x-primary` |
+| inactiveColor | 轨道颜色 | `string` | `--x-background-3` |
 
 ## Events
 

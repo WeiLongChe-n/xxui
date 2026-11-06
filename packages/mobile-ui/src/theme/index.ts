@@ -19,7 +19,7 @@ export interface InitThemeOptions {
   followSystem?: boolean
 }
 
-export const THEME_STORAGE_KEY = 'vela-ui-theme'
+export const THEME_STORAGE_KEY = 'xxui-theme'
 
 /** 内置品牌配色 */
 export const brandOptions = [
@@ -79,7 +79,7 @@ const syncSystem = () => {
 
 /**
  * 初始化主题：读取本地存储 → 应用默认值。
- * 由 VelaUI 插件在 app.use() 时自动调用，一般无需手动执行。
+ * 由 XXUI 插件在 app.use() 时自动调用，一般无需手动执行。
  */
 export function initTheme(options: InitThemeOptions = {}) {
   if (!isBrowser) return

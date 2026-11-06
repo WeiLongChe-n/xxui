@@ -11,10 +11,10 @@
 ## 与路由配合
 
 ```vue
-<vl-tabbar v-model="active" @change="router.push(routes[active])">
-  <vl-tabbar-item name="home" icon="home" text="首页" />
-  <vl-tabbar-item name="user" icon="user" text="我的" />
-</vl-tabbar>
+<x-tabbar v-model="active" @change="router.push(routes[active])">
+  <x-tabbar-item name="home" icon="home" text="首页" />
+  <x-tabbar-item name="user" icon="user" text="我的" />
+</x-tabbar>
 ```
 
 `v-model` 绑定当前激活项的 `name`（未设置 `name` 时使用索引），`change` 事件在切换时触发一次。
@@ -22,8 +22,8 @@
 ## 角标
 
 ```vue
-<vl-tabbar-item icon="cart" text="购物车" :badge="3" />
-<vl-tabbar-item icon="comment" text="消息" dot />
+<x-tabbar-item icon="cart" text="购物车" :badge="3" />
+<x-tabbar-item icon="comment" text="消息" dot />
 ```
 
 ## 固定与安全区
@@ -40,8 +40,8 @@
 | fixed | 是否固定底部 | `boolean` | `true` |
 | placeholder | 固定时是否生成占位 | `boolean` | `false` |
 | border | 是否显示上边框 | `boolean` | `true` |
-| activeColor | 选中颜色 | `string` | `--vl-primary` |
-| inactiveColor | 未选中颜色 | `string` | `--vl-text-color-3` |
+| activeColor | 选中颜色 | `string` | `--x-primary` |
+| inactiveColor | 未选中颜色 | `string` | `--x-text-color-3` |
 | safeAreaInsetBottom | 适配底部安全区 | `boolean` | `true` |
 | zIndex | 层级 | `number` | `100` |
 

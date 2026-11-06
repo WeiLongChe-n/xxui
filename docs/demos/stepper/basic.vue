@@ -1,49 +1,49 @@
 <template>
   <div class="demo-col">
-    <vl-cell-group inset title="基础用法">
-      <vl-cell title="数量" :label="`当前值：${value1}`">
+    <x-cell-group inset title="基础用法">
+      <x-cell title="数量" :label="`当前值：${value1}`">
         <template #value>
-          <vl-stepper v-model="value1" :min="0" :max="10" />
+          <x-stepper v-model="value1" :min="0" :max="10" />
         </template>
-      </vl-cell>
-      <vl-cell title="小数步长 0.5">
+      </x-cell>
+      <x-cell title="小数步长 0.5">
         <template #value>
-          <vl-stepper v-model="value2" :min="0" :max="10" :step="0.5" :decimal-length="1" />
+          <x-stepper v-model="value2" :min="0" :max="10" :step="0.5" :decimal-length="1" />
         </template>
-      </vl-cell>
-      <vl-cell title="限制输入">
+      </x-cell>
+      <x-cell title="限制输入">
         <template #value>
-          <vl-stepper v-model="value3" :min="1" :max="99" integer disable-input />
+          <x-stepper v-model="value3" :min="1" :max="99" integer disable-input />
         </template>
-      </vl-cell>
-    </vl-cell-group>
+      </x-cell>
+    </x-cell-group>
 
-    <vl-cell-group inset title="状态与尺寸">
-      <vl-cell title="禁用">
+    <x-cell-group inset title="状态与尺寸">
+      <x-cell title="禁用">
         <template #value>
-          <vl-stepper v-model="value4" disabled />
+          <x-stepper v-model="value4" disabled />
         </template>
-      </vl-cell>
-      <vl-cell title="大尺寸">
+      </x-cell>
+      <x-cell title="大尺寸">
         <template #value>
-          <vl-stepper v-model="value5" :button-size="34" input-width="44" />
+          <x-stepper v-model="value5" :button-size="34" input-width="44" />
         </template>
-      </vl-cell>
-    </vl-cell-group>
+      </x-cell>
+    </x-cell-group>
 
-    <vl-cell-group inset title="拦截变更">
-      <vl-cell title="不能少于 3" :label="'beforeChange 可拦截非法值'">
+    <x-cell-group inset title="拦截变更">
+      <x-cell title="不能少于 3" :label="'beforeChange 可拦截非法值'">
         <template #value>
-          <vl-stepper v-model="value6" :min="0" :before-change="beforeChange" />
+          <x-stepper v-model="value6" :min="0" :before-change="beforeChange" />
         </template>
-      </vl-cell>
-    </vl-cell-group>
+      </x-cell>
+    </x-cell-group>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Toast } from '@vela/mobile'
+import { Toast } from '@xxui/mobile'
 
 const value1 = ref(1)
 const value2 = ref(1.5)

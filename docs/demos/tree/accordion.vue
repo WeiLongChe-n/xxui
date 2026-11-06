@@ -1,6 +1,6 @@
 <template>
   <div class="demo-tree">
-    <vl-tree
+    <x-tree
       v-model:selected="selected"
       v-model:expanded-keys="expanded"
       :data="data"
@@ -13,7 +13,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { TreeNode, TreeKey } from '@vela/mobile'
+import type { TreeNode, TreeKey } from '@xxui/mobile'
 
 const selected = ref<TreeKey | null>('suzhou')
 const expanded = ref<TreeKey[]>(['jiangsu'])
@@ -66,6 +66,6 @@ const data: TreeNode[] = [
   padding: 0 12px;
   font-size: 12px;
   line-height: 1.6;
-  color: var(--vl-text-color-2);
+  color: var(--x-text-color-2);
 }
 </style>

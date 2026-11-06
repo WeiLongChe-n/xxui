@@ -7,7 +7,7 @@ const panels = [
 
 <template>
   <div class="local-theme">
-    <vl-config-provider
+    <x-config-provider
       v-for="panel in panels"
       :key="panel.title"
       :theme="panel.theme"
@@ -15,16 +15,16 @@ const panels = [
       class="local-theme__panel"
     >
       <p class="local-theme__title">{{ panel.title }}</p>
-      <vl-cell-group inset>
-        <vl-cell title="订单编号" value="VL20261105" />
-        <vl-cell title="配送方式" value="顺丰速运" is-link />
-      </vl-cell-group>
+      <x-cell-group inset>
+        <x-cell title="订单编号" value="VL20261105" />
+        <x-cell title="配送方式" value="顺丰速运" is-link />
+      </x-cell-group>
       <div class="local-theme__actions">
-        <vl-button type="primary" size="small">确认收货</vl-button>
-        <vl-button size="small">查看物流</vl-button>
+        <x-button type="primary" size="small">确认收货</x-button>
+        <x-button size="small">查看物流</x-button>
       </div>
-      <vl-notice-bar mode="none" text="局部主题只影响该容器内部的组件" />
-    </vl-config-provider>
+      <x-notice-bar mode="none" text="局部主题只影响该容器内部的组件" />
+    </x-config-provider>
   </div>
 </template>
 
@@ -38,7 +38,7 @@ const panels = [
 .local-theme__panel {
   padding: 12px 0 16px;
   overflow: hidden;
-  background: var(--vl-background);
+  background: var(--x-background);
   border-radius: 14px;
 }
 
@@ -46,7 +46,7 @@ const panels = [
   margin: 4px 16px 12px;
   font-size: 12px;
   font-weight: 600;
-  color: var(--vl-text-color-2);
+  color: var(--x-text-color-2);
 }
 
 .local-theme__actions {

@@ -1,61 +1,61 @@
 import type { App } from 'vue'
 import './styles/index.scss'
 
-import VlButton from './components/button/Button.vue'
-import VlIcon from './components/icon/Icon.vue'
-import VlCell from './components/cell/Cell.vue'
-import VlCellGroup from './components/cell/CellGroup.vue'
-import VlBadge from './components/badge/Badge.vue'
-import VlTag from './components/tag/Tag.vue'
-import VlDivider from './components/divider/Divider.vue'
-import VlConfigProvider from './components/config-provider/ConfigProvider.vue'
-import VlLoading from './components/loading/Loading.vue'
-import VlOverlay from './components/overlay/Overlay.vue'
-import VlPopup from './components/popup/Popup.vue'
-import VlToast from './components/toast/Toast.vue'
-import VlDialog from './components/dialog/Dialog.vue'
-import VlActionSheet from './components/action-sheet/ActionSheet.vue'
-import VlNavBar from './components/nav-bar/NavBar.vue'
-import VlTabbar from './components/tabbar/Tabbar.vue'
-import VlTabbarItem from './components/tabbar/TabbarItem.vue'
-import VlTabs from './components/tabs/Tabs.vue'
-import VlTab from './components/tabs/Tab.vue'
-import VlField from './components/field/Field.vue'
-import VlForm from './components/form/Form.vue'
-import VlFormItem from './components/form/FormItem.vue'
-import VlSwitch from './components/switch/Switch.vue'
-import VlCheckbox from './components/checkbox/Checkbox.vue'
-import VlCheckboxGroup from './components/checkbox/CheckboxGroup.vue'
-import VlRadio from './components/radio/Radio.vue'
-import VlRadioGroup from './components/radio/RadioGroup.vue'
-import VlStepper from './components/stepper/Stepper.vue'
-import VlSlider from './components/slider/Slider.vue'
-import VlRate from './components/rate/Rate.vue'
-import VlSearch from './components/search/Search.vue'
-import VlProgress from './components/progress/Progress.vue'
-import VlSkeleton from './components/skeleton/Skeleton.vue'
-import VlEmpty from './components/empty/Empty.vue'
-import VlNoticeBar from './components/notice-bar/NoticeBar.vue'
-import VlCollapse from './components/collapse/Collapse.vue'
-import VlCollapseItem from './components/collapse/CollapseItem.vue'
-import VlSteps from './components/steps/Steps.vue'
-import VlStep from './components/steps/Step.vue'
-import VlSticky from './components/sticky/Sticky.vue'
-import VlSwipe from './components/swipe/Swipe.vue'
-import VlSwipeItem from './components/swipe/SwipeItem.vue'
-import VlList from './components/list/List.vue'
-import VlPullRefresh from './components/pull-refresh/PullRefresh.vue'
-import VlGrid from './components/grid/Grid.vue'
-import VlGridItem from './components/grid/GridItem.vue'
-import VlRow from './components/row/Row.vue'
-import VlCol from './components/row/Col.vue'
-import VlTree from './components/tree/Tree.vue'
-import VlPicker from './components/picker/Picker.vue'
-import VlArea from './components/area/Area.vue'
-import VlCascader from './components/cascader/Cascader.vue'
-import VlDropdownMenu from './components/dropdown-menu/DropdownMenu.vue'
-import VlDropdownItem from './components/dropdown-menu/DropdownItem.vue'
-import VlImagePreview from './components/image-preview/ImagePreview.vue'
+import XButton from './components/button/Button.vue'
+import XIcon from './components/icon/Icon.vue'
+import XCell from './components/cell/Cell.vue'
+import XCellGroup from './components/cell/CellGroup.vue'
+import XBadge from './components/badge/Badge.vue'
+import XTag from './components/tag/Tag.vue'
+import XDivider from './components/divider/Divider.vue'
+import XConfigProvider from './components/config-provider/ConfigProvider.vue'
+import XLoading from './components/loading/Loading.vue'
+import XOverlay from './components/overlay/Overlay.vue'
+import XPopup from './components/popup/Popup.vue'
+import XToast from './components/toast/Toast.vue'
+import XDialog from './components/dialog/Dialog.vue'
+import XActionSheet from './components/action-sheet/ActionSheet.vue'
+import XNavBar from './components/nav-bar/NavBar.vue'
+import XTabbar from './components/tabbar/Tabbar.vue'
+import XTabbarItem from './components/tabbar/TabbarItem.vue'
+import XTabs from './components/tabs/Tabs.vue'
+import XTab from './components/tabs/Tab.vue'
+import XField from './components/field/Field.vue'
+import XForm from './components/form/Form.vue'
+import XFormItem from './components/form/FormItem.vue'
+import XSwitch from './components/switch/Switch.vue'
+import XCheckbox from './components/checkbox/Checkbox.vue'
+import XCheckboxGroup from './components/checkbox/CheckboxGroup.vue'
+import XRadio from './components/radio/Radio.vue'
+import XRadioGroup from './components/radio/RadioGroup.vue'
+import XStepper from './components/stepper/Stepper.vue'
+import XSlider from './components/slider/Slider.vue'
+import XRate from './components/rate/Rate.vue'
+import XSearch from './components/search/Search.vue'
+import XProgress from './components/progress/Progress.vue'
+import XSkeleton from './components/skeleton/Skeleton.vue'
+import XEmpty from './components/empty/Empty.vue'
+import XNoticeBar from './components/notice-bar/NoticeBar.vue'
+import XCollapse from './components/collapse/Collapse.vue'
+import XCollapseItem from './components/collapse/CollapseItem.vue'
+import XSteps from './components/steps/Steps.vue'
+import XStep from './components/steps/Step.vue'
+import XSticky from './components/sticky/Sticky.vue'
+import XSwipe from './components/swipe/Swipe.vue'
+import XSwipeItem from './components/swipe/SwipeItem.vue'
+import XList from './components/list/List.vue'
+import XPullRefresh from './components/pull-refresh/PullRefresh.vue'
+import XGrid from './components/grid/Grid.vue'
+import XGridItem from './components/grid/GridItem.vue'
+import XRow from './components/row/Row.vue'
+import XCol from './components/row/Col.vue'
+import XTree from './components/tree/Tree.vue'
+import XPicker from './components/picker/Picker.vue'
+import XArea from './components/area/Area.vue'
+import XCascader from './components/cascader/Cascader.vue'
+import XDropdownMenu from './components/dropdown-menu/DropdownMenu.vue'
+import XDropdownItem from './components/dropdown-menu/DropdownItem.vue'
+import XImagePreview from './components/image-preview/ImagePreview.vue'
 
 import { Toast } from './components/toast/toast'
 import { ImagePreview } from './components/image-preview/image-preview'
@@ -116,119 +116,119 @@ export { getAreaText } from './components/area/utils'
 export { ImagePreview }
 
 export const components = [
-  VlButton,
-  VlIcon,
-  VlCell,
-  VlCellGroup,
-  VlBadge,
-  VlTag,
-  VlDivider,
-  VlConfigProvider,
-  VlLoading,
-  VlOverlay,
-  VlPopup,
-  VlToast,
-  VlDialog,
-  VlActionSheet,
-  VlNavBar,
-  VlTabbar,
-  VlTabbarItem,
-  VlTabs,
-  VlTab,
-  VlField,
-  VlForm,
-  VlFormItem,
-  VlSwitch,
-  VlCheckbox,
-  VlCheckboxGroup,
-  VlRadio,
-  VlRadioGroup,
-  VlStepper,
-  VlSlider,
-  VlRate,
-  VlSearch,
-  VlProgress,
-  VlSkeleton,
-  VlEmpty,
-  VlNoticeBar,
-  VlCollapse,
-  VlCollapseItem,
-  VlSteps,
-  VlStep,
-  VlSticky,
-  VlSwipe,
-  VlSwipeItem,
-  VlList,
-  VlPullRefresh,
-  VlGrid,
-  VlGridItem,
-  VlRow,
-  VlCol,
-  VlTree,
-  VlPicker,
-  VlArea,
-  VlCascader,
-  VlDropdownMenu,
-  VlDropdownItem,
-  VlImagePreview,
+  XButton,
+  XIcon,
+  XCell,
+  XCellGroup,
+  XBadge,
+  XTag,
+  XDivider,
+  XConfigProvider,
+  XLoading,
+  XOverlay,
+  XPopup,
+  XToast,
+  XDialog,
+  XActionSheet,
+  XNavBar,
+  XTabbar,
+  XTabbarItem,
+  XTabs,
+  XTab,
+  XField,
+  XForm,
+  XFormItem,
+  XSwitch,
+  XCheckbox,
+  XCheckboxGroup,
+  XRadio,
+  XRadioGroup,
+  XStepper,
+  XSlider,
+  XRate,
+  XSearch,
+  XProgress,
+  XSkeleton,
+  XEmpty,
+  XNoticeBar,
+  XCollapse,
+  XCollapseItem,
+  XSteps,
+  XStep,
+  XSticky,
+  XSwipe,
+  XSwipeItem,
+  XList,
+  XPullRefresh,
+  XGrid,
+  XGridItem,
+  XRow,
+  XCol,
+  XTree,
+  XPicker,
+  XArea,
+  XCascader,
+  XDropdownMenu,
+  XDropdownItem,
+  XImagePreview,
 ]
 
 export {
-  VlButton,
-  VlIcon,
-  VlCell,
-  VlCellGroup,
-  VlBadge,
-  VlTag,
-  VlDivider,
-  VlConfigProvider,
-  VlLoading,
-  VlOverlay,
-  VlPopup,
-  VlToast,
-  VlDialog,
-  VlActionSheet,
-  VlNavBar,
-  VlTabbar,
-  VlTabbarItem,
-  VlTabs,
-  VlTab,
-  VlField,
-  VlForm,
-  VlFormItem,
-  VlSwitch,
-  VlCheckbox,
-  VlCheckboxGroup,
-  VlRadio,
-  VlRadioGroup,
-  VlStepper,
-  VlSlider,
-  VlRate,
-  VlSearch,
-  VlProgress,
-  VlSkeleton,
-  VlEmpty,
-  VlNoticeBar,
-  VlCollapse,
-  VlCollapseItem,
-  VlSteps,
-  VlStep,
-  VlSticky,
-  VlSwipe,
-  VlSwipeItem,
-  VlList,
-  VlPullRefresh,
-  VlGrid,
-  VlGridItem,
-  VlRow,
-  VlCol,
-  VlTree,
-  VlPicker,
-  VlArea,
-  VlCascader,
-  VlDropdownMenu,
-  VlDropdownItem,
-  VlImagePreview,
+  XButton,
+  XIcon,
+  XCell,
+  XCellGroup,
+  XBadge,
+  XTag,
+  XDivider,
+  XConfigProvider,
+  XLoading,
+  XOverlay,
+  XPopup,
+  XToast,
+  XDialog,
+  XActionSheet,
+  XNavBar,
+  XTabbar,
+  XTabbarItem,
+  XTabs,
+  XTab,
+  XField,
+  XForm,
+  XFormItem,
+  XSwitch,
+  XCheckbox,
+  XCheckboxGroup,
+  XRadio,
+  XRadioGroup,
+  XStepper,
+  XSlider,
+  XRate,
+  XSearch,
+  XProgress,
+  XSkeleton,
+  XEmpty,
+  XNoticeBar,
+  XCollapse,
+  XCollapseItem,
+  XSteps,
+  XStep,
+  XSticky,
+  XSwipe,
+  XSwipeItem,
+  XList,
+  XPullRefresh,
+  XGrid,
+  XGridItem,
+  XRow,
+  XCol,
+  XTree,
+  XPicker,
+  XArea,
+  XCascader,
+  XDropdownMenu,
+  XDropdownItem,
+  XImagePreview,
 }
 
 export const version = '0.3.0'
@@ -241,6 +241,6 @@ const install = (app: App, options: { theme?: ThemeMode; brand?: BrandName } = {
   initTheme({ defaultTheme: { mode: options.theme, brand: options.brand } })
 }
 
-export const VelaUI = { install, version }
+export const XXUI = { install, version }
 
-export default VelaUI
+export default XXUI

@@ -3,9 +3,9 @@ import { computed, inject, nextTick, ref, watch } from 'vue'
 import { addUnit, createNamespace } from '../../utils'
 import { FORM_ITEM_KEY } from '../form/context'
 import { FORM_KEY } from '../form/context'
-import VlIcon from '../icon/Icon.vue'
+import XIcon from '../icon/Icon.vue'
 
-defineOptions({ name: 'VlField' })
+defineOptions({ name: 'XField' })
 
 const props = withDefaults(
   defineProps<{
@@ -193,7 +193,7 @@ watch(
     <div :class="bem('body')">
       <div :class="bem('control')">
         <slot name="left-icon">
-          <VlIcon v-if="leftIcon" :name="leftIcon" :class="bem('left-icon')" />
+          <XIcon v-if="leftIcon" :name="leftIcon" :class="bem('left-icon')" />
         </slot>
         <textarea
           v-if="isTextarea"
@@ -228,7 +228,7 @@ watch(
           @blur="onBlur"
           @keyup.enter="emit('enter', $event)"
         />
-        <VlIcon
+        <XIcon
           v-if="showClear"
           name="clear"
           :class="bem('clear')"
@@ -238,7 +238,7 @@ watch(
           {{ rightText }}
         </span>
         <slot name="right-icon">
-          <VlIcon
+          <XIcon
             v-if="rightIcon"
             :name="rightIcon"
             :class="bem('right-icon')"
@@ -258,11 +258,11 @@ watch(
 <style lang="scss">
 @use '../../styles/mixins' as *;
 
-.vl-field {
+.x-field {
   display: flex;
   align-items: flex-start;
   padding: 12px 16px;
-  background: var(--vl-background-2);
+  background: var(--x-background-2);
 
   @include hairline(bottom);
 
@@ -277,14 +277,14 @@ watch(
   &__label {
     flex: none;
     padding-right: 12px;
-    font-size: var(--vl-cell-font-size);
+    font-size: var(--x-cell-font-size);
     line-height: 24px;
-    color: var(--vl-text-color);
+    color: var(--x-text-color);
   }
 
   &__required {
     margin-right: 2px;
-    color: var(--vl-danger);
+    color: var(--x-danger);
   }
 
   &__body {
@@ -303,22 +303,22 @@ watch(
     width: 100%;
     min-width: 0;
     padding: 0;
-    font-size: var(--vl-cell-font-size);
+    font-size: var(--x-cell-font-size);
     line-height: 24px;
-    color: var(--vl-text-color);
+    color: var(--x-text-color);
     background: transparent;
     border: 0;
     outline: none;
     appearance: none;
 
     &::placeholder {
-      color: var(--vl-text-color-4);
+      color: var(--x-text-color-4);
     }
 
     &:disabled {
-      color: var(--vl-text-color-3);
+      color: var(--x-text-color-3);
       cursor: not-allowed;
-      -webkit-text-fill-color: var(--vl-text-color-3);
+      -webkit-text-fill-color: var(--x-text-color-3);
     }
   }
 
@@ -332,7 +332,7 @@ watch(
   &__right-icon {
     flex: none;
     font-size: 18px;
-    color: var(--vl-text-color-3);
+    color: var(--x-text-color-3);
   }
 
   &__left-icon {
@@ -347,7 +347,7 @@ watch(
     flex: none;
     margin-left: 6px;
     font-size: 16px;
-    color: var(--vl-text-color-4);
+    color: var(--x-text-color-4);
     cursor: pointer;
   }
 
@@ -355,25 +355,25 @@ watch(
     flex: none;
     margin-left: 8px;
     font-size: 13px;
-    color: var(--vl-primary);
+    color: var(--x-primary);
     cursor: pointer;
   }
 
   &__word-limit {
     margin-top: 4px;
-    font-size: var(--vl-font-size-sm);
-    color: var(--vl-text-color-3);
+    font-size: var(--x-font-size-sm);
+    color: var(--x-text-color-3);
     text-align: right;
   }
 
   &__error-message {
     margin-top: 4px;
-    font-size: var(--vl-font-size-sm);
-    color: var(--vl-danger);
+    font-size: var(--x-font-size-sm);
+    color: var(--x-danger);
   }
 
   &--error &__input::placeholder {
-    color: var(--vl-danger);
+    color: var(--x-danger);
   }
 }
 </style>

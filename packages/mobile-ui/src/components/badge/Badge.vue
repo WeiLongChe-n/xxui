@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { createNamespace } from '../../utils'
 
-defineOptions({ name: 'VlBadge' })
+defineOptions({ name: 'XBadge' })
 
 const props = withDefaults(
   defineProps<{
@@ -53,16 +53,16 @@ const classes = computed(() => [
 </template>
 
 <style lang="scss">
-.vl-badge {
+.x-badge {
   display: inline-block;
   min-width: 16px;
   padding: 0 4px;
-  font-size: var(--vl-font-size-xs);
+  font-size: var(--x-font-size-xs);
   font-weight: 500;
   line-height: 16px;
   color: #fff;
   text-align: center;
-  background: var(--vl-danger);
+  background: var(--x-danger);
   border-radius: 999px;
   transform: translate(50%, -50%);
   transform-origin: 100% 0;
@@ -72,7 +72,7 @@ const classes = computed(() => [
     display: inline-flex;
     vertical-align: middle;
 
-    .vl-badge {
+    .x-badge {
       position: absolute;
       top: 0;
       right: 0;

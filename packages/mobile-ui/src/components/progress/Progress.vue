@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { addUnit, createNamespace } from '../../utils'
 
-defineOptions({ name: 'VlProgress' })
+defineOptions({ name: 'XProgress' })
 
 const props = withDefaults(
   defineProps<{
@@ -20,7 +20,7 @@ const props = withDefaults(
     pivotPosition?: 'inside' | 'outside'
     size?: 'normal' | 'small'
   }>(),
-  { percentage: 0, strokeWidth: 4, trackColor: 'var(--vl-background-3)', size: 'normal', pivotPosition: 'inside' },
+  { percentage: 0, strokeWidth: 4, trackColor: 'var(--x-background-3)', size: 'normal', pivotPosition: 'inside' },
 )
 
 const { bem } = createNamespace('progress')
@@ -51,7 +51,7 @@ const classes = computed(() => [
     >
       <div
         :class="bem('portion')"
-        :style="{ width: `${percent}%`, background: color || 'var(--vl-primary)', borderRadius: `calc(${height} / 2)` }"
+        :style="{ width: `${percent}%`, background: color || 'var(--x-primary)', borderRadius: `calc(${height} / 2)` }"
       >
         <span
           v-if="showPivot"
@@ -65,7 +65,7 @@ const classes = computed(() => [
 </template>
 
 <style lang="scss">
-.vl-progress {
+.x-progress {
   position: relative;
   width: 100%;
 
@@ -80,7 +80,7 @@ const classes = computed(() => [
     display: flex;
     align-items: center;
     height: 100%;
-    transition: width var(--vl-duration) var(--vl-ease);
+    transition: width var(--x-duration) var(--x-ease);
   }
 
   &__pivot {
@@ -89,7 +89,7 @@ const classes = computed(() => [
     right: 0;
     min-width: 24px;
     padding: 0 4px;
-    font-size: var(--vl-font-size-xs);
+    font-size: var(--x-font-size-xs);
     line-height: 16px;
     color: #fff;
     text-align: center;
@@ -99,7 +99,7 @@ const classes = computed(() => [
 
     &--outside {
       right: 0;
-      color: var(--vl-text-color-2);
+      color: var(--x-text-color-2);
       background: transparent;
       transform: translate(calc(100% + 6px), -50%);
     }
@@ -119,11 +119,11 @@ const classes = computed(() => [
   }
 
   &--animated &__portion {
-    animation: vl-progress-stripes 0.8s linear infinite;
+    animation: x-progress-stripes 0.8s linear infinite;
   }
 }
 
-@keyframes vl-progress-stripes {
+@keyframes x-progress-stripes {
   from {
     background-position: 0 0;
   }

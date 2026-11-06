@@ -13,8 +13,8 @@
 加 `standalone` 后不参与包裹定位，可直接放在文字或按钮旁。
 
 ```vue
-<vl-badge :content="5" standalone />
-<vl-badge dot standalone />
+<x-badge :content="5" standalone />
+<x-badge dot standalone />
 ```
 
 ## 包裹元素
@@ -22,9 +22,9 @@
 不加 `standalone` 时，徽标会定位在子元素的右上角。
 
 ```vue
-<vl-badge :content="3">
-  <vl-icon name="bell" :size="24" />
-</vl-badge>
+<x-badge :content="3">
+  <x-icon name="bell" :size="24" />
+</x-badge>
 ```
 
 ## API
@@ -34,7 +34,7 @@
 | content | 徽标内容 | `string \| number` | - |
 | dot | 是否只显示红点 | `boolean` | `false` |
 | max | 最大值，超出显示 `max+` | `number` | `99` |
-| color | 背景色 | `string` | `--vl-danger` |
+| color | 背景色 | `string` | `--x-danger` |
 | show-zero | 内容为 0 时是否显示 | `boolean` | `false` |
 | standalone | 是否独立展示 | `boolean` | `false` |
 

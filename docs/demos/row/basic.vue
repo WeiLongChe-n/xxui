@@ -1,23 +1,23 @@
 <template>
   <div class="layout-demo">
-    <vl-row>
-      <vl-col :span="24"><div class="box">span 24</div></vl-col>
-    </vl-row>
+    <x-row>
+      <x-col :span="24"><div class="box">span 24</div></x-col>
+    </x-row>
 
-    <vl-row>
-      <vl-col :span="12"><div class="box">12</div></vl-col>
-      <vl-col :span="12"><div class="box box--soft">12</div></vl-col>
-    </vl-row>
+    <x-row>
+      <x-col :span="12"><div class="box">12</div></x-col>
+      <x-col :span="12"><div class="box box--soft">12</div></x-col>
+    </x-row>
 
-    <vl-row>
-      <vl-col v-for="n in 3" :key="n" :span="8"><div class="box">8</div></vl-col>
-    </vl-row>
+    <x-row>
+      <x-col v-for="n in 3" :key="n" :span="8"><div class="box">8</div></x-col>
+    </x-row>
 
-    <vl-row>
-      <vl-col v-for="n in 4" :key="n" :span="6">
+    <x-row>
+      <x-col v-for="n in 4" :key="n" :span="6">
         <div :class="['box', { 'box--soft': n % 2 === 0 }]">6</div>
-      </vl-col>
-    </vl-row>
+      </x-col>
+    </x-row>
   </div>
 </template>
 
@@ -35,13 +35,13 @@
   justify-content: center;
   height: 40px;
   font-size: 12px;
-  color: var(--vl-primary);
-  background: var(--vl-primary-light);
+  color: var(--x-primary);
+  background: var(--x-primary-light);
   border-radius: 6px;
 }
 
 .box--soft {
-  color: var(--vl-text-color-2);
-  background: var(--vl-background-3);
+  color: var(--x-text-color-2);
+  background: var(--x-background-3);
 }
 </style>

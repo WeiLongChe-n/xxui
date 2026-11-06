@@ -4,7 +4,7 @@ import { createNamespace } from '../../utils'
 import { FORM_KEY, type FormItemInstance } from './context'
 import type { FieldRule } from './types'
 
-defineOptions({ name: 'VlForm' })
+defineOptions({ name: 'XForm' })
 
 const props = withDefaults(
   defineProps<{
@@ -78,7 +78,7 @@ provide(FORM_KEY, {
 const scrollToError = () => {
   if (!props.scrollToError || typeof document === 'undefined') return
   requestAnimationFrame(() => {
-    const el = document.querySelector('.vl-field--error')
+    const el = document.querySelector('.x-field--error')
     el?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   })
 }
@@ -124,7 +124,7 @@ const onSubmit = (event: Event) => {
 </template>
 
 <style lang="scss">
-.vl-form {
+.x-form {
   &--disabled {
     opacity: 0.6;
   }

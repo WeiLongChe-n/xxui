@@ -1,9 +1,9 @@
 <template>
   <div class="picker-demo">
-    <vl-button type="primary" block @click="show = true">选择城市</vl-button>
+    <x-button type="primary" block @click="show = true">选择城市</x-button>
     <p class="picker-demo__value">当前：{{ currentText }}</p>
 
-    <vl-picker
+    <x-picker
       v-model:show="show"
       v-model="value"
       :columns="columns"
@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { PickerConfirmPayload, PickerValue } from '@vela/mobile'
+import type { PickerConfirmPayload, PickerValue } from '@xxui/mobile'
 
 const show = ref(false)
 const value = ref<PickerValue[]>(['hangzhou'])
@@ -49,7 +49,7 @@ const onConfirm = (payload: PickerConfirmPayload) => {
 .picker-demo__value {
   margin: 0;
   font-size: 12px;
-  color: var(--vl-text-color-2);
+  color: var(--x-text-color-2);
   text-align: center;
 }
 </style>

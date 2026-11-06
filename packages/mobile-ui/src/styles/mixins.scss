@@ -20,7 +20,7 @@
 }
 
 /* 1px 细线（高清屏 0.5px） */
-@mixin hairline($position: bottom, $color: var(--vl-border-color)) {
+@mixin hairline($position: bottom, $color: var(--x-border-color)) {
   position: relative;
 
   &::after {
@@ -74,7 +74,7 @@
 }
 
 @mixin safe-area-bottom($extra: 0px) {
-  padding-bottom: calc(#{$extra} + var(--vl-safe-bottom));
+  padding-bottom: calc(#{$extra} + var(--x-safe-bottom));
 }
 
 @mixin disabled {

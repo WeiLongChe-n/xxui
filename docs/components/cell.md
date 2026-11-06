@@ -13,9 +13,9 @@
 `CellGroup` 默认贴合页面两侧，设置 `inset` 后变为卡片样式（圆角 + 左右留白），这是移动端最常见的用法。
 
 ```vue
-<vl-cell-group inset title="基础用法">
-  <vl-cell title="单元格" value="内容" />
-</vl-cell-group>
+<x-cell-group inset title="基础用法">
+  <x-cell title="单元格" value="内容" />
+</x-cell-group>
 ```
 
 ## 图标与必填
@@ -23,8 +23,8 @@
 `icon` 会在标题左侧渲染图标，`required` 会在标题前加红色星号，`size="large"` 会让标题字号升到 16px。
 
 ```vue
-<vl-cell title="我的订单" icon="cart" is-link />
-<vl-cell title="手机号" icon="phone" required value="138****8888" />
+<x-cell title="我的订单" icon="cart" is-link />
+<x-cell title="手机号" icon="phone" required value="138****8888" />
 ```
 
 ## 自定义内容
@@ -32,11 +32,11 @@
 `value` 插槽用于右侧内容（替代 `value` 属性），`extra` 插槽位于箭头左侧，适合放开关、标签等控件；`title` / `label` 插槽可替代对应属性。
 
 ```vue
-<vl-cell title="通知">
+<x-cell title="通知">
   <template #value>
-    <vl-switch v-model="enabled" />
+    <x-switch v-model="enabled" />
   </template>
-</vl-cell>
+</x-cell>
 ```
 
 ## 点击反馈
@@ -44,7 +44,7 @@
 `is-link` 会自动开启点击反馈并展示右箭头；如果不需要箭头但需要反馈，使用 `clickable`。
 
 ```vue
-<vl-cell title="可点击" clickable @click="onClick" />
+<x-cell title="可点击" clickable @click="onClick" />
 ```
 
 ## API

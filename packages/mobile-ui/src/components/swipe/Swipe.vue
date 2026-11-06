@@ -3,7 +3,7 @@ import { computed, onBeforeUnmount, onMounted, provide, ref, watch } from 'vue'
 import { addUnit, createNamespace, useTouch } from '../../utils'
 import { SWIPE_KEY } from './context'
 
-defineOptions({ name: 'VlSwipe' })
+defineOptions({ name: 'XSwipe' })
 
 const props = withDefaults(
   defineProps<{
@@ -171,7 +171,7 @@ defineExpose({ next, prev, swipeTo: (index: number) => setActive(index) })
 </template>
 
 <style lang="scss">
-.vl-swipe {
+.x-swipe {
   position: relative;
   width: 100%;
   overflow: hidden;
@@ -199,7 +199,7 @@ defineExpose({ next, prev, swipeTo: (index: number) => setActive(index) })
     height: 5px;
     opacity: 0.4;
     border-radius: 999px;
-    transition: width var(--vl-duration-fast), opacity var(--vl-duration-fast);
+    transition: width var(--x-duration-fast), opacity var(--x-duration-fast);
 
     &--active {
       width: 14px;

@@ -2,10 +2,10 @@
 import { computed, ref, watch } from 'vue'
 import { clamp, createNamespace, getOwnerWindow } from '../../utils'
 import { useTeleportTarget } from '../../utils/teleport'
-import VlIcon from '../icon/Icon.vue'
+import XIcon from '../icon/Icon.vue'
 import type { ImageSource } from './types'
 
-defineOptions({ name: 'VlImagePreview' })
+defineOptions({ name: 'XImagePreview' })
 
 const props = withDefaults(
   defineProps<{
@@ -107,7 +107,7 @@ const swipeTo = (target: number) => {
 
 const trackStyle = computed(() => ({
   transform: `translate3d(calc(-${index.value * 100}% + ${dragOffset.value}px), 0, 0)`,
-  transition: dragging.value ? 'none' : 'transform var(--vl-duration) var(--vl-ease)',
+  transition: dragging.value ? 'none' : 'transform var(--x-duration) var(--x-ease)',
 }))
 
 /* ---------------- 关闭 ---------------- */
@@ -120,7 +120,7 @@ const close = () => {
 
 <template>
   <Teleport :to="teleportTarget" :disabled="!teleportTarget">
-    <Transition name="vl-fade">
+    <Transition name="x-fade">
       <div v-if="show" ref="root" :class="bem()" @click.self="close">
         <div
           :class="bem('swipe')"
@@ -136,7 +136,7 @@ const close = () => {
         </div>
 
         <button v-if="closeable" type="button" :class="bem('close')" aria-label="关闭预览" @click="close">
-          <VlIcon name="close" />
+          <XIcon name="close" />
         </button>
 
         <div v-if="showIndex && urls.length > 1" :class="bem('index')">
@@ -148,7 +148,7 @@ const close = () => {
 </template>
 
 <style lang="scss">
-.vl-image-preview {
+.x-image-preview {
   position: fixed;
   inset: 0;
   z-index: 2500;

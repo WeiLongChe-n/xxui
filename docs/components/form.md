@@ -13,7 +13,7 @@
 规则既可以在 `Form` 的 `rules` 中按字段名统一配置，也可以在 `FormItem` 上用 `rules` 局部覆盖。
 
 ```ts
-import type { FieldRule } from '@vela/mobile'
+import type { FieldRule } from '@xxui/mobile'
 
 const rules: Record<string, FieldRule[]> = {
   username: [
@@ -64,7 +64,7 @@ const rules: Record<string, FieldRule[]> = {
 通过 ref 获取表单实例：
 
 ```vue
-<vl-form ref="formRef" :model="form" :rules="rules" />
+<x-form ref="formRef" :model="form" :rules="rules" />
 ```
 
 ```ts
@@ -79,7 +79,7 @@ formRef.value.clearValidate()       // 同上
 `label-width` 统一标签宽度，`label-align` 控制对齐，`star-position` 控制必填星号在左或在右。
 
 ```vue
-<vl-form :model="form" label-width="88" label-align="right" star-position="left" />
+<x-form :model="form" label-width="88" label-align="right" star-position="left" />
 ```
 
 ## 与控件配合
@@ -87,9 +87,9 @@ formRef.value.clearValidate()       // 同上
 `Field`、`Checkbox`、`Radio`、`Rate`、`Stepper` 等都可以放进 `FormItem`。非输入类控件同样可以校验，只要 `name` 对应的 model 值存在：
 
 ```vue
-<vl-form-item name="agree" :rules="[{ validator: (v) => v === true || '请先同意协议' }]">
-  <vl-checkbox v-model="form.agree">我已阅读并同意</vl-checkbox>
-</vl-form-item>
+<x-form-item name="agree" :rules="[{ validator: (v) => v === true || '请先同意协议' }]">
+  <x-checkbox v-model="form.agree">我已阅读并同意</x-checkbox>
+</x-form-item>
 ```
 
 ## API

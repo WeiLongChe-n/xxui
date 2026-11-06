@@ -28,8 +28,8 @@ const info = await page.evaluate(() => {
     demo: pick('.demo-block'),
     header: pick('.demo-block__header'),
     demoBody: pick('.demo-block__body'),
-    cell: pick('.vl-cell'),
-    cellTitle: (() => { const el = document.querySelector('.vl-cell__title'); return el ? getComputedStyle(el).color : null })(),
+    cell: pick('.x-cell'),
+    cellTitle: (() => { const el = document.querySelector('.x-cell__title'); return el ? getComputedStyle(el).color : null })(),
   }
 })
 console.log(JSON.stringify(info, null, 2))

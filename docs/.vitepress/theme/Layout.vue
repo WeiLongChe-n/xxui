@@ -18,7 +18,7 @@ onMounted(initStageViewport)
 
     <!-- 右侧固定预览盒：整页交互都在这一个沙箱里 -->
     <template #doc-top>
-      <DemoStage class="vl-stage-aside" />
+      <DemoStage class="x-stage-aside" />
     </template>
   </Layout>
 </template>

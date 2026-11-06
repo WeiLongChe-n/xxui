@@ -1,6 +1,6 @@
 <template>
   <div class="cascader-demo">
-    <vl-cascader
+    <x-cascader
       v-model="value"
       :options="options"
       title="选择地区（可多选）"
@@ -13,8 +13,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Toast, areaData } from '@vela/mobile'
-import type { PickerValue } from '@vela/mobile'
+import { Toast, areaData } from '@xxui/mobile'
+import type { PickerValue } from '@xxui/mobile'
 
 const options = areaData
 const value = ref<PickerValue[][]>([['330000', '330100', '330106']])
@@ -34,6 +34,6 @@ const onFinish = (val: PickerValue[] | PickerValue[][]) => {
 .cascader-demo__value {
   margin: 8px 0 0;
   font-size: 12px;
-  color: var(--vl-text-color-2);
+  color: var(--x-text-color-2);
 }
 </style>

@@ -2,9 +2,9 @@
 import { computed, inject } from 'vue'
 import { addUnit, createNamespace } from '../../utils'
 import { CHECKBOX_GROUP_KEY, type CheckboxValue } from './context'
-import VlIcon from '../icon/Icon.vue'
+import XIcon from '../icon/Icon.vue'
 
-defineOptions({ name: 'VlCheckbox' })
+defineOptions({ name: 'XCheckbox' })
 
 const props = withDefaults(
   defineProps<{
@@ -46,8 +46,8 @@ const classes = computed(() => [
 ])
 
 const iconStyle = computed(() => ({
-  backgroundColor: checked.value ? props.checkedColor || 'var(--vl-primary)' : '',
-  borderColor: checked.value ? props.checkedColor || 'var(--vl-primary)' : '',
+  backgroundColor: checked.value ? props.checkedColor || 'var(--x-primary)' : '',
+  borderColor: checked.value ? props.checkedColor || 'var(--x-primary)' : '',
   fontSize: addUnit(props.iconSize),
 }))
 
@@ -70,7 +70,7 @@ const onLabelClick = (event: MouseEvent) => {
 <template>
   <div :class="classes" role="checkbox" :aria-checked="checked" @click="toggle">
     <div :class="bem('icon')" :style="iconStyle">
-      <VlIcon v-if="checked" name="check" />
+      <XIcon v-if="checked" name="check" />
     </div>
     <span v-if="$slots.default" :class="bem('label')" @click="onLabelClick">
       <slot />
@@ -79,7 +79,7 @@ const onLabelClick = (event: MouseEvent) => {
 </template>
 
 <style lang="scss">
-.vl-checkbox {
+.x-checkbox {
   display: inline-flex;
   align-items: center;
   vertical-align: middle;
@@ -94,12 +94,12 @@ const onLabelClick = (event: MouseEvent) => {
     height: 20px;
     font-size: 14px;
     color: #fff;
-    background: var(--vl-background-2);
-    border: 1px solid var(--vl-border-color);
+    background: var(--x-background-2);
+    border: 1px solid var(--x-border-color);
     border-radius: 4px;
-    transition: background-color var(--vl-duration-fast), border-color var(--vl-duration-fast);
+    transition: background-color var(--x-duration-fast), border-color var(--x-duration-fast);
 
-    .vl-icon {
+    .x-icon {
       transform: scale(0.9);
     }
   }
@@ -110,8 +110,8 @@ const onLabelClick = (event: MouseEvent) => {
 
   &__label {
     margin-left: 8px;
-    font-size: var(--vl-cell-font-size);
-    color: var(--vl-text-color);
+    font-size: var(--x-cell-font-size);
+    color: var(--x-text-color);
   }
 
   &--disabled {

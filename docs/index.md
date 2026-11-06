@@ -2,9 +2,9 @@
 layout: home
 
 hero:
-  name: Vela UI
+  name: XXUI
   text: 移动端组件库
-  tagline: 面向 Vue 3 + TypeScript 的轻量组件库。49 个开箱即用的组件，内置 6 套品牌配色与暗色模式，一行代码完成主题切换。
+  tagline: 面向 Vue 3 + TypeScript 的轻量组件库。55 个开箱即用的组件，内置 6 套品牌配色与暗色模式，一行代码完成主题切换。
   actions:
     - theme: brand
       text: 快速上手
@@ -18,7 +18,7 @@ hero:
 
 features:
   - title: 主题即变量
-    details: 全部样式基于 CSS 变量与色相令牌（--vl-hue）构建，换肤只需切换一个 data-brand，无需重新编译。
+    details: 全部样式基于 CSS 变量与色相令牌（--x-hue）构建，换肤只需切换一个 data-brand，无需重新编译。
   - title: 多套主题动态切换
     details: 内置 6 套品牌配色与明暗双模式，提供 useTheme / setTheme / setBrand 等运行时 API，支持持久化与跟随系统。
   - title: TypeScript 友好
@@ -51,34 +51,34 @@ features:
   <h2>三十秒上手</h2>
 
 ```bash
-npm i @vela/mobile
+npm i @xxui/mobile
 ```
 
 ```ts
 import { createApp } from 'vue'
-import VelaUI from '@vela/mobile'
-import '@vela/mobile/style.css'
+import XXUI from '@xxui/mobile'
+import '@xxui/mobile/style.css'
 import App from './App.vue'
 
-createApp(App).use(VelaUI).mount('#app')
+createApp(App).use(XXUI).mount('#app')
 ```
 
 ```vue
 <template>
-  <vl-button type="primary" block @click="Toast.success('保存成功')">
+  <x-button type="primary" block @click="Toast.success('保存成功')">
     主要按钮
-  </vl-button>
+  </x-button>
 </template>
 
 <script setup lang="ts">
-import { Toast } from '@vela/mobile'
+import { Toast } from '@xxui/mobile'
 </script>
 ```
 
   <h2>主题切换，只需一行</h2>
 
 ```ts
-import { setTheme, useTheme } from '@vela/mobile'
+import { setTheme, useTheme } from '@xxui/mobile'
 
 // 方式一：直接切换
 setTheme({ mode: 'dark', brand: 'ocean' })
@@ -88,7 +88,7 @@ const { mode, brand, setMode, setBrand, isDark } = useTheme()
 ```
 
   <p class="home-note">
-    Vela UI 的主题由「明暗模式 + 品牌配色」两个维度组成，任意组合共 12 种预设，也可以通过覆盖 CSS 变量完全自定义。
+    XXUI 的主题由「明暗模式 + 品牌配色」两个维度组成，任意组合共 12 种预设，也可以通过覆盖 CSS 变量完全自定义。
   </p>
 </div>
 

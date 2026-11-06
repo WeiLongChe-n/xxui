@@ -13,17 +13,17 @@ html {
 
 body {
   margin: 0;
-  font-family: var(--vl-font-family);
-  font-size: var(--vl-font-size);
+  font-family: var(--x-font-family);
+  font-size: var(--x-font-size);
   line-height: 1.5;
-  color: var(--vl-text-color);
-  background: var(--vl-background);
+  color: var(--x-text-color);
+  background: var(--x-background);
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
 }
 
 a {
-  color: var(--vl-primary);
+  color: var(--x-primary);
   text-decoration: none;
 }
 
@@ -36,7 +36,7 @@ textarea {
   font-family: inherit;
 }
 
-.vl-hairline-bottom {
+.x-hairline-bottom {
   position: relative;
 
   &::after {
@@ -46,34 +46,34 @@ textarea {
     left: 0;
     height: 1px;
     content: '';
-    background: var(--vl-border-color);
+    background: var(--x-border-color);
     transform: scaleY(0.5);
     transform-origin: 0 100%;
   }
 }
 
-.vl-ellipsis {
+.x-ellipsis {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.vl-safe-bottom {
-  padding-bottom: var(--vl-safe-bottom);
+.x-safe-bottom {
+  padding-bottom: var(--x-safe-bottom);
 }
 
 /* ---------------------------------------------
  * 隐藏滚动条（保留滚动能力）
  * 移动端组件内部滚动容器统一不显示滚动条，避免占用横向空间
  * ------------------------------------------- */
-.vl-cascader__panels,
-.vl-cascader__panel,
-.vl-dropdown-item__panel,
-.vl-dropdown-item__options,
-.vl-popup,
-.vl-tabs__nav,
-.vl-image-preview__swipe,
-.vl-scrollbar-none {
+.x-cascader__panels,
+.x-cascader__panel,
+.x-dropdown-item__panel,
+.x-dropdown-item__options,
+.x-popup,
+.x-tabs__nav,
+.x-image-preview__swipe,
+.x-scrollbar-none {
   -ms-overflow-style: none;
   scrollbar-width: none;
 

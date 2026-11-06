@@ -1,20 +1,20 @@
 <template>
   <div class="demo-col">
     <div class="demo-row">
-      <vl-switch v-model="loading" />
+      <x-switch v-model="loading" />
       <span class="text">{{ loading ? '加载中' : '加载完成' }}</span>
     </div>
 
-    <vl-skeleton :loading="loading" :rows="3" animated>
-      <vl-cell-group inset>
-        <vl-cell title="标题" value="内容" label="骨架屏结束后展示真实内容" />
-        <vl-cell title="标题" value="内容" />
-      </vl-cell-group>
-    </vl-skeleton>
+    <x-skeleton :loading="loading" :rows="3" animated>
+      <x-cell-group inset>
+        <x-cell title="标题" value="内容" label="骨架屏结束后展示真实内容" />
+        <x-cell title="标题" value="内容" />
+      </x-cell-group>
+    </x-skeleton>
 
-    <vl-skeleton :loading="true" avatar :rows="2" animated />
+    <x-skeleton :loading="true" avatar :rows="2" animated />
 
-    <vl-skeleton :loading="true" avatar avatar-shape="square" :avatar-size="56" :rows="3" round />
+    <x-skeleton :loading="true" avatar avatar-shape="square" :avatar-size="56" :rows="3" round />
   </div>
 </template>
 
@@ -31,6 +31,6 @@ const loading = ref(true)
 
 .text {
   font-size: 12px;
-  color: var(--vl-text-color-3);
+  color: var(--x-text-color-3);
 }
 </style>

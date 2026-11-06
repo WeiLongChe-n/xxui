@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { createNamespace } from '../../utils'
 
-defineOptions({ name: 'VlDivider' })
+defineOptions({ name: 'XDivider' })
 
 const props = withDefaults(
   defineProps<{
@@ -43,19 +43,19 @@ const style = computed(() => ({
 </template>
 
 <style lang="scss">
-.vl-divider {
+.x-divider {
   display: flex;
   align-items: center;
   margin: 16px 0;
-  font-size: var(--vl-font-size-sm);
-  color: var(--vl-text-color-3);
-  border-color: var(--vl-border-color);
+  font-size: var(--x-font-size-sm);
+  color: var(--x-text-color-3);
+  border-color: var(--x-border-color);
 
   &::before,
   &::after {
     flex: 1;
     height: 1px;
-    background: var(--vl-border-color);
+    background: var(--x-border-color);
     content: '';
   }
 
@@ -67,7 +67,7 @@ const style = computed(() => ({
   &--dashed::before,
   &--dashed::after {
     background: none;
-    border-top: 1px dashed var(--vl-border-color);
+    border-top: 1px dashed var(--x-border-color);
     transform: none;
   }
 

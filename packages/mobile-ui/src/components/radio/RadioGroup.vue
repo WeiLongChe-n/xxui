@@ -3,7 +3,7 @@ import { computed, provide } from 'vue'
 import { createNamespace } from '../../utils'
 import { RADIO_GROUP_KEY, type RadioValue } from '../checkbox/context'
 
-defineOptions({ name: 'VlRadioGroup' })
+defineOptions({ name: 'XRadioGroup' })
 
 const props = withDefaults(
   defineProps<{
@@ -40,7 +40,7 @@ provide(RADIO_GROUP_KEY, {
 </template>
 
 <style lang="scss">
-.vl-radio-group {
+.x-radio-group {
   display: flex;
   flex-wrap: wrap;
   gap: 12px 20px;

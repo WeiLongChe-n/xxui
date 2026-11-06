@@ -1,9 +1,9 @@
 {
-  "name": "vela-ui",
+  "name": "xxui",
   "version": "0.3.0",
   "private": true,
   "type": "module",
-  "description": "Vela UI - 轻量、可定制的移动端组件库",
+  "description": "XXUI - 轻量、可定制的移动端组件库",
   "scripts": {
     "dev": "vitepress dev docs --port 5173",
     "docs:build": "node scripts/build-docs.mjs",
@@ -11,7 +11,9 @@
     "docs:build:gitee": "node scripts/build-docs.mjs vela-ui",
     "deploy:gitee": "node scripts/deploy-gitee.mjs",
     "build": "vite build --config packages/mobile-ui/vite.config.ts",
-    "typecheck": "vue-tsc --noEmit -p packages/mobile-ui/tsconfig.json"
+    "typecheck": "vue-tsc --noEmit -p packages/mobile-ui/tsconfig.json",
+    "publish:npm": "node scripts/publish-npm.mjs",
+    "publish:npm:dry": "node scripts/publish-npm.mjs --dry-run --skip-check"
   },
   "dependencies": {
     "vue": "^3.5.13"

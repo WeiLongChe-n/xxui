@@ -11,7 +11,7 @@
 </DemoBlock>
 
 ```vue
-<vl-area v-model:show="show" v-model="codes" title="选择地区" @confirm="onConfirm" />
+<x-area v-model:show="show" v-model="codes" title="选择地区" @confirm="onConfirm" />
 ```
 
 ## 回显已选地区
@@ -19,7 +19,7 @@
 `getAreaText(codes, areaData)` 可以把代码数组转成可读文本，适合在单元格或表单中回显。
 
 ```ts
-import { areaData, getAreaText } from '@vela/mobile'
+import { areaData, getAreaText } from '@xxui/mobile'
 
 const text = getAreaText(['330000', '330100', '330106'], areaData)
 // → 浙江省 杭州市 西湖区
@@ -30,7 +30,7 @@ const text = getAreaText(['330000', '330100', '330106'], areaData)
 如果只需要部分城市，或者数据来自后端，可以通过 `data` 传入同样结构的树：
 
 ```vue
-<vl-area :data="myRegionTree" v-model="codes" />
+<x-area :data="myRegionTree" v-model="codes" />
 ```
 
 ```ts
@@ -49,7 +49,7 @@ interface AreaOption {
 | 数据来源 | china-area-data v5（国家统计局行政区划） |
 | 覆盖范围 | 34 个省级行政区 / 3806 个节点 |
 | 体积 | 约 137 KB，gzip 后约 20 KB |
-| 按需使用 | 通过 `import { areaData } from '@vela/mobile'` 引用，未使用时会被 tree-shaking 移除 |
+| 按需使用 | 通过 `import { areaData } from '@xxui/mobile'` 引用，未使用时会被 tree-shaking 移除 |
 
 ## API
 

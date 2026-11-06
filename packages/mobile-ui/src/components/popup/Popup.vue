@@ -2,10 +2,10 @@
 import { computed, ref, watch } from 'vue'
 import { addUnit, createNamespace, nextZIndex, useLockScroll } from '../../utils'
 import { useTeleportTarget } from '../../utils/teleport'
-import VlOverlay from '../overlay/Overlay.vue'
-import VlIcon from '../icon/Icon.vue'
+import XOverlay from '../overlay/Overlay.vue'
+import XIcon from '../icon/Icon.vue'
 
-defineOptions({ name: 'VlPopup' })
+defineOptions({ name: 'XPopup' })
 
 const props = withDefaults(
   defineProps<{
@@ -61,7 +61,7 @@ const teleportTarget = useTeleportTarget(props.teleport)
 
 const localZIndex = ref(props.zIndex || nextZIndex())
 const durationStyle = computed(() =>
-  props.duration !== undefined ? { '--vl-duration': addUnit(props.duration, 's') } : undefined,
+  props.duration !== undefined ? { '--x-duration': addUnit(props.duration, 's') } : undefined,
 )
 
 watch(
@@ -92,8 +92,8 @@ const classes = computed(() => [
 
 const transitionName = computed(() => {
   if (props.transition) return props.transition
-  if (props.position === 'center') return 'vl-zoom'
-  return `vl-slide-${props.position}`
+  if (props.position === 'center') return 'x-zoom'
+  return `x-slide-${props.position}`
 })
 
 const style = computed(() => ({
@@ -120,7 +120,7 @@ const onClickClose = async (event: MouseEvent) => {
 
 <template>
   <Teleport :to="teleportTarget" :disabled="!teleportTarget">
-    <VlOverlay
+    <XOverlay
       v-if="show && overlay"
       :z-index="style.zIndex"
       :overlay-class="overlayClass"
@@ -138,7 +138,7 @@ const onClickClose = async (event: MouseEvent) => {
           :class="[bem('close-icon'), bem('close-icon', closeIconPosition)]"
           @click="onClickClose"
         >
-          <VlIcon :name="closeIcon" />
+          <XIcon :name="closeIcon" />
         </span>
         <slot />
       </div>
@@ -149,11 +149,11 @@ const onClickClose = async (event: MouseEvent) => {
 <style lang="scss">
 @use '../../styles/mixins' as *;
 
-.vl-popup {
+.x-popup {
   position: fixed;
   max-width: 100%;
   max-height: 100%;
-  background: var(--vl-background-2);
+  background: var(--x-background-2);
   overflow-y: auto;
   overscroll-behavior: contain;
 
@@ -161,7 +161,7 @@ const onClickClose = async (event: MouseEvent) => {
     top: 50%;
     left: 50%;
     overflow-y: visible;
-    border-radius: var(--vl-radius-lg);
+    border-radius: var(--x-radius-lg);
     transform: translate(-50%, -50%);
   }
 
@@ -191,20 +191,20 @@ const onClickClose = async (event: MouseEvent) => {
     height: 100%;
   }
 
-  &--round.vl-popup--bottom {
-    border-radius: var(--vl-radius-lg) var(--vl-radius-lg) 0 0;
+  &--round.x-popup--bottom {
+    border-radius: var(--x-radius-lg) var(--x-radius-lg) 0 0;
   }
 
-  &--round.vl-popup--top {
-    border-radius: 0 0 var(--vl-radius-lg) var(--vl-radius-lg);
+  &--round.x-popup--top {
+    border-radius: 0 0 var(--x-radius-lg) var(--x-radius-lg);
   }
 
-  &--round.vl-popup--left {
-    border-radius: 0 var(--vl-radius-lg) var(--vl-radius-lg) 0;
+  &--round.x-popup--left {
+    border-radius: 0 var(--x-radius-lg) var(--x-radius-lg) 0;
   }
 
-  &--round.vl-popup--right {
-    border-radius: var(--vl-radius-lg) 0 0 var(--vl-radius-lg);
+  &--round.x-popup--right {
+    border-radius: var(--x-radius-lg) 0 0 var(--x-radius-lg);
   }
 
   &--safe-bottom {
@@ -212,7 +212,7 @@ const onClickClose = async (event: MouseEvent) => {
   }
 
   &--safe-top {
-    padding-top: var(--vl-safe-top);
+    padding-top: var(--x-safe-top);
   }
 
   &__close-icon {
@@ -224,7 +224,7 @@ const onClickClose = async (event: MouseEvent) => {
     width: 32px;
     height: 32px;
     font-size: 18px;
-    color: var(--vl-text-color-3);
+    color: var(--x-text-color-3);
     cursor: pointer;
 
     &--top-left {

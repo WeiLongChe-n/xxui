@@ -21,7 +21,7 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms))
 
 const clickButtonByText = async (text) => {
   const clicked = await page.evaluate((label) => {
-    const buttons = [...document.querySelectorAll('button, .vl-button')]
+    const buttons = [...document.querySelectorAll('button, .x-button')]
     const target = buttons.find((el) => el.textContent?.trim().includes(label))
     if (target) {
       target.click()

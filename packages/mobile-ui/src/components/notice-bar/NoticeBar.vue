@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { createNamespace } from '../../utils'
-import VlIcon from '../icon/Icon.vue'
+import XIcon from '../icon/Icon.vue'
 
-defineOptions({ name: 'VlNoticeBar' })
+defineOptions({ name: 'XNoticeBar' })
 
 const props = withDefaults(
   defineProps<{
@@ -90,7 +90,7 @@ defineExpose({ replay })
     role="alert"
     @click="onClick"
   >
-    <VlIcon v-if="showIcon" :name="leftIcon" :class="bem('icon')" />
+    <XIcon v-if="showIcon" :name="leftIcon" :class="bem('icon')" />
     <div ref="wrapRef" :class="bem('wrap')">
       <div
         ref="contentRef"
@@ -101,25 +101,25 @@ defineExpose({ replay })
         <span v-if="shouldScroll" :class="bem('text')" aria-hidden="true">{{ text }}<slot /></span>
       </div>
     </div>
-    <VlIcon
+    <XIcon
       v-if="mode === 'closeable'"
       name="close"
       :class="bem('right-icon')"
       @click.stop="onClose"
     />
-    <VlIcon v-else-if="mode === 'link'" name="arrow-right" :class="bem('right-icon')" />
+    <XIcon v-else-if="mode === 'link'" name="arrow-right" :class="bem('right-icon')" />
   </div>
 </template>
 
 <style lang="scss">
-.vl-notice-bar {
+.x-notice-bar {
   display: flex;
   align-items: center;
   height: 40px;
   padding: 0 12px;
   overflow: hidden;
   font-size: 13px;
-  color: var(--vl-warning);
+  color: var(--x-warning);
   background: rgba(245, 158, 11, 0.12);
   border-radius: 0;
 
@@ -140,7 +140,7 @@ defineExpose({ replay })
     display: inline-flex;
 
     &--scrollable {
-      animation-name: vl-notice-scroll;
+      animation-name: x-notice-scroll;
       animation-timing-function: linear;
       animation-iteration-count: infinite;
     }
@@ -162,19 +162,19 @@ defineExpose({ replay })
     height: auto;
     padding: 8px 12px;
 
-    .vl-notice-bar__wrap {
+    .x-notice-bar__wrap {
       line-height: 20px;
       white-space: normal;
     }
 
-    .vl-notice-bar__content {
+    .x-notice-bar__content {
       display: block;
       animation: none;
     }
   }
 }
 
-@keyframes vl-notice-scroll {
+@keyframes x-notice-scroll {
   from {
     transform: translateX(0);
   }

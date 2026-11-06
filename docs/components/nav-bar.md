@@ -11,7 +11,7 @@
 ## 固定顶部
 
 ```vue
-<vl-nav-bar title="页面标题" fixed placeholder safe-area-inset-top />
+<x-nav-bar title="页面标题" fixed placeholder safe-area-inset-top />
 ```
 
 `fixed` 会脱离文档流，`placeholder` 会生成一个等高的占位元素避免内容被遮挡；`safe-area-inset-top` 在刘海屏上自动增加顶部内边距。
@@ -19,14 +19,14 @@
 ## 自定义两侧
 
 ```vue
-<vl-nav-bar title="标题">
+<x-nav-bar title="标题">
   <template #left>
-    <vl-icon name="arrow-left" />
+    <x-icon name="arrow-left" />
   </template>
   <template #right>
-    <vl-icon name="setting" />
+    <x-icon name="setting" />
   </template>
-</vl-nav-bar>
+</x-nav-bar>
 ```
 
 ## API

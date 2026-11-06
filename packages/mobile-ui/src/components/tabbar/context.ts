@@ -11,4 +11,4 @@ export interface TabbarContext {
   border: Ref<boolean>
 }
 
-export const TABBAR_KEY: InjectionKey<TabbarContext> = Symbol('vl-tabbar')
+export const TABBAR_KEY: InjectionKey<TabbarContext> = Symbol('x-tabbar')

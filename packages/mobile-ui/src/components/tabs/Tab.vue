@@ -3,7 +3,7 @@ import { computed, getCurrentInstance, inject, onBeforeUnmount, ref, watch } fro
 import { createNamespace } from '../../utils'
 import { TABS_KEY, type TabItem, type TabsKey } from './context'
 
-defineOptions({ name: 'VlTab' })
+defineOptions({ name: 'XTab' })
 
 const props = defineProps<{
   /** 标题，也可使用 #title 插槽 */
@@ -17,7 +17,7 @@ const props = defineProps<{
 
 const parent = inject(TABS_KEY, null)
 if (!parent) {
-  throw new Error('[Vela UI] <vl-tab> 必须放在 <vl-tabs> 内部使用')
+  throw new Error('[XXUI] <x-tab> 必须放在 <x-tabs> 内部使用')
 }
 
 const { bem } = createNamespace('tab')
@@ -79,7 +79,7 @@ watch(
 </template>
 
 <style lang="scss">
-.vl-tab {
+.x-tab {
   width: 100%;
 }
 </style>

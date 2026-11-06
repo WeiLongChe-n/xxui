@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { createNamespace } from '../../utils'
-import VlIcon from '../icon/Icon.vue'
+import XIcon from '../icon/Icon.vue'
 import type { PickerOption, PickerValue } from '../picker/types'
 
-defineOptions({ name: 'VlCascader' })
+defineOptions({ name: 'XCascader' })
 
 const props = withDefaults(
   defineProps<{
@@ -249,7 +249,7 @@ const checkedCount = computed(() => {
         aria-label="关闭"
         @click="emit('close')"
       >
-        <VlIcon name="close" />
+        <XIcon name="close" />
       </button>
     </div>
 
@@ -293,7 +293,7 @@ const checkedCount = computed(() => {
             role="checkbox"
             :aria-checked="isIndeterminate(nodeKeys(option, panel.prefixKeys)) ? 'mixed' : isChecked(nodeKeys(option, panel.prefixKeys))"
           >
-            <VlIcon v-if="isChecked(nodeKeys(option, panel.prefixKeys))" name="check" />
+            <XIcon v-if="isChecked(nodeKeys(option, panel.prefixKeys))" name="check" />
             <i v-else-if="isIndeterminate(nodeKeys(option, panel.prefixKeys))" :class="bem('checkbox-dash')" />
           </span>
 
@@ -304,7 +304,7 @@ const checkedCount = computed(() => {
             :class="bem('arrow')"
             @click.stop="onExpand(option, panel.prefixKeys)"
           >
-            <VlIcon name="arrow-right" />
+            <XIcon name="arrow-right" />
           </span>
         </div>
 
@@ -320,11 +320,11 @@ const checkedCount = computed(() => {
 </template>
 
 <style lang="scss">
-.vl-cascader {
+.x-cascader {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: var(--vl-background-2);
+  background: var(--x-background-2);
 
   &__header {
     position: relative;
@@ -332,14 +332,14 @@ const checkedCount = computed(() => {
     align-items: center;
     justify-content: center;
     height: 48px;
-    border-bottom: 1px solid var(--vl-border-color);
+    border-bottom: 1px solid var(--x-border-color);
   }
 
   &__title {
     margin: 0;
     font-size: 15px;
     font-weight: 600;
-    color: var(--vl-text-color);
+    color: var(--x-text-color);
   }
 
   &__close {
@@ -349,7 +349,7 @@ const checkedCount = computed(() => {
     display: flex;
     padding: 8px;
     font-size: 16px;
-    color: var(--vl-text-color-3);
+    color: var(--x-text-color-3);
     cursor: pointer;
     background: none;
     border: 0;
@@ -368,7 +368,7 @@ const checkedCount = computed(() => {
     flex: none;
     padding: 3px 8px;
     font-size: 12px;
-    color: var(--vl-text-color-3);
+    color: var(--x-text-color-3);
     cursor: pointer;
     background: none;
     border: 0;
@@ -376,8 +376,8 @@ const checkedCount = computed(() => {
 
     &--active {
       font-weight: 500;
-      color: var(--vl-primary);
-      background: var(--vl-primary-light);
+      color: var(--x-primary);
+      background: var(--x-primary-light);
     }
   }
 
@@ -394,7 +394,7 @@ const checkedCount = computed(() => {
     max-height: 300px;
     padding: 4px 0;
     overflow-y: auto;
-    border-right: 1px solid var(--vl-border-color);
+    border-right: 1px solid var(--x-border-color);
 
     &:last-child {
       border-right: 0;
@@ -408,21 +408,21 @@ const checkedCount = computed(() => {
     height: 44px;
     padding: 0 10px;
     font-size: 13px;
-    color: var(--vl-text-color);
+    color: var(--x-text-color);
     cursor: pointer;
 
     &:active {
-      background: var(--vl-active-color);
+      background: var(--x-active-color);
     }
 
     &--active {
       font-weight: 600;
-      color: var(--vl-primary);
-      background: var(--vl-primary-light);
+      color: var(--x-primary);
+      background: var(--x-primary-light);
     }
 
     &--disabled {
-      color: var(--vl-text-color-4);
+      color: var(--x-text-color-4);
       cursor: not-allowed;
     }
   }
@@ -439,7 +439,7 @@ const checkedCount = computed(() => {
     flex: none;
     align-items: center;
     font-size: 14px;
-    color: var(--vl-text-color-3);
+    color: var(--x-text-color-3);
   }
 
   &__checkbox {
@@ -451,14 +451,14 @@ const checkedCount = computed(() => {
     height: 18px;
     font-size: 12px;
     color: #fff;
-    background: var(--vl-background-2);
-    border: 1px solid var(--vl-border-color);
+    background: var(--x-background-2);
+    border: 1px solid var(--x-border-color);
     border-radius: 4px;
 
     &--checked,
     &--indeterminate {
-      background: var(--vl-primary);
-      border-color: var(--vl-primary);
+      background: var(--x-primary);
+      border-color: var(--x-primary);
     }
   }
 
@@ -472,7 +472,7 @@ const checkedCount = computed(() => {
   &__empty {
     padding: 32px 0;
     font-size: 12px;
-    color: var(--vl-text-color-3);
+    color: var(--x-text-color-3);
     text-align: center;
   }
 
@@ -481,12 +481,12 @@ const checkedCount = computed(() => {
     align-items: center;
     justify-content: space-between;
     padding: 10px 14px;
-    border-top: 1px solid var(--vl-border-color);
+    border-top: 1px solid var(--x-border-color);
   }
 
   &__count {
     font-size: 12px;
-    color: var(--vl-text-color-3);
+    color: var(--x-text-color-3);
   }
 
   &__confirm {
@@ -494,7 +494,7 @@ const checkedCount = computed(() => {
     font-size: 14px;
     color: #fff;
     cursor: pointer;
-    background: var(--vl-primary);
+    background: var(--x-primary);
     border: 0;
     border-radius: 999px;
   }

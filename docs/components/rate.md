@@ -13,13 +13,13 @@
 开启 `allow-half` 后，点击星星左半边会得到 `x.5` 分（鼠标悬停时会预览）。
 
 ```vue
-<vl-rate v-model="score" allow-half />
+<x-rate v-model="score" allow-half />
 ```
 
 ## 只读
 
 ```vue
-<vl-rate :model-value="4.5" readonly :size="16" />
+<x-rate :model-value="4.5" readonly :size="16" />
 ```
 
 只读模式不会响应点击与悬停，通常用于商品详情页展示。
@@ -27,7 +27,7 @@
 ## 自定义
 
 ```vue
-<vl-rate v-model="score" :count="6" :size="26" color="#ef4444" />
+<x-rate v-model="score" :count="6" :size="26" color="#ef4444" />
 ```
 
 `count` 为星星数量，`gutter` 为间距（px），`void-color` 为未选中的颜色。
@@ -41,7 +41,7 @@
 | size | 星星尺寸 | `string \| number` | `20` |
 | gutter | 星星间距 | `string \| number` | `4` |
 | color | 选中颜色 | `string` | `#f59e0b` |
-| voidColor | 未选中颜色 | `string` | `--vl-text-color-4` |
+| voidColor | 未选中颜色 | `string` | `--x-text-color-4` |
 | icon / voidIcon | 选中 / 未选中图标 | `string` | `star` |
 | allowHalf | 是否允许半星 | `boolean` | `false` |
 | disabled | 是否禁用 | `boolean` | `false` |

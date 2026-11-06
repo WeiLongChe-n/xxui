@@ -11,7 +11,7 @@
 </DemoBlock>
 
 ```vue
-<vl-cascader v-model="value" :options="options" title="选择地区" @finish="onFinish" />
+<x-cascader v-model="value" :options="options" title="选择地区" @finish="onFinish" />
 ```
 
 ## 多选
@@ -36,9 +36,9 @@
 - 需要弹层时，把它放进 [Popup](/components/popup) 即可。
 
 ```vue
-<vl-popup v-model:show="show" position="bottom" round>
-  <vl-cascader :options="options" multiple @finish="onFinish" />
-</vl-popup>
+<x-popup v-model:show="show" position="bottom" round>
+  <x-cascader :options="options" multiple @finish="onFinish" />
+</x-popup>
 ```
 
 ## API

@@ -1,6 +1,6 @@
 # Dialog 对话框
 
-对话框用于需要用户确认的关键操作。提供 `Dialog.confirm()` / `Dialog.alert()` 函数式调用，也可以使用 `<vl-dialog>` 组件嵌入复杂内容。
+对话框用于需要用户确认的关键操作。提供 `Dialog.confirm()` / `Dialog.alert()` 函数式调用，也可以使用 `<x-dialog>` 组件嵌入复杂内容。
 
 ## 基础用法
 
@@ -11,7 +11,7 @@
 ## 确认与提示
 
 ```ts
-import { Dialog } from '@vela/mobile'
+import { Dialog } from '@xxui/mobile'
 
 const confirmed = await Dialog.confirm({
   title: '确认删除',
@@ -54,9 +54,9 @@ Dialog.confirm({ title: '开通会员', message: '首月 ¥9.9', theme: 'round-b
 需要自定义内容（表单、列表、富文本）时使用组件：
 
 ```vue
-<vl-dialog v-model:show="visible" title="标题" show-cancel-button @confirm="onConfirm">
-  <vl-field v-model="reason" placeholder="请输入原因" />
-</vl-dialog>
+<x-dialog v-model:show="visible" title="标题" show-cancel-button @confirm="onConfirm">
+  <x-field v-model="reason" placeholder="请输入原因" />
+</x-dialog>
 ```
 
 ## 全局默认值
@@ -79,8 +79,8 @@ Dialog.resetDefaultOptions()
 | showCancelButton | 是否显示取消按钮 | `boolean` | `false` |
 | confirmButtonText | 确认按钮文案 | `string` | `确认` |
 | cancelButtonText | 取消按钮文案 | `string` | `取消` |
-| confirmButtonColor | 确认按钮颜色 | `string` | `--vl-primary` |
-| cancelButtonColor | 取消按钮颜色 | `string` | `--vl-text-color-2` |
+| confirmButtonColor | 确认按钮颜色 | `string` | `--x-primary` |
+| cancelButtonColor | 取消按钮颜色 | `string` | `--x-text-color-2` |
 | confirmButtonDisabled | 禁用确认按钮 | `boolean` | `false` |
 | cancelButtonDisabled | 禁用取消按钮 | `boolean` | `false` |
 | closeOnClickOverlay | 点击遮罩是否关闭 | `boolean` | `false` |

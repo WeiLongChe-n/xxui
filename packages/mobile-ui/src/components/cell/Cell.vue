@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { addUnit, createNamespace } from '../../utils'
-import VlIcon from '../icon/Icon.vue'
+import XIcon from '../icon/Icon.vue'
 
-defineOptions({ name: 'VlCell' })
+defineOptions({ name: 'XCell' })
 
 const props = withDefaults(
   defineProps<{
@@ -51,7 +51,7 @@ const onClick = (event: MouseEvent) => emit('click', event)
   <div :class="classes" role="button" tabindex="0" @click="onClick">
     <div :class="bem('left')">
       <slot name="icon">
-        <VlIcon v-if="icon" :name="icon" :class="bem('icon')" />
+        <XIcon v-if="icon" :name="icon" :class="bem('icon')" />
       </slot>
       <div :class="bem('title')">
         <slot name="title">
@@ -68,7 +68,7 @@ const onClick = (event: MouseEvent) => emit('click', event)
         <span v-if="value !== undefined && value !== ''">{{ value }}</span>
       </slot>
       <slot name="extra" />
-      <VlIcon v-if="isLink" name="arrow-right" :class="bem('arrow')" />
+      <XIcon v-if="isLink" name="arrow-right" :class="bem('arrow')" />
     </div>
   </div>
 </template>
@@ -76,17 +76,17 @@ const onClick = (event: MouseEvent) => emit('click', event)
 <style lang="scss">
 @use '../../styles/mixins' as *;
 
-.vl-cell {
+.x-cell {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--vl-cell-padding);
+  padding: var(--x-cell-padding);
   overflow: hidden;
-  font-size: var(--vl-cell-font-size);
+  font-size: var(--x-cell-font-size);
   line-height: 24px;
-  color: var(--vl-text-color);
-  background: var(--vl-background-2);
+  color: var(--x-text-color);
+  background: var(--x-background-2);
 
   @include hairline(bottom);
 
@@ -102,7 +102,7 @@ const onClick = (event: MouseEvent) => emit('click', event)
     cursor: pointer;
 
     &:active {
-      background: var(--vl-active-color);
+      background: var(--x-active-color);
     }
   }
 
@@ -120,7 +120,7 @@ const onClick = (event: MouseEvent) => emit('click', event)
   &__icon {
     margin-right: 8px;
     font-size: 18px;
-    color: var(--vl-text-color-2);
+    color: var(--x-text-color-2);
   }
 
   &__title {
@@ -134,14 +134,14 @@ const onClick = (event: MouseEvent) => emit('click', event)
 
   &__required {
     margin-right: 2px;
-    color: var(--vl-danger);
+    color: var(--x-danger);
   }
 
   &__label {
     margin-top: 2px;
-    font-size: var(--vl-font-size-sm);
+    font-size: var(--x-font-size-sm);
     line-height: 18px;
-    color: var(--vl-text-color-3);
+    color: var(--x-text-color-3);
   }
 
   &__value {
@@ -151,7 +151,7 @@ const onClick = (event: MouseEvent) => emit('click', event)
     justify-content: flex-end;
     max-width: 62%;
     margin-left: 12px;
-    color: var(--vl-text-color-2);
+    color: var(--x-text-color-2);
     text-align: right;
 
     > * + * {
@@ -162,7 +162,7 @@ const onClick = (event: MouseEvent) => emit('click', event)
   &__arrow {
     margin-left: 4px;
     font-size: 16px;
-    color: var(--vl-text-color-4);
+    color: var(--x-text-color-4);
   }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="demo-tree">
-    <vl-tree v-model:checked="checked" :data="data" multiple default-expand-all />
+    <x-tree v-model:checked="checked" :data="data" multiple default-expand-all />
     <p class="demo-tree__tip">
       已选 {{ checked.length }} 项<template v-if="checkedLabels.length">
         ：{{ checkedLabels.join('、') }}</template
@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { TreeNode, TreeKey } from '@vela/mobile'
+import type { TreeNode, TreeKey } from '@xxui/mobile'
 
 const checked = ref<TreeKey[]>(['xihu'])
 
@@ -75,6 +75,6 @@ const checkedLabels = computed(() => {
   padding: 0 12px;
   font-size: 12px;
   line-height: 1.6;
-  color: var(--vl-text-color-2);
+  color: var(--x-text-color-2);
 }
 </style>

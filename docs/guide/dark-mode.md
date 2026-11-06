@@ -5,7 +5,7 @@
 ## 启用方式
 
 ```ts
-import { setMode, toggleMode } from '@vela/mobile'
+import { setMode, toggleMode } from '@xxui/mobile'
 
 setMode('dark')   // 固定深色
 setMode('light')  // 固定浅色
@@ -23,12 +23,12 @@ toggleMode()      // 在浅色 / 深色之间切换
 
 | 令牌 | 浅色 | 深色 | 策略 |
 | --- | --- | --- | --- |
-| `--vl-text-color` | `#1f2233` | `#e9ebf0` | 反相但略降对比，减少视觉疲劳 |
-| `--vl-background` | `#f7f8fa` | `#0f1115` | 不用纯黑，避免 OLED 拖影与边界丢失 |
-| `--vl-background-2` | `#ffffff` | `#191c22` | 卡片比页面略亮，形成层级 |
-| `--vl-border-color` | `#ebedf0` | `#2a2f39` | 用低对比描边替代阴影 |
-| `--vl-shadow-*` | 淡灰阴影 | 更深的黑色阴影 | 深色下阴影需要更重才有层次 |
-| `--vl-primary` | `hsl(h s 55%)` | `hsl(h s 64%)` | 提高亮度保证在深底上的可读性 |
+| `--x-text-color` | `#1f2233` | `#e9ebf0` | 反相但略降对比，减少视觉疲劳 |
+| `--x-background` | `#f7f8fa` | `#0f1115` | 不用纯黑，避免 OLED 拖影与边界丢失 |
+| `--x-background-2` | `#ffffff` | `#191c22` | 卡片比页面略亮，形成层级 |
+| `--x-border-color` | `#ebedf0` | `#2a2f39` | 用低对比描边替代阴影 |
+| `--x-shadow-*` | 淡灰阴影 | 更深的黑色阴影 | 深色下阴影需要更重才有层次 |
+| `--x-primary` | `hsl(h s 55%)` | `hsl(h s 64%)` | 提高亮度保证在深底上的可读性 |
 
 主色亮度会自动提升约 9%，因此同一套品牌配色在两种模式下都满足对比度要求。
 
@@ -36,7 +36,7 @@ toggleMode()      // 在浅色 / 深色之间切换
 
 ```ts
 import { watch } from 'vue'
-import { isDark, resolvedMode } from '@vela/mobile'
+import { isDark, resolvedMode } from '@xxui/mobile'
 
 watch(isDark, (dark) => {
   document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#0f1115' : '#ffffff')

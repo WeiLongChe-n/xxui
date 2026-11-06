@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { createNamespace } from '../../utils'
-import VlPopup from '../popup/Popup.vue'
+import XPopup from '../popup/Popup.vue'
 import type { DialogAction } from './types'
 
-defineOptions({ name: 'VlDialog' })
+defineOptions({ name: 'XDialog' })
 
 const props = withDefaults(
   defineProps<{
@@ -78,7 +78,7 @@ const onClickOverlay = async () => {
 </script>
 
 <template>
-  <VlPopup
+  <XPopup
     :show="show"
     position="center"
     round
@@ -118,33 +118,33 @@ const onClickOverlay = async () => {
         </button>
       </div>
     </div>
-  </VlPopup>
+  </XPopup>
 </template>
 
 <style lang="scss">
 @use '../../styles/mixins' as *;
 
-.vl-dialog {
+.x-dialog {
   width: 320px;
   max-width: 84vw;
   overflow: hidden;
   text-align: center;
-  background: var(--vl-background-2);
-  border-radius: var(--vl-radius-lg);
+  background: var(--x-background-2);
+  border-radius: var(--x-radius-lg);
 
   &__header {
     padding: 24px 20px 0;
     font-size: 17px;
     font-weight: 600;
     line-height: 24px;
-    color: var(--vl-text-color);
+    color: var(--x-text-color);
   }
 
   &__message {
     padding: 16px 24px 24px;
     font-size: 15px;
     line-height: 21px;
-    color: var(--vl-text-color-2);
+    color: var(--x-text-color-2);
   }
 
   &__header + &__message {
@@ -164,11 +164,11 @@ const onClickOverlay = async () => {
     height: 50px;
     font-size: 16px;
     font-weight: 500;
-    color: var(--vl-text-color-2);
+    color: var(--x-text-color-2);
     cursor: pointer;
 
     &:active {
-      background: var(--vl-active-color);
+      background: var(--x-active-color);
     }
 
     &:disabled {
@@ -180,7 +180,7 @@ const onClickOverlay = async () => {
     }
 
     &--confirm {
-      color: var(--vl-primary);
+      color: var(--x-primary);
       font-weight: 600;
     }
   }
@@ -189,7 +189,7 @@ const onClickOverlay = async () => {
   &--round-button {
     padding-bottom: 22px;
 
-    .vl-dialog__footer {
+    .x-dialog__footer {
       gap: 12px;
       padding: 0 20px;
       border: none;
@@ -199,10 +199,10 @@ const onClickOverlay = async () => {
       }
     }
 
-    .vl-dialog__btn {
+    .x-dialog__btn {
       height: 44px;
       font-size: 15px;
-      background: var(--vl-background-3);
+      background: var(--x-background-3);
       border-radius: 999px;
 
       & + & {
@@ -215,7 +215,7 @@ const onClickOverlay = async () => {
 
       &--confirm {
         color: #fff;
-        background: var(--vl-primary);
+        background: var(--x-primary);
       }
     }
   }

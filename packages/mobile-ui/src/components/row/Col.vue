@@ -2,7 +2,7 @@
 import { computed, type CSSProperties } from 'vue'
 import { addUnit, clamp, createNamespace } from '../../utils'
 
-defineOptions({ name: 'VlCol' })
+defineOptions({ name: 'XCol' })
 
 const props = withDefaults(
   defineProps<{
@@ -54,10 +54,10 @@ const classes = computed(() => [bem(), props.align ? bem('', `align-${props.alig
 </template>
 
 <style lang="scss">
-.vl-col {
+.x-col {
   box-sizing: border-box;
   min-width: 0;
-  padding: calc(var(--vl-row-gutter-y, 0px) / 2) calc(var(--vl-row-gutter-x, 0px) / 2);
+  padding: calc(var(--x-row-gutter-y, 0px) / 2) calc(var(--x-row-gutter-x, 0px) / 2);
 
   &--align-top {
     align-self: flex-start;

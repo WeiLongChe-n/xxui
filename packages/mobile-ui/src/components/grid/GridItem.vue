@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { inject, type ComputedRef } from 'vue'
 import { createNamespace } from '../../utils'
-import VlIcon from '../icon/Icon.vue'
-import VlBadge from '../badge/Badge.vue'
+import XIcon from '../icon/Icon.vue'
+import XBadge from '../badge/Badge.vue'
 
-defineOptions({ name: 'VlGridItem' })
+defineOptions({ name: 'XGridItem' })
 
 const props = defineProps<{
   text?: string
@@ -17,7 +17,7 @@ const emit = defineEmits<{ click: [event: MouseEvent] }>()
 
 const parent = inject<{
   clickable: ComputedRef<boolean>
-} | null>('vl-grid', null)
+} | null>('x-grid', null)
 
 const { bem } = createNamespace('grid-item')
 </script>
@@ -27,10 +27,10 @@ const { bem } = createNamespace('grid-item')
     :class="[bem(), { [bem('', 'clickable')]: parent?.clickable.value }]"
     @click="emit('click', $event)"
   >
-    <VlBadge v-if="badge !== undefined || dot" :content="badge" :dot="dot" :class="bem('icon-wrap')">
-      <VlIcon v-if="icon" :name="icon" :class="bem('icon')" />
-    </VlBadge>
-    <VlIcon v-else-if="icon" :name="icon" :class="bem('icon')" />
+    <XBadge v-if="badge !== undefined || dot" :content="badge" :dot="dot" :class="bem('icon-wrap')">
+      <XIcon v-if="icon" :name="icon" :class="bem('icon')" />
+    </XBadge>
+    <XIcon v-else-if="icon" :name="icon" :class="bem('icon')" />
     <span :class="bem('text')">
       <slot>{{ text }}</slot>
     </span>
@@ -38,30 +38,30 @@ const { bem } = createNamespace('grid-item')
 </template>
 
 <style lang="scss">
-.vl-grid-item {
+.x-grid-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 14px 4px;
-  background: var(--vl-background-2);
+  background: var(--x-background-2);
   cursor: pointer;
 
   &__icon {
     font-size: 24px;
-    color: var(--vl-text-color);
+    color: var(--x-text-color);
   }
 
   &__text {
     margin-top: 6px;
     font-size: 12px;
     line-height: 17px;
-    color: var(--vl-text-color-2);
+    color: var(--x-text-color-2);
     text-align: center;
   }
 
   &--clickable:active {
-    background: var(--vl-active-color);
+    background: var(--x-active-color);
   }
 }
 </style>

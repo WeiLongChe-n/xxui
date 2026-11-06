@@ -11,10 +11,10 @@
 ## 基本结构
 
 ```vue
-<vl-collapse v-model="active">
-  <vl-collapse-item name="1" title="标题一">内容一</vl-collapse-item>
-  <vl-collapse-item name="2" title="标题二">内容二</vl-collapse-item>
-</vl-collapse>
+<x-collapse v-model="active">
+  <x-collapse-item name="1" title="标题一">内容一</x-collapse-item>
+  <x-collapse-item name="2" title="标题二">内容二</x-collapse-item>
+</x-collapse>
 ```
 
 `v-model` 为展开项 `name` 的数组。
@@ -24,15 +24,15 @@
 开启 `accordion` 后 `v-model` 变为单个值（字符串或数字），再次点击当前项会收起。
 
 ```vue
-<vl-collapse v-model="active" accordion>
-  <vl-collapse-item name="a" title="标题 A">内容 A</vl-collapse-item>
-</vl-collapse>
+<x-collapse v-model="active" accordion>
+  <x-collapse-item name="a" title="标题 A">内容 A</x-collapse-item>
+</x-collapse>
 ```
 
 ## 右侧内容
 
 ```vue
-<vl-collapse-item name="a" title="订单管理" value="12 条" />
+<x-collapse-item name="a" title="订单管理" value="12 条" />
 ```
 
 ## API

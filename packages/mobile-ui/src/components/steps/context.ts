@@ -13,4 +13,4 @@ export interface StepsContext {
   total: ComputedRef<number>
 }
 
-export const STEPS_KEY: InjectionKey<StepsContext> = Symbol('vl-steps')
+export const STEPS_KEY: InjectionKey<StepsContext> = Symbol('x-steps')

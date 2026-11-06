@@ -11,9 +11,9 @@
 ## 基本结构
 
 ```vue
-<vl-pull-refresh v-model="loading" @refresh="onRefresh">
+<x-pull-refresh v-model="loading" @refresh="onRefresh">
   <div class="content">...</div>
-</vl-pull-refresh>
+</x-pull-refresh>
 ```
 
 `v-model` 绑定 loading 状态：组件内部在触发时会设为 `true`，请求结束后需要手动设为 `false`，组件会展示「刷新成功」并回弹。
@@ -30,7 +30,7 @@ const onRefresh = async () => {
 ## 文案与阈值
 
 ```vue
-<vl-pull-refresh
+<x-pull-refresh
   v-model="loading"
   pulling-text="下拉即可刷新"
   loosing-text="释放立即刷新"

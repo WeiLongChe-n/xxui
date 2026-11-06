@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { addUnit, createNamespace } from '../../utils'
 import { iconPaths } from './icons'
 
-defineOptions({ name: 'VlIcon' })
+defineOptions({ name: 'XIcon' })
 
 const props = defineProps<{
   /** 图标名称，见「图标」文档；也可传入图片 URL */
@@ -46,7 +46,7 @@ const style = computed(() => ({
 </template>
 
 <style lang="scss">
-.vl-icon {
+.x-icon {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -73,7 +73,7 @@ const style = computed(() => ({
   }
 
   &--spin {
-    animation: vl-icon-spin 0.9s linear infinite;
+    animation: x-icon-spin 0.9s linear infinite;
   }
 
   &__badge {
@@ -89,7 +89,7 @@ const style = computed(() => ({
     line-height: 14px;
     color: #fff;
     text-align: center;
-    background: var(--vl-danger);
+    background: var(--x-danger);
     border: 1px solid #fff;
     border-radius: 10px;
     transform: translate(50%, -20%);
@@ -106,7 +106,7 @@ const style = computed(() => ({
   }
 }
 
-@keyframes vl-icon-spin {
+@keyframes x-icon-spin {
   from {
     transform: rotate(0deg);
   }

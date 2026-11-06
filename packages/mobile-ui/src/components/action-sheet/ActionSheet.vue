@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { createNamespace } from '../../utils'
-import VlPopup from '../popup/Popup.vue'
-import VlLoading from '../loading/Loading.vue'
-import VlIcon from '../icon/Icon.vue'
+import XPopup from '../popup/Popup.vue'
+import XLoading from '../loading/Loading.vue'
+import XIcon from '../icon/Icon.vue'
 
 import type { ActionSheetAction } from './types'
 
-defineOptions({ name: 'VlActionSheet' })
+defineOptions({ name: 'XActionSheet' })
 
 const props = withDefaults(
   defineProps<{
@@ -59,7 +59,7 @@ const onCancel = () => {
 </script>
 
 <template>
-  <VlPopup
+  <XPopup
     :show="show"
     position="bottom"
     round
@@ -84,8 +84,8 @@ const onCancel = () => {
           :style="{ color: action.color }"
           @click="onSelect(action, index)"
         >
-          <VlLoading v-if="action.loading" :size="18" :class="bem('loading')" />
-          <VlIcon v-else-if="action.icon" :name="action.icon" :class="bem('icon')" />
+          <XLoading v-if="action.loading" :size="18" :class="bem('loading')" />
+          <XIcon v-else-if="action.icon" :name="action.icon" :class="bem('icon')" />
           <span :class="bem('name')">{{ action.name }}</span>
           <span v-if="action.subname" :class="bem('subname')">{{ action.subname }}</span>
         </button>
@@ -94,31 +94,31 @@ const onCancel = () => {
         <button type="button" :class="bem('cancel')" @click="onCancel">{{ cancelText }}</button>
       </div>
     </div>
-  </VlPopup>
+  </XPopup>
 </template>
 
 <style lang="scss">
 @use '../../styles/mixins' as *;
 
-.vl-action-sheet {
+.x-action-sheet {
   &__header {
     padding: 18px 16px 12px;
     font-size: 16px;
     font-weight: 600;
-    color: var(--vl-text-color);
+    color: var(--x-text-color);
     text-align: center;
   }
 
   &__description {
     padding: 0 20px 15px;
-    font-size: var(--vl-font-size-sm);
+    font-size: var(--x-font-size-sm);
     line-height: 18px;
-    color: var(--vl-text-color-3);
+    color: var(--x-text-color-3);
     text-align: center;
   }
 
   &__content {
-    border-top: 1px solid var(--vl-border-color);
+    border-top: 1px solid var(--x-border-color);
   }
 
   &__item {
@@ -132,8 +132,8 @@ const onCancel = () => {
     width: 100%;
     padding: 14px 16px;
     font-size: 16px;
-    color: var(--vl-text-color);
-    background: var(--vl-background-2);
+    color: var(--x-text-color);
+    background: var(--x-background-2);
     cursor: pointer;
 
     @include hairline(bottom);
@@ -143,15 +143,15 @@ const onCancel = () => {
     }
 
     &:active {
-      background: var(--vl-active-color);
+      background: var(--x-active-color);
     }
 
     &--disabled {
-      color: var(--vl-text-color-4);
+      color: var(--x-text-color-4);
       cursor: not-allowed;
 
       &:active {
-        background: var(--vl-background-2);
+        background: var(--x-background-2);
       }
     }
   }
@@ -164,13 +164,13 @@ const onCancel = () => {
 
   &__subname {
     margin-top: 2px;
-    font-size: var(--vl-font-size-sm);
-    color: var(--vl-text-color-3);
+    font-size: var(--x-font-size-sm);
+    color: var(--x-text-color-3);
   }
 
   &__gap {
     padding: 8px 0;
-    background: var(--vl-background);
+    background: var(--x-background);
   }
 
   &__cancel {
@@ -180,12 +180,12 @@ const onCancel = () => {
     padding: 14px 16px;
     font-size: 16px;
     font-weight: 500;
-    color: var(--vl-text-color);
-    background: var(--vl-background-2);
+    color: var(--x-text-color);
+    background: var(--x-background-2);
     cursor: pointer;
 
     &:active {
-      background: var(--vl-active-color);
+      background: var(--x-active-color);
     }
   }
 }

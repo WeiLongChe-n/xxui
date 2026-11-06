@@ -22,8 +22,8 @@
 | `textarea` | 默认 | 多行文本，支持 `autosize` |
 
 ```vue
-<vl-field v-model="phone" type="tel" label="手机号" placeholder="请输入手机号" />
-<vl-field v-model="amount" type="digit" label="金额" />
+<x-field v-model="phone" type="tel" label="手机号" placeholder="请输入手机号" />
+<x-field v-model="amount" type="digit" label="金额" />
 ```
 
 ## 清空按钮
@@ -31,13 +31,13 @@
 `clearable` 会在有内容且聚焦时显示清空按钮；`clear-trigger="always"` 则始终显示。
 
 ```vue
-<vl-field v-model="value" clearable placeholder="输入后显示清空按钮" />
+<x-field v-model="value" clearable placeholder="输入后显示清空按钮" />
 ```
 
 ## 文本域
 
 ```vue
-<vl-field
+<x-field
   v-model="desc"
   type="textarea"
   :rows="3"
@@ -54,7 +54,7 @@
 `left-icon` / `right-icon` 用于装饰或操作，`right-text` 适合放「获取验证码」这类文字按钮，`button` 插槽可以塞入完整的按钮组件。
 
 ```vue
-<vl-field label="验证码" right-text="获取验证码" @click-right-text="send" />
+<x-field label="验证码" right-text="获取验证码" @click-right-text="send" />
 ```
 
 ## 错误提示
@@ -62,7 +62,7 @@
 `error` 传入字符串即显示错误态与错误文案，通常由 `Form` 校验结果接管。
 
 ```vue
-<vl-field v-model="value" label="手机号" error="手机号格式不正确" />
+<x-field v-model="value" label="手机号" error="手机号格式不正确" />
 ```
 
 ## API

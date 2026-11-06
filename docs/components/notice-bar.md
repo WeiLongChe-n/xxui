@@ -13,7 +13,7 @@
 文字宽度超过容器时会自动滚动，滚动速度由 `speed` 控制（px/s）：
 
 ```vue
-<vl-notice-bar text="本月会员日全场 8 折" :speed="80" />
+<x-notice-bar text="本月会员日全场 8 折" :speed="80" />
 ```
 
 设置 `wrapable` 后不再滚动，而是自动换行完整展示。
@@ -27,14 +27,14 @@
 | `none` | 纯展示 |
 
 ```vue
-<vl-notice-bar text="可点击的通知" mode="link" @click="onClick" />
-<vl-notice-bar text="可关闭的通知" mode="closeable" @close="onClose" />
+<x-notice-bar text="可点击的通知" mode="link" @click="onClick" />
+<x-notice-bar text="可关闭的通知" mode="closeable" @close="onClose" />
 ```
 
 ## 自定义样式
 
 ```vue
-<vl-notice-bar
+<x-notice-bar
   text="自定义颜色与图标"
   color="#8b4ef5"
   background="rgba(139,78,245,.12)"
@@ -57,7 +57,7 @@ barRef.value?.replay()
 | --- | --- | --- | --- |
 | text | 通知内容 | `string` | - |
 | mode | 操作模式 | `link \| closeable \| none` | `link` |
-| color | 文字颜色 | `string` | `--vl-warning` |
+| color | 文字颜色 | `string` | `--x-warning` |
 | background | 背景色 | `string` | 警告色 12% 透明度 |
 | leftIcon | 左侧图标 | `string` | `bell` |
 | showIcon | 是否显示左侧图标 | `boolean` | `true` |

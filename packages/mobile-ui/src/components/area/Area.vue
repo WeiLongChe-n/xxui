@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import VlPicker from '../picker/Picker.vue'
+import XPicker from '../picker/Picker.vue'
 import type { PickerConfirmPayload, PickerValue } from '../picker/types'
 import { areaData as builtinAreaData } from './area-data'
 import { getAreaText } from './utils'
 import type { AreaOption, AreaValue } from './types'
 
-defineOptions({ name: 'VlArea' })
+defineOptions({ name: 'XArea' })
 
 const props = withDefaults(
   defineProps<{
@@ -55,7 +55,7 @@ const onConfirm = (payload: PickerConfirmPayload) => emit('confirm', withText(pa
 </script>
 
 <template>
-  <VlPicker
+  <XPicker
     :show="show"
     :columns="data"
     :model-value="modelValue"

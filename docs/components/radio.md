@@ -11,10 +11,10 @@
 ## 与组配合
 
 ```vue
-<vl-radio-group v-model="pay">
-  <vl-radio name="wechat">微信支付</vl-radio>
-  <vl-radio name="alipay">支付宝</vl-radio>
-</vl-radio-group>
+<x-radio-group v-model="pay">
+  <x-radio name="wechat">微信支付</x-radio>
+  <x-radio name="alipay">支付宝</x-radio>
+</x-radio-group>
 ```
 
 组上的 `v-model` 是选中的 `name` 值，禁用整个组时设置 `disabled`。
@@ -22,8 +22,8 @@
 ## 独立使用
 
 ```vue
-<vl-radio v-model="value" name="a">选项 A</vl-radio>
-<vl-radio v-model="value" name="b">选项 B</vl-radio>
+<x-radio v-model="value" name="a">选项 A</x-radio>
+<x-radio v-model="value" name="b">选项 B</x-radio>
 ```
 
 独立使用时通过 `v-model` 与 `name` 比较判断是否选中，适合选项分散在页面不同位置的场景。
@@ -33,7 +33,7 @@
 `shape="square"` 会渲染方形图标；`checked-color` 可单独覆盖选中色。
 
 ```vue
-<vl-radio name="a" shape="square" checked-color="#8b4ef5">方形</vl-radio>
+<x-radio name="a" shape="square" checked-color="#8b4ef5">方形</x-radio>
 ```
 
 ## API
@@ -46,7 +46,7 @@
 | modelValue | 选中值（独立使用） | `any` | - |
 | shape | 形状 | `round \| square` | `round` |
 | disabled | 是否禁用 | `boolean` | `false` |
-| checkedColor | 选中颜色 | `string` | `--vl-primary` |
+| checkedColor | 选中颜色 | `string` | `--x-primary` |
 | iconSize | 图标尺寸 | `string \| number` | `20` |
 
 ### Radio Events

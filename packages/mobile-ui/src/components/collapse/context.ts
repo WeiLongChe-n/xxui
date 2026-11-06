@@ -9,4 +9,4 @@ export interface CollapseContext {
   toggle: (name: CollapseName, expanded: boolean) => void
 }
 
-export const COLLAPSE_KEY: InjectionKey<CollapseContext> = Symbol('vl-collapse')
+export const COLLAPSE_KEY: InjectionKey<CollapseContext> = Symbol('x-collapse')

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { createNamespace, getOwnerWindow, useTouch } from '../../utils'
-import VlLoading from '../loading/Loading.vue'
+import XLoading from '../loading/Loading.vue'
 
-defineOptions({ name: 'VlPullRefresh' })
+defineOptions({ name: 'XPullRefresh' })
 
 const props = withDefaults(
   defineProps<{
@@ -50,7 +50,7 @@ const headStyle = computed(() => ({
 
 const contentStyle = computed(() => ({
   transform: distance.value ? `translate3d(0, ${distance.value}px, 0)` : '',
-  transition: distance.value && status.value !== 'loading' ? 'none' : 'transform 0.3s var(--vl-ease)',
+  transition: distance.value && status.value !== 'loading' ? 'none' : 'transform 0.3s var(--x-ease)',
 }))
 
 const text = computed(() => {
@@ -129,7 +129,7 @@ onBeforeUnmount(() => timer && clearTimeout(timer))
     @touchcancel="onTouchEnd"
   >
     <div :class="[bem('head'), bem('head', status)]" :style="headStyle">
-      <VlLoading v-if="status === 'loading'" :size="16" />
+      <XLoading v-if="status === 'loading'" :size="16" />
       <span :class="bem('text')">{{ text }}</span>
     </div>
     <div :class="bem('content')" :style="contentStyle">
@@ -139,7 +139,7 @@ onBeforeUnmount(() => timer && clearTimeout(timer))
 </template>
 
 <style lang="scss">
-.vl-pull-refresh {
+.x-pull-refresh {
   position: relative;
   overflow: hidden;
 
@@ -151,14 +151,14 @@ onBeforeUnmount(() => timer && clearTimeout(timer))
     align-items: center;
     justify-content: center;
     width: 100%;
-    color: var(--vl-text-color-3);
+    color: var(--x-text-color-3);
     transform: translateY(0);
-    transition: transform 0.3s var(--vl-ease);
+    transition: transform 0.3s var(--x-ease);
   }
 
   &__text {
     margin-left: 6px;
-    font-size: var(--vl-font-size-sm);
+    font-size: var(--x-font-size-sm);
   }
 }
 </style>

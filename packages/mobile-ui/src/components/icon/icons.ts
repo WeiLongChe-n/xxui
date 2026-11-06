@@ -1,6 +1,6 @@
 /**
  * 内置图标：24 × 24 线性图标，统一 stroke 绘制
- * 使用 name 即可渲染，也可以通过 <vl-icon> 插槽放入自定义 SVG
+ * 使用 name 即可渲染，也可以通过 <x-icon> 插槽放入自定义 SVG
  */
 export const iconPaths: Record<string, string[]> = {
   'arrow-left': ['M15 5 8 12l7 7'],

@@ -32,7 +32,7 @@ export function createInstance<T extends Record<string, unknown>>(
       const host = resolveHost()
       const doc = host.ownerDocument ?? document
       container = doc.createElement('div')
-      container.className = 'vl-portal'
+      container.className = 'x-portal'
       host.appendChild(container)
       app = createApp({ render: () => h(component, state) })
       app.mount(container)

@@ -4,7 +4,7 @@ import { addUnit, createNamespace } from '../../utils'
 import { FORM_ITEM_KEY, FORM_KEY, type FormItemInstance } from './context'
 import { getValueByPath, runRules, type FieldRule, type ValidateTrigger } from './types'
 
-defineOptions({ name: 'VlFormItem' })
+defineOptions({ name: 'XFormItem' })
 
 const props = defineProps<{
   /** 字段名，与 Form 的 model / rules 对应 */
@@ -116,12 +116,12 @@ defineExpose({ validate, reset })
 </template>
 
 <style lang="scss">
-.vl-form-item {
+.x-form-item {
   position: relative;
   display: flex;
   align-items: flex-start;
-  padding: var(--vl-cell-padding);
-  background: var(--vl-background-2);
+  padding: var(--x-cell-padding);
+  background: var(--x-background-2);
 
   &::after {
     position: absolute;
@@ -130,7 +130,7 @@ defineExpose({ validate, reset })
     left: 0;
     height: 1px;
     content: '';
-    background: var(--vl-border-color);
+    background: var(--x-border-color);
     transform: scaleY(0.5);
     transform-origin: 0 100%;
   }
@@ -138,14 +138,14 @@ defineExpose({ validate, reset })
   &__label {
     flex: none;
     padding-right: 12px;
-    font-size: var(--vl-cell-font-size);
+    font-size: var(--x-cell-font-size);
     line-height: 24px;
-    color: var(--vl-text-color);
+    color: var(--x-text-color);
   }
 
   &__star {
     margin-right: 2px;
-    color: var(--vl-danger);
+    color: var(--x-danger);
   }
 
   &__body {
@@ -155,16 +155,16 @@ defineExpose({ validate, reset })
 
   &__error-message {
     margin-top: 4px;
-    font-size: var(--vl-font-size-sm);
+    font-size: var(--x-font-size-sm);
     line-height: 18px;
-    color: var(--vl-danger);
+    color: var(--x-danger);
   }
 
   &__help {
     margin-top: 4px;
-    font-size: var(--vl-font-size-sm);
+    font-size: var(--x-font-size-sm);
     line-height: 18px;
-    color: var(--vl-text-color-3);
+    color: var(--x-text-color-3);
   }
 }
 </style>

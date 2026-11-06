@@ -1,5 +1,5 @@
 /* ------------------------------
- * Vela UI 文档站样式
+ * XXUI 文档站样式
  * 与组件库主题共享 CSS 变量，切换品牌色时同步高亮色
  * ------------------------------ */
 
@@ -23,7 +23,7 @@
 
 /* 首页 Hero */
 .VPHero .name .clip {
-  background: linear-gradient(120deg, hsl(var(--vl-hue, 217) 90% 62%), hsl(var(--vl-hue, 217) 80% 45%) 60%);
+  background: linear-gradient(120deg, hsl(var(--x-hue, 217) 90% 62%), hsl(var(--x-hue, 217) 80% 45%) 60%);
   -webkit-background-clip: text;
   background-clip: text;
 }
@@ -121,7 +121,7 @@
   max-width: 100%;
   height: 580px;
   overflow: hidden;
-  background: var(--vl-background);
+  background: var(--x-background);
   border: 8px solid #1f2233;
   border-radius: 32px;
   box-shadow: var(--vp-shadow-3);

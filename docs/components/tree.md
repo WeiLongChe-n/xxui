@@ -11,7 +11,7 @@
 </DemoBlock>
 
 ```vue
-<vl-tree v-model:selected="selected" :data="data" default-expand-all />
+<x-tree v-model:selected="selected" :data="data" default-expand-all />
 ```
 
 ## 多选与父子联动
@@ -100,7 +100,7 @@ const data = raw.map((item) => ({
 ### 类型
 
 ```ts
-import type { TreeNode, TreeKey } from '@vela/mobile'
+import type { TreeNode, TreeKey } from '@xxui/mobile'
 ```
 
 <script setup>

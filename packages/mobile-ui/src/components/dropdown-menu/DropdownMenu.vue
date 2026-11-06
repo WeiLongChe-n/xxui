@@ -2,7 +2,7 @@
 import { provide, ref } from 'vue'
 import { createNamespace } from '../../utils'
 
-defineOptions({ name: 'VlDropdownMenu' })
+defineOptions({ name: 'XDropdownMenu' })
 
 const props = withDefaults(
   defineProps<{
@@ -30,7 +30,7 @@ const toggle = (key: number) => {
   activeKey.value = activeKey.value === key ? null : key
 }
 
-provide('vl-dropdown-menu', { activeKey, open, close, toggle })
+provide('x-dropdown-menu', { activeKey, open, close, toggle })
 </script>
 
 <template>
@@ -39,7 +39,7 @@ provide('vl-dropdown-menu', { activeKey, open, close, toggle })
       <slot />
     </div>
 
-    <Transition name="vl-dropdown-overlay">
+    <Transition name="x-dropdown-overlay">
       <div
         v-if="activeKey !== null"
         :class="bem('overlay')"
@@ -51,17 +51,17 @@ provide('vl-dropdown-menu', { activeKey, open, close, toggle })
 </template>
 
 <style lang="scss">
-.vl-dropdown-menu {
+.x-dropdown-menu {
   position: relative;
   z-index: 2200;
-  background: var(--vl-background-2);
+  background: var(--x-background-2);
 
   &__bar {
     position: relative;
     z-index: 2;
     display: flex;
-    background: var(--vl-background-2);
-    box-shadow: inset 0 -1px 0 var(--vl-border-color);
+    background: var(--x-background-2);
+    box-shadow: inset 0 -1px 0 var(--x-border-color);
   }
 
   &__overlay {
@@ -71,13 +71,13 @@ provide('vl-dropdown-menu', { activeKey, open, close, toggle })
   }
 }
 
-.vl-dropdown-overlay-enter-active,
-.vl-dropdown-overlay-leave-active {
-  transition: opacity var(--vl-duration-fast) var(--vl-ease);
+.x-dropdown-overlay-enter-active,
+.x-dropdown-overlay-leave-active {
+  transition: opacity var(--x-duration-fast) var(--x-ease);
 }
 
-.vl-dropdown-overlay-enter-from,
-.vl-dropdown-overlay-leave-to {
+.x-dropdown-overlay-enter-from,
+.x-dropdown-overlay-leave-to {
   opacity: 0;
 }
 </style>

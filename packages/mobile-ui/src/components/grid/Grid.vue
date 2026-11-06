@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, provide, ref } from 'vue'
 import { addUnit, createNamespace } from '../../utils'
-import VlBadge from '../badge/Badge.vue'
-import VlIcon from '../icon/Icon.vue'
+import XBadge from '../badge/Badge.vue'
+import XIcon from '../icon/Icon.vue'
 
-defineOptions({ name: 'VlGrid' })
+defineOptions({ name: 'XGrid' })
 
 const props = withDefaults(
   defineProps<{
@@ -23,7 +23,7 @@ const props = withDefaults(
 const { bem } = createNamespace('grid')
 const cellWidth = ref(0)
 
-provide('vl-grid', {
+provide('x-grid', {
   columns: computed(() => props.columns),
   border: computed(() => props.border),
   square: computed(() => props.square),
@@ -41,16 +41,16 @@ provide('vl-grid', {
 </template>
 
 <style lang="scss">
-.vl-grid {
+.x-grid {
   display: grid;
-  background: var(--vl-background-2);
+  background: var(--x-background-2);
 
   &--border {
     gap: 1px !important;
-    background: var(--vl-border-color);
+    background: var(--x-border-color);
   }
 
-  &--square .vl-grid-item {
+  &--square .x-grid-item {
     aspect-ratio: 1 / 1;
   }
 }

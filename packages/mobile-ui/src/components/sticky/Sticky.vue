@@ -3,7 +3,7 @@ import { computed, onBeforeUnmount, onMounted, ref, type CSSProperties } from 'v
 import { rafThrottle } from '../../utils'
 import { createNamespace, getOwnerWindow } from '../../utils'
 
-defineOptions({ name: 'VlSticky' })
+defineOptions({ name: 'XSticky' })
 
 const props = withDefaults(
   defineProps<{
@@ -113,7 +113,7 @@ onBeforeUnmount(() => {
 </template>
 
 <style lang="scss">
-.vl-sticky {
+.x-sticky {
   position: relative;
 
   &__content--fixed {

@@ -11,11 +11,11 @@
 ## 局部主题
 
 ```vue
-<vl-config-provider theme="dark" brand="violet">
-  <vl-cell-group inset>
-    <vl-cell title="订单状态" value="待发货" />
-  </vl-cell-group>
-</vl-config-provider>
+<x-config-provider theme="dark" brand="violet">
+  <x-cell-group inset>
+    <x-cell title="订单状态" value="待发货" />
+  </x-cell-group>
+</x-config-provider>
 ```
 
 由于主题变量通过 CSS 变量继承，内部所有组件都会生效，且不会影响外部——这是实现「亮暗对比预览」「局部强调区」最轻量的方式。
@@ -23,9 +23,9 @@
 ## 覆盖变量
 
 ```vue
-<vl-config-provider :theme-vars="{ '--vl-primary': '#ff5000', '--vl-radius': '2px' }">
-  <vl-button type="primary">品牌红</vl-button>
-</vl-config-provider>
+<x-config-provider :theme-vars="{ '--x-primary': '#ff5000', '--x-radius': '2px' }">
+  <x-button type="primary">品牌红</x-button>
+</x-config-provider>
 ```
 
 `theme-vars` 的键必须是 CSS 变量名（以 `--` 开头），值可以是字符串或数字。

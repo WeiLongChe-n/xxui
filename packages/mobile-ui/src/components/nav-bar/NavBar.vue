@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { createNamespace } from '../../utils'
-import VlIcon from '../icon/Icon.vue'
+import XIcon from '../icon/Icon.vue'
 
-defineOptions({ name: 'VlNavBar' })
+defineOptions({ name: 'XNavBar' })
 
 const props = withDefaults(
   defineProps<{
@@ -50,7 +50,7 @@ const style = computed(() => ({ zIndex: props.zIndex }))
     <div :class="[bem('inner'), safeAreaInsetTop && bem('inner', 'safe-top')]">
       <div :class="bem('left')" @click="!leftDisabled && emit('click-left')">
         <slot name="left">
-          <VlIcon v-if="leftArrow" name="arrow-left" :class="bem('arrow')" />
+          <XIcon v-if="leftArrow" name="arrow-left" :class="bem('arrow')" />
           <span v-if="leftText" :class="bem('text')">{{ leftText }}</span>
         </slot>
       </div>
@@ -67,10 +67,10 @@ const style = computed(() => ({ zIndex: props.zIndex }))
 <style lang="scss">
 @use '../../styles/mixins' as *;
 
-.vl-nav-bar {
+.x-nav-bar {
   position: relative;
   width: 100%;
-  background: var(--vl-background-2);
+  background: var(--x-background-2);
 
   @include hairline(bottom);
 
@@ -85,22 +85,22 @@ const style = computed(() => ({ zIndex: props.zIndex }))
   }
 
   &__placeholder {
-    height: var(--vl-navbar-height);
+    height: var(--x-navbar-height);
 
     &--safe-top {
-      height: calc(var(--vl-navbar-height) + var(--vl-safe-top));
+      height: calc(var(--x-navbar-height) + var(--x-safe-top));
     }
   }
 
   &__inner {
     display: flex;
     align-items: center;
-    height: var(--vl-navbar-height);
+    height: var(--x-navbar-height);
     padding: 0 12px;
 
     &--safe-top {
-      height: calc(var(--vl-navbar-height) + var(--vl-safe-top));
-      padding-top: var(--vl-safe-top);
+      height: calc(var(--x-navbar-height) + var(--x-safe-top));
+      padding-top: var(--x-safe-top);
     }
   }
 
@@ -110,7 +110,7 @@ const style = computed(() => ({ zIndex: props.zIndex }))
     align-items: center;
     min-width: 60px;
     font-size: 14px;
-    color: var(--vl-primary);
+    color: var(--x-primary);
     cursor: pointer;
   }
 
@@ -128,7 +128,7 @@ const style = computed(() => ({ zIndex: props.zIndex }))
     overflow: hidden;
     font-size: 17px;
     font-weight: 600;
-    color: var(--vl-text-color);
+    color: var(--x-text-color);
     text-align: center;
     white-space: nowrap;
     text-overflow: ellipsis;

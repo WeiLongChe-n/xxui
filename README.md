@@ -1,4 +1,4 @@
-# Vela UI
+# XXUI
 
 Vue 3 + TypeScript 移动端组件库，内置多套主题与暗色模式，附带完整的技术文档站。
 
@@ -62,19 +62,19 @@ vela-ui/
 
 ```ts
 import { createApp } from 'vue'
-import VelaUI from '@vela/mobile'
-import '@vela/mobile/style.css'
+import XXUI from '@xxui/mobile'
+import '@xxui/mobile/style.css'
 import App from './App.vue'
 
-createApp(App).use(VelaUI).mount('#app')
+createApp(App).use(XXUI).mount('#app')
 ```
 
 ```vue
-<vl-button type="primary" block @click="Toast.success('保存成功')">提交</vl-button>
+<x-button type="primary" block @click="Toast.success('保存成功')">提交</x-button>
 ```
 
 ```ts
-import { setTheme, useTheme, Toast } from '@vela/mobile'
+import { setTheme, useTheme, Toast } from '@xxui/mobile'
 
 setTheme({ mode: 'dark', brand: 'ocean' })
 
@@ -86,8 +86,8 @@ const { isDark, brand, setBrand, toggleMode } = useTheme()
 主题 = 明暗模式（`light` / `dark` / `auto`）× 品牌配色（`default` / `ocean` / `emerald` / `violet` / `sunset` / `graphite`），共 12 种预设组合。实现方式：
 
 - `html[data-theme='dark']` 覆盖一整套颜色令牌；
-- `html[data-brand='ocean']` 只切换 `--vl-hue`，主色及其所有状态色由 `hsl()` 推导；
-- 任意作用域覆盖 CSS 变量即可实现局部定制，`<vl-config-provider>` 提供组件化封装。
+- `html[data-brand='ocean']` 只切换 `--x-hue`，主色及其所有状态色由 `hsl()` 推导；
+- 任意作用域覆盖 CSS 变量即可实现局部定制，`<x-config-provider>` 提供组件化封装。
 
 详见文档「[主题定制](docs/guide/theme.md)」。
 
@@ -188,6 +188,30 @@ node scripts/deploy-gitee.mjs https://gitee.com/<用户名>/<用户名>.gitee.io
 | `npm run deploy:gitee` | 构建、自检并推送到 Gitee 的 `pages` 分支 |
 | `npm run build` | 构建组件库到 `packages/mobile-ui/dist` |
 | `npm run typecheck` | 使用 vue-tsc 做类型检查 |
+| `npm run publish:npm` | 自动定版本、构建并发布到 npm |
+| `npm run publish:npm:dry` | 只跑发布流程，不上传、不打 tag |
+
+## 发布到 npm
+
+发布脚本在 `scripts/publish-npm.mjs`，一条命令完成版本号、构建、校验与发布。
+
+```bash
+npm login --registry https://registry.npmjs.org/   # 首次需要登录
+
+npm run publish:npm               # 当前版本没发布过就发它，否则补丁号自增
+node scripts/publish-npm.mjs minor  # 次版本自增
+node scripts/publish-npm.mjs major  # 主版本自增
+node scripts/publish-npm.mjs 1.0.0  # 指定版本
+npm run publish:npm:dry           # 预演，不上传
+```
+
+版本号会同步改写 `packages/mobile-ui/package.json`、根 `package.json`、`src/index.ts` 里的 `version`，以及文档站导航栏的版本号；发布成功后自动提交 `chore(release): vX.Y.Z` 并打 `vX.Y.Z` tag。
+
+脚本依次做这些检查：git 工作区干净 → npm 登录态 → 包名与 scope 归属（含已被占用时的提示）→ 类型检查 → 构建 → 产物入口齐全 → `npm pack` 预检（README / LICENSE / 入口文件是否都在包内）。任一步失败都会回滚版本号改动。
+
+其它参数：`--tag beta` 发到指定 dist-tag、`--otp <code>` 两步验证码、`--yes` 跳过确认、`--skip-check` 跳过 git 检查、`--no-git` 不提交、`--push` 发布后推送。
+
+> 包是 scoped 的（`@xxui/mobile`），发布前需要 npm 上存在 `@xxui` 这个 scope（个人 scope 与用户名同名，或先建组织）。`publishConfig` 已固定 `access: public` 与官方 registry，所以本机配置的镜像源不影响发布。
 
 ### 开发辅助脚本
 

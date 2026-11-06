@@ -11,14 +11,14 @@
 </DemoBlock>
 
 ```vue
-<vl-row>
-  <vl-col :span="12">左</vl-col>
-  <vl-col :span="12">右</vl-col>
-</vl-row>
+<x-row>
+  <x-col :span="12">左</x-col>
+  <x-col :span="12">右</x-col>
+</x-row>
 
-<vl-row>
-  <vl-col v-for="n in 3" :key="n" :span="8">{{ n }}</vl-col>
-</vl-row>
+<x-row>
+  <x-col v-for="n in 3" :key="n" :span="8">{{ n }}</x-col>
+</x-row>
 ```
 
 ## 列间距
@@ -30,8 +30,8 @@
 </DemoBlock>
 
 ```vue
-<vl-row :gutter="12">...</vl-row>
-<vl-row :gutter="[16, 12]">...</vl-row>
+<x-row :gutter="12">...</x-row>
+<x-row :gutter="[16, 12]">...</x-row>
 ```
 
 ## 偏移与排序
@@ -43,13 +43,13 @@
 </DemoBlock>
 
 ```vue
-<vl-row>
-  <vl-col :span="8">A</vl-col>
-  <vl-col :span="8" :offset="8">B</vl-col>
-</vl-row>
+<x-row>
+  <x-col :span="8">A</x-col>
+  <x-col :span="8" :offset="8">B</x-col>
+</x-row>
 
-<vl-col :span="12" order="2" />
-<vl-col width="40%" />
+<x-col :span="12" order="2" />
+<x-col width="40%" />
 ```
 
 ## 对齐
@@ -62,7 +62,7 @@
 
 ## 嵌套
 
-`vl-col` 内部可以继续放 `vl-row`，内层栅格同样以 24 份计算，用于卡片内部的二级分栏。
+`x-col` 内部可以继续放 `x-row`，内层栅格同样以 24 份计算，用于卡片内部的二级分栏。
 
 <DemoBlock title="嵌套栅格" description="16 + 8 分栏，左侧再拆成两个 12" :code="code5">
   <RowNest />
@@ -101,8 +101,8 @@
 
 | 组件 | 插槽 | 说明 |
 | --- | --- | --- |
-| Row | default | 行内容，通常是若干 `vl-col` |
-| Col | default | 列内容，可嵌套 `vl-row` |
+| Row | default | 行内容，通常是若干 `x-col` |
+| Col | default | 列内容，可嵌套 `x-row` |
 
 <script setup>
 import RowBasic from '@demos/row/basic.vue'

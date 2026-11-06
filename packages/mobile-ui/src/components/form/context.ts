@@ -22,7 +22,7 @@ export interface FormContext {
   unregister: (uid: number) => void
 }
 
-export const FORM_KEY: InjectionKey<FormContext> = Symbol('vl-form')
+export const FORM_KEY: InjectionKey<FormContext> = Symbol('x-form')
 
 /** Field 注入使用：拿到所属 FormItem 的校验能力 */
-export const FORM_ITEM_KEY: InjectionKey<FormItemInstance> = Symbol('vl-form-item')
+export const FORM_ITEM_KEY: InjectionKey<FormItemInstance> = Symbol('x-form-item')

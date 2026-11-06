@@ -11,9 +11,9 @@
 ## 三种类型
 
 ```vue
-<vl-loading />                     <!-- 圆环 -->
-<vl-loading type="spinner" />      <!-- 旋转线条 -->
-<vl-loading type="dots" />         <!-- 跳点 -->
+<x-loading />                     <!-- 圆环 -->
+<x-loading type="spinner" />      <!-- 旋转线条 -->
+<x-loading type="dots" />         <!-- 跳点 -->
 ```
 
 ## 尺寸与颜色
@@ -21,15 +21,15 @@
 `size` 同时作用于图标与文字（默认继承字号），`color` 使用 `currentColor` 机制作用于整个组件。
 
 ```vue
-<vl-loading size="14" />
-<vl-loading size="32" color="#16a34a" />
+<x-loading size="14" />
+<x-loading size="32" color="#16a34a" />
 ```
 
 ## 带文字
 
 ```vue
-<vl-loading text="加载中..." />
-<vl-loading vertical text="向上排列" />
+<x-loading text="加载中..." />
+<x-loading vertical text="向上排列" />
 ```
 
 ## API
@@ -38,7 +38,7 @@
 | --- | --- | --- | --- |
 | type | 加载类型 | `circular \| spinner \| dots` | `circular` |
 | size | 尺寸 | `string \| number` | 继承字号（20px） |
-| color | 颜色 | `string` | `--vl-primary` |
+| color | 颜色 | `string` | `--x-primary` |
 | text | 文字 | `string` | - |
 | textSize | 文字字号 | `string \| number` | - |
 | vertical | 文字是否在下方 | `boolean` | `false` |

@@ -30,7 +30,7 @@ page.on('pageerror', (err) => errors.push(`[pageerror] ${err.message}`))
 if (dark) {
   await page.evaluateOnNewDocument(() => {
     localStorage.setItem('vitepress-theme-appearance', 'dark')
-    localStorage.setItem('vela-ui-theme', JSON.stringify({ mode: 'dark', brand: 'ocean' }))
+    localStorage.setItem('xxui-theme', JSON.stringify({ mode: 'dark', brand: 'ocean' }))
   })
 }
 

@@ -1,45 +1,45 @@
 <template>
   <div class="demo-col">
-    <vl-cell-group inset title="基础用法">
-      <vl-cell title="开启通知">
+    <x-cell-group inset title="基础用法">
+      <x-cell title="开启通知">
         <template #value>
-          <vl-switch v-model="value1" />
+          <x-switch v-model="value1" />
         </template>
-      </vl-cell>
-      <vl-cell title="自定义尺寸（32px）">
+      </x-cell>
+      <x-cell title="自定义尺寸（32px）">
         <template #value>
-          <vl-switch v-model="value2" size="32" />
+          <x-switch v-model="value2" size="32" />
         </template>
-      </vl-cell>
-      <vl-cell title="带文字">
+      </x-cell>
+      <x-cell title="带文字">
         <template #value>
-          <vl-switch v-model="value3" active-text="开" inactive-text="关" />
+          <x-switch v-model="value3" active-text="开" inactive-text="关" />
         </template>
-      </vl-cell>
-    </vl-cell-group>
+      </x-cell>
+    </x-cell-group>
 
-    <vl-cell-group inset title="状态">
-      <vl-cell title="加载中">
+    <x-cell-group inset title="状态">
+      <x-cell title="加载中">
         <template #value>
-          <vl-switch v-model="value4" loading />
+          <x-switch v-model="value4" loading />
         </template>
-      </vl-cell>
-      <vl-cell title="禁用">
+      </x-cell>
+      <x-cell title="禁用">
         <template #value>
-          <vl-switch v-model="value5" disabled />
+          <x-switch v-model="value5" disabled />
         </template>
-      </vl-cell>
-      <vl-cell title="自定义颜色">
+      </x-cell>
+      <x-cell title="自定义颜色">
         <template #value>
-          <vl-switch v-model="value6" active-color="#16a34a" inactive-color="#f59e0b" />
+          <x-switch v-model="value6" active-color="#16a34a" inactive-color="#f59e0b" />
         </template>
-      </vl-cell>
-      <vl-cell title="自定义值">
+      </x-cell>
+      <x-cell title="自定义值">
         <template #value>
-          <vl-switch v-model="value7" active-value="on" inactive-value="off" />
+          <x-switch v-model="value7" active-value="on" inactive-value="off" />
         </template>
-      </vl-cell>
-    </vl-cell-group>
+      </x-cell>
+    </x-cell-group>
 
     <p class="demo-note">当前自定义值：{{ value7 }}</p>
   </div>

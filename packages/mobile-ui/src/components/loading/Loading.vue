@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { addUnit, createNamespace } from '../../utils'
 
-defineOptions({ name: 'VlLoading' })
+defineOptions({ name: 'XLoading' })
 
 const props = defineProps<{
   /** circular 圆环 / spinner 旋转线条 / dots 跳点 */
@@ -44,11 +44,11 @@ const textStyle = computed(() => (props.textSize ? { fontSize: addUnit(props.tex
 </template>
 
 <style lang="scss">
-.vl-loading {
+.x-loading {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--vl-primary);
+  color: var(--x-primary);
   font-size: 20px;
 
   &--vertical {
@@ -70,14 +70,14 @@ const textStyle = computed(() => (props.textSize ? { fontSize: addUnit(props.tex
     border: 2px solid currentColor;
     border-top-color: transparent;
     border-radius: 50%;
-    animation: vl-rotate 0.8s linear infinite;
+    animation: x-rotate 0.8s linear infinite;
     box-sizing: border-box;
   }
 
   &__svg {
     width: 1em;
     height: 1em;
-    animation: vl-rotate 1s linear infinite;
+    animation: x-rotate 1s linear infinite;
   }
 
   &__track {
@@ -100,7 +100,7 @@ const textStyle = computed(() => (props.textSize ? { fontSize: addUnit(props.tex
     margin: 0 0.12em;
     background: currentColor;
     border-radius: 50%;
-    animation: vl-dot 1s ease-in-out infinite;
+    animation: x-dot 1s ease-in-out infinite;
 
     &:nth-child(2) {
       animation-delay: 0.15s;
@@ -113,8 +113,8 @@ const textStyle = computed(() => (props.textSize ? { fontSize: addUnit(props.tex
 
   &__text {
     margin-left: 8px;
-    font-size: var(--vl-font-size);
-    color: var(--vl-text-color-2);
+    font-size: var(--x-font-size);
+    color: var(--x-text-color-2);
   }
 
   &--vertical &__text {
@@ -122,7 +122,7 @@ const textStyle = computed(() => (props.textSize ? { fontSize: addUnit(props.tex
   }
 }
 
-@keyframes vl-rotate {
+@keyframes x-rotate {
   from {
     transform: rotate(0deg);
   }
@@ -132,7 +132,7 @@ const textStyle = computed(() => (props.textSize ? { fontSize: addUnit(props.tex
   }
 }
 
-@keyframes vl-dot {
+@keyframes x-dot {
   0%,
   80%,
   100% {

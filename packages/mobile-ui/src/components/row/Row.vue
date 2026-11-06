@@ -2,7 +2,7 @@
 import { computed, type CSSProperties } from 'vue'
 import { addUnit, createNamespace } from '../../utils'
 
-defineOptions({ name: 'VlRow' })
+defineOptions({ name: 'XRow' })
 
 type Gutter = number | string
 
@@ -34,8 +34,8 @@ const gutterY = computed(() => normalize(Array.isArray(props.gutter) ? props.gut
 const rowStyle = computed(
   () =>
     ({
-      '--vl-row-gutter-x': gutterX.value,
-      '--vl-row-gutter-y': gutterY.value,
+      '--x-row-gutter-x': gutterX.value,
+      '--x-row-gutter-y': gutterY.value,
     }) as CSSProperties,
 )
 
@@ -54,10 +54,10 @@ const classes = computed(() => [
 </template>
 
 <style lang="scss">
-.vl-row {
+.x-row {
   display: flex;
   flex-wrap: wrap;
-  margin: calc(var(--vl-row-gutter-y, 0px) / -2) calc(var(--vl-row-gutter-x, 0px) / -2);
+  margin: calc(var(--x-row-gutter-y, 0px) / -2) calc(var(--x-row-gutter-x, 0px) / -2);
 
   &--nowrap {
     flex-wrap: nowrap;

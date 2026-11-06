@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { createNamespace } from '../../utils'
 
-defineOptions({ name: 'VlCellGroup' })
+defineOptions({ name: 'XCellGroup' })
 
 const props = withDefaults(
   defineProps<{
@@ -35,28 +35,28 @@ const classes = computed(() => [
 </template>
 
 <style lang="scss">
-.vl-cell-group {
+.x-cell-group {
   margin-bottom: 12px;
 
   &__title {
     padding: 16px 16px 8px;
-    font-size: var(--vl-font-size-sm);
-    color: var(--vl-text-color-3);
+    font-size: var(--x-font-size-sm);
+    color: var(--x-text-color-3);
   }
 
   &--inset {
     margin-right: 12px;
     margin-left: 12px;
     overflow: hidden;
-    border-radius: var(--vl-radius-lg);
+    border-radius: var(--x-radius-lg);
 
-    .vl-cell:last-child::after {
+    .x-cell:last-child::after {
       display: none;
     }
   }
 
   &--borderless {
-    .vl-cell::after {
+    .x-cell::after {
       display: none;
     }
   }

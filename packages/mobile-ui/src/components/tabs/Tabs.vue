@@ -2,9 +2,9 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, provide, ref, watch, type Component } from 'vue'
 import { createNamespace, getOwnerWindow } from '../../utils'
 import { TABS_KEY, type TabItem, type TabsKey } from './context'
-import VlBadge from '../badge/Badge.vue'
+import XBadge from '../badge/Badge.vue'
 
-defineOptions({ name: 'VlTabs' })
+defineOptions({ name: 'XTabs' })
 
 const props = withDefaults(
   defineProps<{
@@ -165,8 +165,8 @@ const navStyle = computed(() => ({
 }))
 
 const activeColorStyle = computed(() => ({
-  '--vl-tabs-active-color': props.color || 'var(--vl-primary)',
-  '--vl-tabs-active-text': props.titleActiveColor || props.color || 'var(--vl-primary)',
+  '--x-tabs-active-color': props.color || 'var(--x-primary)',
+  '--x-tabs-active-text': props.titleActiveColor || props.color || 'var(--x-primary)',
 }))
 
 /** 渲染 Tab 的 title 插槽（定位在导航栏内） */
@@ -190,7 +190,7 @@ const TitleSlot: Component = (slotProps: { tab: TabItem }) =>
           <span :class="bem('nav-title')">
             <TitleSlot :tab="item" />
           </span>
-          <VlBadge
+          <XBadge
             v-if="item.dot || item.badge !== undefined"
             :content="item.badge"
             :dot="item.dot"
@@ -213,9 +213,9 @@ const TitleSlot: Component = (slotProps: { tab: TabItem }) =>
 <style lang="scss">
 @use '../../styles/mixins' as *;
 
-.vl-tabs {
-  --vl-tabs-active-color: var(--vl-primary);
-  --vl-tabs-active-text: var(--vl-primary);
+.x-tabs {
+  --x-tabs-active-color: var(--x-primary);
+  --x-tabs-active-text: var(--x-primary);
 
   position: relative;
 
@@ -223,7 +223,7 @@ const TitleSlot: Component = (slotProps: { tab: TabItem }) =>
     position: relative;
     display: flex;
     align-items: center;
-    background: var(--vl-background-2);
+    background: var(--x-background-2);
 
     @include hairline(bottom);
   }
@@ -248,13 +248,13 @@ const TitleSlot: Component = (slotProps: { tab: TabItem }) =>
     justify-content: center;
     padding: 13px 4px;
     font-size: 14px;
-    color: var(--vl-text-color-2);
+    color: var(--x-text-color-2);
     cursor: pointer;
-    transition: color var(--vl-duration-fast);
+    transition: color var(--x-duration-fast);
 
     &--active {
       font-weight: 600;
-      color: var(--vl-tabs-active-text);
+      color: var(--x-tabs-active-text);
     }
 
     &--disabled {
@@ -282,10 +282,10 @@ const TitleSlot: Component = (slotProps: { tab: TabItem }) =>
     bottom: 0;
     left: 0;
     height: 3px;
-    background: var(--vl-tabs-active-color);
+    background: var(--x-tabs-active-color);
     border-radius: 3px;
     transition-property: transform, width, opacity;
-    transition-timing-function: var(--vl-ease);
+    transition-timing-function: var(--x-ease);
   }
 
   &__nav-right {
@@ -293,7 +293,7 @@ const TitleSlot: Component = (slotProps: { tab: TabItem }) =>
     align-items: center;
     padding: 0 12px;
     font-size: 13px;
-    color: var(--vl-text-color-2);
+    color: var(--x-text-color-2);
   }
 
   /* 卡片风格 */
@@ -305,23 +305,23 @@ const TitleSlot: Component = (slotProps: { tab: TabItem }) =>
       display: none;
     }
 
-    .vl-tabs__nav-wrap {
+    .x-tabs__nav-wrap {
       gap: 8px;
     }
 
-    .vl-tabs__nav-item {
+    .x-tabs__nav-item {
       padding: 7px 14px;
-      background: var(--vl-background-3);
+      background: var(--x-background-3);
       border-radius: 8px;
-      transition: background var(--vl-duration-fast), color var(--vl-duration-fast);
+      transition: background var(--x-duration-fast), color var(--x-duration-fast);
 
       &--active {
         color: #fff;
-        background: var(--vl-tabs-active-color);
+        background: var(--x-tabs-active-color);
       }
     }
 
-    .vl-tabs__nav-badge {
+    .x-tabs__nav-badge {
       color: inherit;
     }
   }

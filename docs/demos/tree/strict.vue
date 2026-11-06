@@ -1,6 +1,6 @@
 <template>
   <div class="demo-tree">
-    <vl-tree v-model:checked="checked" :data="data" multiple check-strictly default-expand-all />
+    <x-tree v-model:checked="checked" :data="data" multiple check-strictly default-expand-all />
     <p class="demo-tree__tip">
       父子互不联动，已选 {{ checked.length }} 项；「鄞州区」为禁用节点。
     </p>
@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { TreeNode, TreeKey } from '@vela/mobile'
+import type { TreeNode, TreeKey } from '@xxui/mobile'
 
 const checked = ref<TreeKey[]>(['hangzhou'])
 
@@ -51,6 +51,6 @@ const data: TreeNode[] = [
   padding: 0 12px;
   font-size: 12px;
   line-height: 1.6;
-  color: var(--vl-text-color-2);
+  color: var(--x-text-color-2);
 }
 </style>

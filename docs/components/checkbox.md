@@ -13,10 +13,10 @@
 组内每个 `Checkbox` 的 `name` 即为该选项的值，组上的 `v-model` 是选中值数组：
 
 ```vue
-<vl-checkbox-group v-model="checked" :max="2">
-  <vl-checkbox name="原味">原味</vl-checkbox>
-  <vl-checkbox name="抹茶">抹茶</vl-checkbox>
-</vl-checkbox-group>
+<x-checkbox-group v-model="checked" :max="2">
+  <x-checkbox name="原味">原味</x-checkbox>
+  <x-checkbox name="抹茶">抹茶</x-checkbox>
+</x-checkbox-group>
 ```
 
 `max` 限制最多可选数量，超出后点击不再生效。
@@ -26,13 +26,13 @@
 不在组内时，使用布尔型的 `v-model`：
 
 ```vue
-<vl-checkbox v-model="agree">我已阅读并同意</vl-checkbox>
+<x-checkbox v-model="agree">我已阅读并同意</x-checkbox>
 ```
 
 ## 形状与颜色
 
 ```vue
-<vl-checkbox v-model="value" shape="round" checked-color="#16a34a">圆形</vl-checkbox>
+<x-checkbox v-model="value" shape="round" checked-color="#16a34a">圆形</x-checkbox>
 ```
 
 ## API
@@ -45,7 +45,7 @@
 | modelValue | 是否选中（独立使用） | `boolean` | `false` |
 | shape | 形状 | `square \| round` | `square` |
 | disabled | 是否禁用 | `boolean` | `false` |
-| checkedColor | 选中颜色 | `string` | `--vl-primary` |
+| checkedColor | 选中颜色 | `string` | `--x-primary` |
 | iconSize | 图标尺寸 | `string \| number` | `20` |
 | labelDisabled | 点击文字不触发切换 | `boolean` | `false` |
 

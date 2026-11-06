@@ -2,7 +2,7 @@
 import { computed, onBeforeUnmount, ref } from 'vue'
 import { addUnit, clamp, createNamespace, getOwnerWindow } from '../../utils'
 
-defineOptions({ name: 'VlSlider' })
+defineOptions({ name: 'XSlider' })
 
 const props = withDefaults(
   defineProps<{
@@ -97,12 +97,12 @@ const onClick = (event: MouseEvent) => {
     <div
       ref="trackRef"
       :class="bem('track')"
-      :style="{ height: addUnit(barHeight || 4), background: inactiveColor || 'var(--vl-background-3)' }"
+      :style="{ height: addUnit(barHeight || 4), background: inactiveColor || 'var(--x-background-3)' }"
       @click="onClick"
     >
       <div
         :class="bem('bar')"
-        :style="{ width: `${percent}%`, background: activeColor || 'var(--vl-primary)' }"
+        :style="{ width: `${percent}%`, background: activeColor || 'var(--x-primary)' }"
       />
       <div
         :class="bem('button-wrap')"
@@ -119,7 +119,7 @@ const onClick = (event: MouseEvent) => {
 </template>
 
 <style lang="scss">
-.vl-slider {
+.x-slider {
   display: flex;
   align-items: center;
   width: 100%;
@@ -150,10 +150,10 @@ const onClick = (event: MouseEvent) => {
   }
 
   &__button {
-    background: var(--vl-background-2);
+    background: var(--x-background-2);
     border-radius: 50%;
     box-shadow: 0 1px 6px rgba(31, 34, 51, 0.28);
-    transition: transform var(--vl-duration-fast);
+    transition: transform var(--x-duration-fast);
   }
 
   &--dragging &__button {

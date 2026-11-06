@@ -4,14 +4,14 @@ import { createNamespace } from '../../utils'
 import { provideTeleportTarget } from '../../utils/teleport'
 import type { BrandName } from '../../theme'
 
-defineOptions({ name: 'VlConfigProvider' })
+defineOptions({ name: 'XConfigProvider' })
 
 const props = defineProps<{
   /** 局部明暗主题 */
   theme?: 'light' | 'dark'
   /** 局部品牌配色 */
   brand?: BrandName
-  /** 覆盖任意 CSS 变量，如 { '--vl-primary': '#ff5000' } */
+  /** 覆盖任意 CSS 变量，如 { '--x-primary': '#ff5000' } */
   themeVars?: Record<string, string | number>
   /** 子树内弹层的挂载目标，默认 body */
   teleport?: string | HTMLElement
@@ -45,10 +45,10 @@ const style = computed(() => {
 </template>
 
 <style lang="scss">
-.vl-config-provider {
-  color: var(--vl-text-color);
-  font-family: var(--vl-font-family);
-  font-size: var(--vl-font-size);
+.x-config-provider {
+  color: var(--x-text-color);
+  font-family: var(--x-font-family);
+  font-size: var(--x-font-size);
   line-height: 1.5;
 }
 </style>

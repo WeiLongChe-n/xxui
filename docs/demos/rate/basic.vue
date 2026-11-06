@@ -1,36 +1,36 @@
 <template>
   <div class="demo-col">
-    <vl-cell-group inset title="基础用法">
-      <vl-cell title="商品评分" :value="`${score} 分`">
+    <x-cell-group inset title="基础用法">
+      <x-cell title="商品评分" :value="`${score} 分`">
         <template #value>
-          <vl-rate v-model="score" />
+          <x-rate v-model="score" />
         </template>
-      </vl-cell>
-      <vl-cell title="半星">
+      </x-cell>
+      <x-cell title="半星">
         <template #value>
-          <vl-rate v-model="half" allow-half :size="18" />
+          <x-rate v-model="half" allow-half :size="18" />
         </template>
-      </vl-cell>
-      <vl-cell title="只读">
+      </x-cell>
+      <x-cell title="只读">
         <template #value>
-          <vl-rate :model-value="4" readonly :size="16" />
+          <x-rate :model-value="4" readonly :size="16" />
         </template>
-      </vl-cell>
-    </vl-cell-group>
+      </x-cell>
+    </x-cell-group>
 
-    <vl-cell-group inset title="自定义">
+    <x-cell-group inset title="自定义">
       <div class="padding demo-col">
-        <vl-rate v-model="custom" :count="6" :size="26" color="#ef4444" />
+        <x-rate v-model="custom" :count="6" :size="26" color="#ef4444" />
         <p class="demo-note">支持自定义数量、尺寸、颜色</p>
-        <vl-rate v-model="disabledValue" disabled />
+        <x-rate v-model="disabledValue" disabled />
       </div>
-    </vl-cell-group>
+    </x-cell-group>
 
-    <vl-cell-group inset title="表单中使用">
-      <vl-form-item label="服务评分" name="rate">
-        <vl-rate v-model="score" allow-half />
-      </vl-form-item>
-    </vl-cell-group>
+    <x-cell-group inset title="表单中使用">
+      <x-form-item label="服务评分" name="rate">
+        <x-rate v-model="score" allow-half />
+      </x-form-item>
+    </x-cell-group>
   </div>
 </template>
 

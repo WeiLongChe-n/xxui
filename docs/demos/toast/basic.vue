@@ -1,32 +1,32 @@
 <template>
   <div class="demo-col">
     <div class="demo-row">
-      <vl-button size="small" @click="showText">文字提示</vl-button>
-      <vl-button size="small" type="success" @click="showSuccess">成功</vl-button>
-      <vl-button size="small" type="danger" @click="showFail">失败</vl-button>
-      <vl-button size="small" type="primary" @click="showLoading">加载中</vl-button>
+      <x-button size="small" @click="showText">文字提示</x-button>
+      <x-button size="small" type="success" @click="showSuccess">成功</x-button>
+      <x-button size="small" type="danger" @click="showFail">失败</x-button>
+      <x-button size="small" type="primary" @click="showLoading">加载中</x-button>
     </div>
 
     <div class="demo-row">
-      <vl-button size="small" @click="showTop">顶部显示</vl-button>
-      <vl-button size="small" @click="showBottom">底部显示</vl-button>
-      <vl-button size="small" @click="showLong">较长文案</vl-button>
-      <vl-button size="small" @click="showMask">带遮罩</vl-button>
+      <x-button size="small" @click="showTop">顶部显示</x-button>
+      <x-button size="small" @click="showBottom">底部显示</x-button>
+      <x-button size="small" @click="showLong">较长文案</x-button>
+      <x-button size="small" @click="showMask">带遮罩</x-button>
     </div>
 
     <div class="demo-row">
-      <vl-button size="small" @click="showCustomIcon">自定义图标</vl-button>
-      <vl-button size="small" @click="showComponent">组件式调用</vl-button>
-      <vl-button size="small" @click="clearToast">手动关闭</vl-button>
+      <x-button size="small" @click="showCustomIcon">自定义图标</x-button>
+      <x-button size="small" @click="showComponent">组件式调用</x-button>
+      <x-button size="small" @click="clearToast">手动关闭</x-button>
     </div>
 
-    <vl-toast v-model:show="visible" message="组件式提示" />
+    <x-toast v-model:show="visible" message="组件式提示" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Toast } from '@vela/mobile'
+import { Toast } from '@xxui/mobile'
 
 const visible = ref(false)
 

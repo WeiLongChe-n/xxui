@@ -11,11 +11,11 @@
 ## 基本结构
 
 ```vue
-<vl-steps :active="1">
-  <vl-step title="已提交" description="11-05 10:20" />
-  <vl-step title="运输中" description="预计明日送达" />
-  <vl-step title="已完成" />
-</vl-steps>
+<x-steps :active="1">
+  <x-step title="已提交" description="11-05 10:20" />
+  <x-step title="运输中" description="预计明日送达" />
+  <x-step title="已完成" />
+</x-steps>
 ```
 
 `active` 是当前进行中的步骤索引（从 0 开始）：
@@ -27,7 +27,7 @@
 ## 垂直排列
 
 ```vue
-<vl-steps direction="vertical" :active="1">...</vl-steps>
+<x-steps direction="vertical" :active="1">...</x-steps>
 ```
 
 垂直模式适合物流信息、审批流程这类内容较多的场景。
@@ -35,7 +35,7 @@
 ## 自定义图标
 
 ```vue
-<vl-steps :active="2" finish-icon="success" active-icon="clock">...</vl-steps>
+<x-steps :active="2" finish-icon="success" active-icon="clock">...</x-steps>
 ```
 
 也可以在单个步骤上用 `icon` 指定图标，或用 `#icon` 插槽完全自定义（此时不再显示序号）。
@@ -43,7 +43,7 @@
 ## 手动状态
 
 ```vue
-<vl-step title="审核失败" status="error" description="资料不完整" />
+<x-step title="审核失败" status="error" description="资料不完整" />
 ```
 
 `status` 可覆盖自动推导的状态，取值为 `wait` / `process` / `finish` / `error`。
@@ -56,7 +56,7 @@
 | --- | --- | --- | --- |
 | active | 当前步骤索引 | `number` | `0` |
 | direction | 排列方向 | `horizontal \| vertical` | `horizontal` |
-| activeColor | 激活颜色 | `string` | `--vl-primary` |
+| activeColor | 激活颜色 | `string` | `--x-primary` |
 | finishIcon | 已完成图标 | `string` | `check` |
 | activeIcon | 进行中图标 | `string` | 序号 |
 | inactiveIcon | 未开始图标 | `string` | 序号 |

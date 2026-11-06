@@ -3,7 +3,7 @@ import { computed, inject } from 'vue'
 import { addUnit, createNamespace } from '../../utils'
 import { RADIO_GROUP_KEY, type RadioValue } from '../checkbox/context'
 
-defineOptions({ name: 'VlRadio' })
+defineOptions({ name: 'XRadio' })
 
 const props = withDefaults(
   defineProps<{
@@ -35,12 +35,12 @@ const checked = computed(() => {
 const disabled = computed(() => props.disabled || !!parent?.disabled.value)
 
 const iconStyle = computed(() => ({
-  borderColor: checked.value ? props.checkedColor || 'var(--vl-primary)' : '',
+  borderColor: checked.value ? props.checkedColor || 'var(--x-primary)' : '',
   fontSize: addUnit(props.iconSize),
 }))
 
 const dotStyle = computed(() => ({
-  background: props.checkedColor || 'var(--vl-primary)',
+  background: props.checkedColor || 'var(--x-primary)',
 }))
 
 const select = (event: MouseEvent) => {
@@ -79,7 +79,7 @@ const select = (event: MouseEvent) => {
 </template>
 
 <style lang="scss">
-.vl-radio {
+.x-radio {
   display: inline-flex;
   align-items: center;
   vertical-align: middle;
@@ -93,10 +93,10 @@ const select = (event: MouseEvent) => {
     width: 20px;
     height: 20px;
     font-size: 10px;
-    background: var(--vl-background-2);
-    border: 1px solid var(--vl-border-color);
+    background: var(--x-background-2);
+    border: 1px solid var(--x-border-color);
     border-radius: 50%;
-    transition: border-color var(--vl-duration-fast);
+    transition: border-color var(--x-duration-fast);
   }
 
   &--square &__icon {
@@ -106,15 +106,15 @@ const select = (event: MouseEvent) => {
   &__dot {
     width: 10px;
     height: 10px;
-    background: var(--vl-primary);
+    background: var(--x-primary);
     border-radius: 50%;
-    animation: vl-radio-pop 0.2s var(--vl-ease);
+    animation: x-radio-pop 0.2s var(--x-ease);
   }
 
   &__label {
     margin-left: 8px;
-    font-size: var(--vl-cell-font-size);
-    color: var(--vl-text-color);
+    font-size: var(--x-cell-font-size);
+    color: var(--x-text-color);
   }
 
   &--disabled {
@@ -123,7 +123,7 @@ const select = (event: MouseEvent) => {
   }
 }
 
-@keyframes vl-radio-pop {
+@keyframes x-radio-pop {
   from {
     transform: scale(0.4);
     opacity: 0.4;

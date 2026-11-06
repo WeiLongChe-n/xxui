@@ -3,19 +3,19 @@ import { ref } from 'vue'
 
 const palette = [
   { label: '跟随文字', color: '' },
-  { label: '主色', color: 'var(--vl-primary)' },
-  { label: '成功', color: 'var(--vl-success)' },
-  { label: '警告', color: 'var(--vl-warning)' },
-  { label: '危险', color: 'var(--vl-danger)' },
+  { label: '主色', color: 'var(--x-primary)' },
+  { label: '成功', color: 'var(--x-success)' },
+  { label: '警告', color: 'var(--x-warning)' },
+  { label: '危险', color: 'var(--x-danger)' },
 ]
 
-const active = ref('var(--vl-primary)')
+const active = ref('var(--x-primary)')
 </script>
 
 <template>
   <div class="icon-color">
     <div class="icon-color__preview">
-      <vl-icon name="like" size="44" :color="active || undefined" />
+      <x-icon name="like" size="44" :color="active || undefined" />
       <code>{{ active || 'currentColor' }}</code>
     </div>
 
@@ -35,10 +35,10 @@ const active = ref('var(--vl-primary)')
 
     <div class="icon-color__row">
       <span>不同尺寸：</span>
-      <vl-icon name="star" :size="14" color="var(--vl-primary)" />
-      <vl-icon name="star" :size="18" color="var(--vl-primary)" />
-      <vl-icon name="star" :size="24" color="var(--vl-primary)" />
-      <vl-icon name="star" :size="32" color="var(--vl-primary)" />
+      <x-icon name="star" :size="14" color="var(--x-primary)" />
+      <x-icon name="star" :size="18" color="var(--x-primary)" />
+      <x-icon name="star" :size="24" color="var(--x-primary)" />
+      <x-icon name="star" :size="32" color="var(--x-primary)" />
     </div>
   </div>
 </template>
@@ -61,8 +61,8 @@ const active = ref('var(--vl-primary)')
 .icon-color__preview code {
   padding: 2px 8px;
   font-size: 11px;
-  color: var(--vl-text-color-2);
-  background: var(--vl-background-3);
+  color: var(--x-text-color-2);
+  background: var(--x-background-3);
   border-radius: 6px;
 }
 
@@ -81,16 +81,16 @@ const active = ref('var(--vl-primary)')
   justify-content: center;
   padding: 6px 10px;
   font-size: 12px;
-  color: var(--vl-text-color);
+  color: var(--x-text-color);
   cursor: pointer;
-  background: var(--vl-background-2);
-  border: 1px solid var(--vl-border-color);
+  background: var(--x-background-2);
+  border: 1px solid var(--x-border-color);
   border-radius: 999px;
-  transition: border-color var(--vl-duration-fast);
+  transition: border-color var(--x-duration-fast);
 }
 
 .icon-color__chip--active {
-  border-color: var(--vl-primary);
+  border-color: var(--x-primary);
 }
 
 .icon-color__dot {
@@ -104,6 +104,6 @@ const active = ref('var(--vl-primary)')
   gap: 12px;
   align-items: center;
   font-size: 12px;
-  color: var(--vl-text-color-2);
+  color: var(--x-text-color-2);
 }
 </style>

@@ -3,9 +3,9 @@ import { getTeleportDocument } from './teleport'
 
 export const inBrowser = typeof window !== 'undefined'
 
-/** 生成 BEM 类名：bem() → vl-button，bem('text') → vl-button__text，bem('', 'primary') → vl-button--primary */
+/** 生成 BEM 类名：bem() → x-button，bem('text') → x-button__text，bem('', 'primary') → x-button--primary */
 export function createNamespace(name: string) {
-  const block = `vl-${name}`
+  const block = `x-${name}`
   const bem = (element?: string, modifier?: string) => {
     const base = element ? `${block}__${element}` : block
     return modifier ? `${base}--${modifier}` : base

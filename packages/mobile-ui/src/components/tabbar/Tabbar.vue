@@ -3,7 +3,7 @@ import { computed, provide, ref } from 'vue'
 import { createNamespace } from '../../utils'
 import { TABBAR_KEY, type TabbarKey } from './context'
 
-defineOptions({ name: 'VlTabbar' })
+defineOptions({ name: 'XTabbar' })
 
 const props = withDefaults(
   defineProps<{
@@ -72,10 +72,10 @@ const classes = computed(() => [
 <style lang="scss">
 @use '../../styles/mixins' as *;
 
-.vl-tabbar {
+.x-tabbar {
   display: flex;
-  height: var(--vl-tabbar-height);
-  background: var(--vl-background-2);
+  height: var(--x-tabbar-height);
+  background: var(--x-background-2);
 
   @include hairline(top);
 
@@ -91,15 +91,15 @@ const classes = computed(() => [
   }
 
   &--safe-bottom {
-    height: calc(var(--vl-tabbar-height) + var(--vl-safe-bottom));
-    padding-bottom: var(--vl-safe-bottom);
+    height: calc(var(--x-tabbar-height) + var(--x-safe-bottom));
+    padding-bottom: var(--x-safe-bottom);
   }
 
   &__placeholder {
-    height: var(--vl-tabbar-height);
+    height: var(--x-tabbar-height);
 
     &--safe-bottom {
-      height: calc(var(--vl-tabbar-height) + var(--vl-safe-bottom));
+      height: calc(var(--x-tabbar-height) + var(--x-safe-bottom));
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="list-host">
-    <vl-list
+    <x-list
       :loading="loading"
       :finished="finished"
       :error="error"
@@ -11,14 +11,14 @@
       @load="onLoad"
       @update:error="error = $event"
     >
-      <vl-cell
+      <x-cell
         v-for="item in list"
         :key="item.id"
         :title="item.title"
         :label="item.desc"
         :value="`#${item.id}`"
       />
-    </vl-list>
+    </x-list>
   </div>
 </template>
 
@@ -74,8 +74,8 @@ onMounted(() => {
 <style scoped>
 .list-host {
   overflow: hidden;
-  background: var(--vl-background-2);
-  border: 1px solid var(--vl-border-color);
+  background: var(--x-background-2);
+  border: 1px solid var(--x-border-color);
   border-radius: 12px;
 }
 </style>

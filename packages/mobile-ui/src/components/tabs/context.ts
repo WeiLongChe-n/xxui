@@ -21,4 +21,4 @@ export interface TabsContext {
   unregister: (uid: number) => void
 }
 
-export const TABS_KEY: InjectionKey<TabsContext> = Symbol('vl-tabs')
+export const TABS_KEY: InjectionKey<TabsContext> = Symbol('x-tabs')

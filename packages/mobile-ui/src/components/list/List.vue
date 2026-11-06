@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { createNamespace, getOwnerWindow } from '../../utils'
-import VlLoading from '../loading/Loading.vue'
+import XLoading from '../loading/Loading.vue'
 
-defineOptions({ name: 'VlList' })
+defineOptions({ name: 'XList' })
 
 const props = withDefaults(
   defineProps<{
@@ -87,7 +87,7 @@ onBeforeUnmount(() => observer?.disconnect())
     <slot />
     <div ref="placeholder" :class="bem('placeholder')">
       <div v-if="loading" :class="bem('loading')">
-        <VlLoading :size="16" type="spinner" />
+        <XLoading :size="16" type="spinner" />
         <span :class="bem('loading-text')">{{ loadingText }}</span>
       </div>
       <div v-else-if="error" :class="bem('error')" @click="onClickError">{{ errorText }}</div>
@@ -97,7 +97,7 @@ onBeforeUnmount(() => observer?.disconnect())
 </template>
 
 <style lang="scss">
-.vl-list {
+.x-list {
   &__placeholder {
     min-height: 1px;
   }
@@ -111,20 +111,20 @@ onBeforeUnmount(() => observer?.disconnect())
 
   &__loading-text {
     margin-left: 8px;
-    font-size: var(--vl-font-size-sm);
-    color: var(--vl-text-color-3);
+    font-size: var(--x-font-size-sm);
+    color: var(--x-text-color-3);
   }
 
   &__finished,
   &__error {
     padding: 18px 16px;
-    font-size: var(--vl-font-size-sm);
-    color: var(--vl-text-color-3);
+    font-size: var(--x-font-size-sm);
+    color: var(--x-text-color-3);
     text-align: center;
   }
 
   &__error {
-    color: var(--vl-primary);
+    color: var(--x-primary);
     cursor: pointer;
   }
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { iconPaths } from '@vela/mobile'
+import { iconPaths } from '@xxui/mobile'
 
 const names = Object.keys(iconPaths)
 </script>
@@ -7,7 +7,7 @@ const names = Object.keys(iconPaths)
 <template>
   <div class="icon-demo">
     <div v-for="name in names" :key="name" class="icon-demo__item">
-      <vl-icon :name="name" size="22" />
+      <x-icon :name="name" size="22" />
       <span>{{ name }}</span>
     </div>
   </div>
@@ -27,10 +27,10 @@ const names = Object.keys(iconPaths)
   align-items: center;
   padding: 12px 4px;
   font-size: 11px;
-  color: var(--vl-text-color-2);
+  color: var(--x-text-color-2);
   text-align: center;
   word-break: break-all;
-  background: var(--vl-background-3);
+  background: var(--x-background-3);
   border-radius: 10px;
 }
 </style>

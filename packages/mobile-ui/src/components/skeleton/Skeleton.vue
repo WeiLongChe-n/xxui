@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { addUnit, createNamespace } from '../../utils'
 
-defineOptions({ name: 'VlSkeleton' })
+defineOptions({ name: 'XSkeleton' })
 
 const props = withDefaults(
   defineProps<{
@@ -68,22 +68,22 @@ const classes = computed(() => [bem(), { [bem('', 'animated')]: props.animated }
 </template>
 
 <style lang="scss">
-.vl-skeleton {
+.x-skeleton {
   display: flex;
   padding: 16px;
-  background: var(--vl-background-2);
+  background: var(--x-background-2);
 
   &__avatar {
     flex: none;
     margin-right: 16px;
-    background: var(--vl-background-3);
+    background: var(--x-background-3);
 
     &--round {
       border-radius: 50%;
     }
 
     &--square {
-      border-radius: var(--vl-radius);
+      border-radius: var(--x-radius);
     }
   }
 
@@ -95,7 +95,7 @@ const classes = computed(() => [bem(), { [bem('', 'animated')]: props.animated }
   &__title,
   &__row {
     height: 16px;
-    background: var(--vl-background-3);
+    background: var(--x-background-3);
     border-radius: 4px;
   }
 
@@ -117,16 +117,16 @@ const classes = computed(() => [bem(), { [bem('', 'animated')]: props.animated }
   &--animated &__avatar {
     background-image: linear-gradient(
       90deg,
-      var(--vl-background-3) 25%,
-      var(--vl-border-color) 37%,
-      var(--vl-background-3) 63%
+      var(--x-background-3) 25%,
+      var(--x-border-color) 37%,
+      var(--x-background-3) 63%
     );
     background-size: 400% 100%;
-    animation: vl-skeleton-loading 1.4s ease infinite;
+    animation: x-skeleton-loading 1.4s ease infinite;
   }
 }
 
-@keyframes vl-skeleton-loading {
+@keyframes x-skeleton-loading {
   from {
     background-position: 100% 50%;
   }

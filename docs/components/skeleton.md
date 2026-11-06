@@ -11,11 +11,11 @@
 ## 用法
 
 ```vue
-<vl-skeleton :loading="loading" :rows="3" animated>
-  <vl-cell-group inset>
-    <vl-cell title="真实内容" value="加载完成后展示" />
-  </vl-cell-group>
-</vl-skeleton>
+<x-skeleton :loading="loading" :rows="3" animated>
+  <x-cell-group inset>
+    <x-cell title="真实内容" value="加载完成后展示" />
+  </x-cell-group>
+</x-skeleton>
 ```
 
 `loading` 为 `false` 时渲染默认插槽的内容；为 `true` 时渲染骨架。
@@ -23,9 +23,9 @@
 ## 头像与行宽
 
 ```vue
-<vl-skeleton avatar :rows="2" />
-<vl-skeleton :row-width="['100%', '80%', '60%']" />
-<vl-skeleton avatar avatar-shape="square" :avatar-size="56" round />
+<x-skeleton avatar :rows="2" />
+<x-skeleton :row-width="['100%', '80%', '60%']" />
+<x-skeleton avatar avatar-shape="square" :avatar-size="56" round />
 ```
 
 `row-width` 既可以是单值，也可以是数组（按行循环取值）。

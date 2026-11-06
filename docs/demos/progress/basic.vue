@@ -1,25 +1,25 @@
 <template>
   <div class="demo-col">
     <div class="demo-row">
-      <vl-progress :percentage="40" />
+      <x-progress :percentage="40" />
       <span class="value">40%</span>
     </div>
 
     <div class="demo-row">
-      <vl-progress :percentage="65" color="#16a34a" />
+      <x-progress :percentage="65" color="#16a34a" />
       <span class="value">65%</span>
     </div>
 
-    <vl-progress :percentage="30" :show-pivot="true" />
+    <x-progress :percentage="30" :show-pivot="true" />
 
-    <vl-progress :percentage="80" :stroke-width="10" :show-pivot="true" pivot-position="outside" />
+    <x-progress :percentage="80" :stroke-width="10" :show-pivot="true" pivot-position="outside" />
 
-    <vl-progress :percentage="60" striped animated :stroke-width="8" />
+    <x-progress :percentage="60" striped animated :stroke-width="8" />
 
     <div class="demo-row">
-      <vl-button size="mini" @click="value = Math.max(value - 10, 0)">-10</vl-button>
-      <vl-progress :percentage="value" :show-pivot="true" />
-      <vl-button size="mini" @click="value = Math.min(value + 10, 100)">+10</vl-button>
+      <x-button size="mini" @click="value = Math.max(value - 10, 0)">-10</x-button>
+      <x-progress :percentage="value" :show-pivot="true" />
+      <x-button size="mini" @click="value = Math.min(value + 10, 100)">+10</x-button>
     </div>
   </div>
 </template>
@@ -46,6 +46,6 @@ const value = ref(50)
   flex: none;
   width: 40px;
   font-size: 12px;
-  color: var(--vl-text-color-3);
+  color: var(--x-text-color-3);
 }
 </style>

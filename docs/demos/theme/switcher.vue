@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { brandOptions, useTheme } from '@vela/index'
+import { brandOptions, useTheme } from '@xxui/index'
 
 const { mode, brand, resolvedMode, setMode, setBrand, toggleMode } = useTheme()
 
@@ -53,19 +53,19 @@ const currentModeLabel = computed(
     </div>
 
     <div class="theme-demo__preview">
-      <vl-cell-group inset>
-        <vl-cell title="当前主题" :value="`${currentModeLabel} / ${resolvedMode}`" />
-        <vl-cell title="主色" :value="`hsl(${brandOptions.find((i) => i.name === brand)?.hue} 88% 55%)`" />
-        <vl-cell title="商品名称" label="副标题会跟随主题变化" is-link />
-      </vl-cell-group>
+      <x-cell-group inset>
+        <x-cell title="当前主题" :value="`${currentModeLabel} / ${resolvedMode}`" />
+        <x-cell title="主色" :value="`hsl(${brandOptions.find((i) => i.name === brand)?.hue} 88% 55%)`" />
+        <x-cell title="商品名称" label="副标题会跟随主题变化" is-link />
+      </x-cell-group>
 
       <div class="theme-demo__actions">
-        <vl-button type="primary" size="small">主要按钮</vl-button>
-        <vl-button type="primary" size="small" plain>朴素按钮</vl-button>
-        <vl-button size="small">默认按钮</vl-button>
-        <vl-tag type="primary">标签</vl-tag>
-        <vl-tag type="success">已完成</vl-tag>
-        <vl-tag type="danger">已取消</vl-tag>
+        <x-button type="primary" size="small">主要按钮</x-button>
+        <x-button type="primary" size="small" plain>朴素按钮</x-button>
+        <x-button size="small">默认按钮</x-button>
+        <x-tag type="primary">标签</x-tag>
+        <x-tag type="success">已完成</x-tag>
+        <x-tag type="danger">已取消</x-tag>
       </div>
     </div>
   </div>
@@ -89,7 +89,7 @@ const currentModeLabel = computed(
   width: 64px;
   padding-top: 5px;
   font-size: 12px;
-  color: var(--vl-text-color-3);
+  color: var(--x-text-color-3);
 }
 
 .theme-demo__chips,
@@ -102,17 +102,17 @@ const currentModeLabel = computed(
 .theme-demo__chip {
   padding: 5px 12px;
   font-size: 12px;
-  color: var(--vl-text-color-2);
+  color: var(--x-text-color-2);
   cursor: pointer;
-  background: var(--vl-background-3);
-  border: 1px solid var(--vl-border-color);
+  background: var(--x-background-3);
+  border: 1px solid var(--x-border-color);
   border-radius: 999px;
 }
 
 .theme-demo__chip.is-active {
-  color: var(--vl-primary);
-  background: var(--vl-primary-light);
-  border-color: var(--vl-primary);
+  color: var(--x-primary);
+  background: var(--x-primary-light);
+  border-color: var(--x-primary);
 }
 
 .theme-demo__brand {
@@ -121,10 +121,10 @@ const currentModeLabel = computed(
   align-items: center;
   padding: 4px 10px;
   font-size: 12px;
-  color: var(--vl-text-color-2);
+  color: var(--x-text-color-2);
   cursor: pointer;
   background: transparent;
-  border: 1px solid var(--vl-border-color);
+  border: 1px solid var(--x-border-color);
   border-radius: 999px;
 }
 
@@ -135,14 +135,14 @@ const currentModeLabel = computed(
 }
 
 .theme-demo__brand.is-active {
-  color: var(--vl-text-color);
-  border-color: var(--vl-primary);
+  color: var(--x-text-color);
+  border-color: var(--x-primary);
 }
 
 .theme-demo__preview {
   padding: 12px;
   margin-top: 4px;
-  background: var(--vl-background);
+  background: var(--x-background);
   border-radius: 12px;
 }
 

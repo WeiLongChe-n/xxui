@@ -3,7 +3,11 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
 
+/** 包根目录：产物必须落在包内，否则发布出去的 dist 是空的 */
+const root = fileURLToPath(new URL('.', import.meta.url))
+
 export default defineConfig({
+  root,
   plugins: [
     vue(),
     dts({
@@ -25,10 +29,12 @@ export default defineConfig({
     target: 'es2018',
     lib: {
       entry: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
-      name: 'VelaUI',
+      name: 'XXUI',
       formats: ['es', 'umd'],
-      fileName: (format) => `vela-ui.${format}.js`,
-      cssFileName: 'vela-ui',
+      // 包不带 "type": "module"，所以 .js 即 CJS：
+      // ESM 用 .mjs 显式声明，UMD 保持 .js 便于 CDN 的 script 标签直接加载
+      fileName: (format) => (format === 'es' ? 'xxui.mjs' : 'xxui.umd.js'),
+      cssFileName: 'xxui',
     },
     rollupOptions: {
       external: ['vue'],

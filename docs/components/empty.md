@@ -19,18 +19,18 @@
 | `cart` | 购物车为空 |
 
 ```vue
-<vl-empty image="search" description="没有找到相关商品" />
+<x-empty image="search" description="没有找到相关商品" />
 ```
 
 ## 自定义插图与操作
 
 ```vue
-<vl-empty description="购物车还是空的">
-  <vl-button type="primary" size="small">去逛逛</vl-button>
+<x-empty description="购物车还是空的">
+  <x-button type="primary" size="small">去逛逛</x-button>
   <template #image>
     <img src="/empty.png" alt="" />
   </template>
-</vl-empty>
+</x-empty>
 ```
 
 ## API

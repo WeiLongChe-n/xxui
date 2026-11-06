@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 import { useData } from 'vitepress'
-import { brandOptions, setDefaultTeleportTarget } from '@vela/mobile'
+import { brandOptions, setDefaultTeleportTarget } from '@xxui/mobile'
 import {
   collectDemoHashes,
   collectStylesByHashes,
-  collectVelaStyles,
+  collectXXUIStyles,
   SANDBOX_BASE_STYLES,
 } from '../utils/sandbox'
 import { resetStageDemo, stageActiveId, stageBody } from '../utils/demo-stage'
@@ -60,7 +60,7 @@ onMounted(async () => {
 
   // 开发环境下个别组件样式可能晚于首次收集，补一次
   setTimeout(() => {
-    if (!collectVelaStyles()) setupSandbox()
+    if (!collectXXUIStyles()) setupSandbox()
   }, 400)
 
   window.addEventListener('keydown', onKeydown)
@@ -102,7 +102,7 @@ function setupSandbox() {
 
   const style = doc.createElement('style')
   style.dataset.vela = 'sandbox'
-  style.textContent = `${SANDBOX_BASE_STYLES}\n${collectVelaStyles()}`
+  style.textContent = `${SANDBOX_BASE_STYLES}\n${collectXXUIStyles()}`
   doc.head.appendChild(style)
 
   sandboxDoc.value = doc
@@ -132,7 +132,7 @@ function bindPortalTarget(doc: Document) {
 
   const onPointerDown = (event: Event) => {
     const target = event.target as Element | null
-    const hold = target?.closest?.('.vl-demo-hold')
+    const hold = target?.closest?.('.x-demo-hold')
     setDefaultTeleportTarget((hold as HTMLElement | null) ?? doc.body)
   }
 
@@ -151,10 +151,10 @@ function applyBodyStyle(doc = sandboxDoc.value) {
   if (!doc) return
   const bg =
     props.background === 'page'
-      ? 'var(--vl-background)'
+      ? 'var(--x-background)'
       : props.background === 'transparent'
         ? 'transparent'
-        : 'var(--vl-background-2)'
+        : 'var(--x-background-2)'
   doc.body.style.padding = props.padding === 'none' ? '0' : '16px'
   doc.body.style.background = bg
 }

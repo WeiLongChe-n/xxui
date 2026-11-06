@@ -4,17 +4,17 @@
 
 ## 基础用法
 
-`vl-dropdown-menu` 是容器，`vl-dropdown-item` 是每一项。同一时间只会展开一个菜单，点击遮罩自动收起。
+`x-dropdown-menu` 是容器，`x-dropdown-item` 是每一项。同一时间只会展开一个菜单，点击遮罩自动收起。
 
 <DemoBlock title="单选 / 多选 / 自定义" description="排序单选、筛选多选，第三项使用插槽自定义内容" :code="code">
   <DropdownBasic />
 </DemoBlock>
 
 ```vue
-<vl-dropdown-menu>
-  <vl-dropdown-item v-model="sort" :options="sortOptions" title="综合排序" />
-  <vl-dropdown-item v-model="filters" :options="filterOptions" title="筛选" multiple />
-</vl-dropdown-menu>
+<x-dropdown-menu>
+  <x-dropdown-item v-model="sort" :options="sortOptions" title="综合排序" />
+  <x-dropdown-item v-model="filters" :options="filterOptions" title="筛选" multiple />
+</x-dropdown-menu>
 ```
 
 ## 自定义面板
@@ -22,16 +22,16 @@
 不传 `options`、或给默认插槽提供内容时，面板会渲染插槽，可以做价格区间、标签选择等复杂筛选。
 
 ```vue
-<vl-dropdown-item title="更多">
+<x-dropdown-item title="更多">
   <div class="panel">...任意内容...</div>
-</vl-dropdown-item>
+</x-dropdown-item>
 ```
 
 ## 使用提示
 
 - 多选时改动先写入草稿，点击「确定」才会通过 `update:modelValue` 提交。
 - 设置 `:close-on-click-option="false"` 可以在单选后保持面板打开，适合需要连续切换的场景。
-- 菜单栏默认均分宽度，`vl-dropdown-item` 会根据数量自动伸缩。
+- 菜单栏默认均分宽度，`x-dropdown-item` 会根据数量自动伸缩。
 
 ## API
 

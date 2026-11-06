@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { addUnit, createNamespace } from '../../utils'
-import VlIcon from '../icon/Icon.vue'
+import XIcon from '../icon/Icon.vue'
 import type { TreeItem, TreeKey, TreeNode } from './types'
 
-defineOptions({ name: 'VlTree' })
+defineOptions({ name: 'XTree' })
 
 const props = withDefaults(
   defineProps<{
@@ -261,7 +261,7 @@ const labelOf = (node: TreeNode) => node.label ?? node.title ?? String(node.key)
         :class="[bem('arrow'), { [bem('arrow', 'open')]: isExpanded(item.key) }]"
         @click.stop="toggleExpand(item.node)"
       >
-        <VlIcon v-if="hasChildren(item.node)" name="arrow-down" />
+        <XIcon v-if="hasChildren(item.node)" name="arrow-down" />
       </span>
 
       <span
@@ -277,16 +277,16 @@ const labelOf = (node: TreeNode) => node.label ?? node.title ?? String(node.key)
         :aria-checked="isIndeterminate(item.node) ? 'mixed' : isChecked(item.node)"
         @click.stop="toggleCheck(item.node)"
       >
-        <VlIcon v-if="isChecked(item.node)" name="check" />
+        <XIcon v-if="isChecked(item.node)" name="check" />
         <i v-else-if="isIndeterminate(item.node)" :class="bem('checkbox-dash')" />
       </span>
 
-      <VlIcon v-if="item.node.icon" :name="item.node.icon" :class="bem('icon')" />
+      <XIcon v-if="item.node.icon" :name="item.node.icon" :class="bem('icon')" />
 
       <span :class="bem('label')">{{ labelOf(item.node) }}</span>
 
       <span v-if="!multiple" :class="bem('check')">
-        <VlIcon v-if="isSelected(item.key)" name="check" />
+        <XIcon v-if="isSelected(item.key)" name="check" />
       </span>
     </div>
 
@@ -295,10 +295,10 @@ const labelOf = (node: TreeNode) => node.label ?? node.title ?? String(node.key)
 </template>
 
 <style lang="scss">
-.vl-tree {
+.x-tree {
   padding: 4px 0;
   overflow: hidden;
-  background: var(--vl-background-2);
+  background: var(--x-background-2);
 
   &__node {
     display: flex;
@@ -306,22 +306,22 @@ const labelOf = (node: TreeNode) => node.label ?? node.title ?? String(node.key)
     align-items: center;
     min-height: 46px;
     padding-right: 12px;
-    font-size: var(--vl-cell-font-size);
-    color: var(--vl-text-color);
+    font-size: var(--x-cell-font-size);
+    color: var(--x-text-color);
     cursor: pointer;
-    transition: background-color var(--vl-duration-fast) var(--vl-ease);
+    transition: background-color var(--x-duration-fast) var(--x-ease);
 
     &:active {
-      background: var(--vl-active-color);
+      background: var(--x-active-color);
     }
 
     &--selected {
-      color: var(--vl-primary);
-      background: var(--vl-primary-light);
+      color: var(--x-primary);
+      background: var(--x-primary-light);
     }
 
     &--disabled {
-      color: var(--vl-text-color-4);
+      color: var(--x-text-color-4);
       cursor: not-allowed;
 
       &:active {
@@ -337,9 +337,9 @@ const labelOf = (node: TreeNode) => node.label ?? node.title ?? String(node.key)
     justify-content: center;
     width: 16px;
     height: 16px;
-    color: var(--vl-text-color-3);
+    color: var(--x-text-color-3);
     transform: rotate(-90deg);
-    transition: transform var(--vl-duration-fast) var(--vl-ease);
+    transition: transform var(--x-duration-fast) var(--x-ease);
 
     &--open {
       transform: rotate(0deg);
@@ -347,7 +347,7 @@ const labelOf = (node: TreeNode) => node.label ?? node.title ?? String(node.key)
   }
 
   &__node--disabled &__arrow {
-    color: var(--vl-text-color-4);
+    color: var(--x-text-color-4);
   }
 
   &__checkbox {
@@ -359,21 +359,21 @@ const labelOf = (node: TreeNode) => node.label ?? node.title ?? String(node.key)
     height: 20px;
     font-size: 14px;
     color: #fff;
-    background: var(--vl-background-2);
-    border: 1px solid var(--vl-border-color);
+    background: var(--x-background-2);
+    border: 1px solid var(--x-border-color);
     border-radius: 4px;
     transition:
-      background-color var(--vl-duration-fast) var(--vl-ease),
-      border-color var(--vl-duration-fast) var(--vl-ease);
+      background-color var(--x-duration-fast) var(--x-ease),
+      border-color var(--x-duration-fast) var(--x-ease);
 
-    .vl-icon {
+    .x-icon {
       transform: scale(0.85);
     }
 
     &--checked,
     &--indeterminate {
-      background: var(--vl-primary);
-      border-color: var(--vl-primary);
+      background: var(--x-primary);
+      border-color: var(--x-primary);
     }
 
     &--indeterminate {
@@ -391,7 +391,7 @@ const labelOf = (node: TreeNode) => node.label ?? node.title ?? String(node.key)
   &__icon {
     flex: none;
     font-size: 16px;
-    color: var(--vl-text-color-2);
+    color: var(--x-text-color-2);
   }
 
   &__label {
@@ -408,18 +408,18 @@ const labelOf = (node: TreeNode) => node.label ?? node.title ?? String(node.key)
     justify-content: center;
     width: 16px;
     font-size: 16px;
-    color: var(--vl-primary);
+    color: var(--x-primary);
   }
 
   &__node--disabled &__icon,
   &__node--disabled &__check {
-    color: var(--vl-text-color-4);
+    color: var(--x-text-color-4);
   }
 
   &__empty {
     padding: 32px 0;
-    font-size: var(--vl-font-size-sm);
-    color: var(--vl-text-color-3);
+    font-size: var(--x-font-size-sm);
+    color: var(--x-text-color-3);
     text-align: center;
   }
 }

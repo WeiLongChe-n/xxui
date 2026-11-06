@@ -1,13 +1,13 @@
 <template>
   <div class="demo-tree">
-    <vl-tree v-model:selected="selected" :data="data" default-expand-all />
+    <x-tree v-model:selected="selected" :data="data" default-expand-all />
     <p class="demo-tree__tip">当前选中：{{ selectedLabel || '未选择' }}</p>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { TreeNode, TreeKey } from '@vela/mobile'
+import type { TreeNode, TreeKey } from '@xxui/mobile'
 
 const selected = ref<TreeKey | null>('xihu')
 
@@ -63,6 +63,6 @@ const selectedLabel = computed(
   margin: 0;
   padding: 0 12px;
   font-size: 12px;
-  color: var(--vl-text-color-2);
+  color: var(--x-text-color-2);
 }
 </style>

@@ -19,15 +19,15 @@
 | `center` | 居中缩放 | 内容决定，最大 100% |
 
 ```vue
-<vl-popup v-model:show="show" position="bottom" round>
+<x-popup v-model:show="show" position="bottom" round>
   <div class="content">内容</div>
-</vl-popup>
+</x-popup>
 ```
 
 ## 圆角与关闭按钮
 
 ```vue
-<vl-popup v-model:show="show" position="bottom" round closeable close-icon-position="top-right" />
+<x-popup v-model:show="show" position="bottom" round closeable close-icon-position="top-right" />
 ```
 
 `round` 只对贴近屏幕边缘的方向生效（bottom 圆上两角、top 圆下两角、left/right 圆内侧两角）。
@@ -37,7 +37,7 @@
 默认点击遮罩不关闭，避免误触丢失表单内容；需要关闭时：
 
 ```vue
-<vl-popup v-model:show="show" close-on-click-overlay />
+<x-popup v-model:show="show" close-on-click-overlay />
 ```
 
 ## 滚动锁定

@@ -1,19 +1,19 @@
 <template>
   <div class="dropdown-demo">
-    <vl-dropdown-menu>
-      <vl-dropdown-item v-model="sort" :options="sortOptions" title="综合排序" />
-      <vl-dropdown-item
+    <x-dropdown-menu>
+      <x-dropdown-item v-model="sort" :options="sortOptions" title="综合排序" />
+      <x-dropdown-item
         v-model="filters"
         :options="filterOptions"
         title="筛选"
         multiple
       />
-      <vl-dropdown-item title="更多">
+      <x-dropdown-item title="更多">
         <div class="dropdown-demo__custom">
           <span v-for="item in tags" :key="item" class="dropdown-demo__tag">{{ item }}</span>
         </div>
-      </vl-dropdown-item>
-    </vl-dropdown-menu>
+      </x-dropdown-item>
+    </x-dropdown-menu>
 
     <p class="dropdown-demo__value">
       排序：{{ sortText }} · 筛选：{{ filters.length }} 项
@@ -23,7 +23,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { DropdownValue } from '@vela/mobile'
+import type { DropdownValue } from '@xxui/mobile'
 
 const sort = ref<DropdownValue>('default')
 const filters = ref<DropdownValue[]>([])
@@ -55,14 +55,14 @@ const sortText = computed(
 .dropdown-demo {
   width: 100%;
   min-height: 320px;
-  background: var(--vl-background-2);
+  background: var(--x-background-2);
 }
 
 .dropdown-demo__value {
   margin: 0;
   padding: 12px 16px;
   font-size: 12px;
-  color: var(--vl-text-color-2);
+  color: var(--x-text-color-2);
 }
 
 .dropdown-demo__custom {
@@ -75,8 +75,8 @@ const sortText = computed(
 .dropdown-demo__tag {
   padding: 6px 12px;
   font-size: 12px;
-  color: var(--vl-text-color-2);
-  background: var(--vl-background-3);
+  color: var(--x-text-color-2);
+  background: var(--x-background-3);
   border-radius: 999px;
 }
 </style>

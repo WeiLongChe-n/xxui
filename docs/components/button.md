@@ -13,11 +13,11 @@
 `type` 决定按钮的语义：`primary` 主操作、`success` 成功、`warning` 警告、`danger` 危险、`default` 次要操作。
 
 ```vue
-<vl-button type="primary">主要按钮</vl-button>
-<vl-button type="success">成功按钮</vl-button>
-<vl-button type="warning">警告按钮</vl-button>
-<vl-button type="danger">危险按钮</vl-button>
-<vl-button>默认按钮</vl-button>
+<x-button type="primary">主要按钮</x-button>
+<x-button type="success">成功按钮</x-button>
+<x-button type="warning">警告按钮</x-button>
+<x-button type="danger">危险按钮</x-button>
+<x-button>默认按钮</x-button>
 ```
 
 ## 朴素按钮
@@ -25,8 +25,8 @@
 设置 `plain` 后背景透明、边框与文字使用类型色，适合与主按钮并排时的次要操作。
 
 ```vue
-<vl-button type="primary" plain>主要按钮</vl-button>
-<vl-button type="danger" plain>危险按钮</vl-button>
+<x-button type="primary" plain>主要按钮</x-button>
+<x-button type="danger" plain>危险按钮</x-button>
 ```
 
 ## 尺寸
@@ -43,8 +43,8 @@
 `disabled` 会降低不透明度并阻止点击；`loading` 会展示加载图标并阻止重复提交，可通过 `loading-text` 替换文案。
 
 ```vue
-<vl-button disabled>禁用</vl-button>
-<vl-button type="primary" loading loading-text="提交中">提交</vl-button>
+<x-button disabled>禁用</x-button>
+<x-button type="primary" loading loading-text="提交中">提交</x-button>
 ```
 
 ## 图标
@@ -52,8 +52,8 @@
 `icon` 传入 [图标名称](/components/icon)，`icon-position` 控制图标在文字左侧或右侧。
 
 ```vue
-<vl-button type="primary" icon="plus">新建</vl-button>
-<vl-button icon="share" icon-position="right">分享</vl-button>
+<x-button type="primary" icon="plus">新建</x-button>
+<x-button icon="share" icon-position="right">分享</x-button>
 ```
 
 ## 自定义颜色
@@ -61,11 +61,11 @@
 `color` 支持任意 CSS 颜色，也支持渐变；此时边框与背景会被同时设置为该值。
 
 ```vue
-<vl-button type="primary" color="linear-gradient(135deg, #6a5cff, #3b82f6)">渐变按钮</vl-button>
+<x-button type="primary" color="linear-gradient(135deg, #6a5cff, #3b82f6)">渐变按钮</x-button>
 ```
 
 ::: tip 与主题的关系
-`color` 属于单点覆盖，不会随主题变化。需要跟随主题的强调色，请优先使用 `type`，或覆盖 `--vl-primary`。
+`color` 属于单点覆盖，不会随主题变化。需要跟随主题的强调色，请优先使用 `type`，或覆盖 `--x-primary`。
 :::
 
 ## API

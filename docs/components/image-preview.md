@@ -11,7 +11,7 @@
 </DemoBlock>
 
 ```ts
-import { ImagePreview } from '@vela/mobile'
+import { ImagePreview } from '@xxui/mobile'
 
 const instance = ImagePreview({
   images: ['a.jpg', 'b.jpg'],
@@ -28,7 +28,7 @@ instance.swipeTo(1)
 需要把预览放进自己的弹层体系时，可以直接使用组件，通过 `v-model:show` 控制显隐。
 
 ```vue
-<vl-image-preview v-model:show="show" :images="images" :start-position="1" @change="onChange" />
+<x-image-preview v-model:show="show" :images="images" :start-position="1" @change="onChange" />
 ```
 
 ## 使用提示

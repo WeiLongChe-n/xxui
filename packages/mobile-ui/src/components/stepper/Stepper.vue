@@ -2,7 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import { addUnit, clamp, createNamespace } from '../../utils'
 
-defineOptions({ name: 'VlStepper' })
+defineOptions({ name: 'XStepper' })
 
 const props = withDefaults(
   defineProps<{
@@ -145,12 +145,12 @@ const onBlur = () => {
 <style lang="scss">
 @use '../../styles/mixins' as *;
 
-.vl-stepper {
+.x-stepper {
   display: inline-flex;
   align-items: center;
   overflow: hidden;
-  background: var(--vl-background-3);
-  border-radius: var(--vl-radius);
+  background: var(--x-background-3);
+  border-radius: var(--x-radius);
 
   &__btn {
     @include reset-button;
@@ -158,17 +158,17 @@ const onBlur = () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--vl-text-color);
+    color: var(--x-text-color);
     cursor: pointer;
-    background: var(--vl-background-3);
-    transition: background var(--vl-duration-fast);
+    background: var(--x-background-3);
+    transition: background var(--x-duration-fast);
 
     &:active:not(:disabled) {
-      background: var(--vl-border-color);
+      background: var(--x-border-color);
     }
 
     &:disabled {
-      color: var(--vl-text-color-4);
+      color: var(--x-text-color-4);
       cursor: not-allowed;
     }
   }
@@ -182,22 +182,22 @@ const onBlur = () => {
     width: 32px;
     height: 100%;
     padding: 0 2px;
-    font-size: var(--vl-font-size);
+    font-size: var(--x-font-size);
     font-weight: 500;
     line-height: 28px;
-    color: var(--vl-text-color);
+    color: var(--x-text-color);
     text-align: center;
     background: transparent;
     border: 0;
-    border-right: 1px solid var(--vl-border-color);
-    border-left: 1px solid var(--vl-border-color);
+    border-right: 1px solid var(--x-border-color);
+    border-left: 1px solid var(--x-border-color);
     outline: none;
   }
 
   &__value {
     min-width: 32px;
     padding: 0 6px;
-    font-size: var(--vl-font-size);
+    font-size: var(--x-font-size);
     font-weight: 500;
     text-align: center;
   }

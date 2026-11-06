@@ -28,7 +28,7 @@ await page.setViewport({ width, height: 1000, deviceScaleFactor: 2 })
 if (dark) {
   await page.evaluateOnNewDocument(() => {
     localStorage.setItem('vitepress-theme-appearance', 'dark')
-    localStorage.setItem('vela-ui-theme', JSON.stringify({ mode: 'dark', brand: 'ocean' }))
+    localStorage.setItem('xxui-theme', JSON.stringify({ mode: 'dark', brand: 'ocean' }))
   })
 }
 

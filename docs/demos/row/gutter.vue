@@ -1,20 +1,20 @@
 <template>
   <div class="layout-demo">
-    <vl-row :gutter="12">
-      <vl-col v-for="item in list" :key="item.title" :span="8">
+    <x-row :gutter="12">
+      <x-col v-for="item in list" :key="item.title" :span="8">
         <div class="card">
           <span class="card__icon"></span>
           <span class="card__title">{{ item.title }}</span>
           <span class="card__desc">{{ item.desc }}</span>
         </div>
-      </vl-col>
-    </vl-row>
+      </x-col>
+    </x-row>
 
-    <vl-row :gutter="[16, 12]">
-      <vl-col v-for="n in 4" :key="n" :span="12">
+    <x-row :gutter="[16, 12]">
+      <x-col v-for="n in 4" :key="n" :span="12">
         <div class="tile">第 {{ n }} 块</div>
-      </vl-col>
-    </vl-row>
+      </x-col>
+    </x-row>
   </div>
 </template>
 
@@ -39,34 +39,34 @@ const list = [
   flex-direction: column;
   gap: 4px;
   padding: 12px;
-  background: var(--vl-background-3);
+  background: var(--x-background-3);
   border-radius: 8px;
 }
 
 .card__icon {
   width: 22px;
   height: 22px;
-  background: var(--vl-primary-light);
+  background: var(--x-primary-light);
   border-radius: 6px;
 }
 
 .card__title {
   font-size: 13px;
   font-weight: 600;
-  color: var(--vl-text-color);
+  color: var(--x-text-color);
 }
 
 .card__desc {
   font-size: 11px;
-  color: var(--vl-text-color-3);
+  color: var(--x-text-color-3);
 }
 
 .tile {
   padding: 14px 10px;
   font-size: 12px;
-  color: var(--vl-text-color-2);
+  color: var(--x-text-color-2);
   text-align: center;
-  background: var(--vl-background-3);
+  background: var(--x-background-3);
   border-radius: 8px;
 }
 </style>

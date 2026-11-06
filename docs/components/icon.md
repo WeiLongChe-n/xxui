@@ -11,24 +11,24 @@
 ## 基础用法
 
 ```vue
-<vl-icon name="search" />
-<vl-icon name="like" color="#ef4444" size="24" />
+<x-icon name="search" />
+<x-icon name="like" color="#ef4444" size="24" />
 ```
 
 ## 尺寸与颜色
 
 `size` 支持数字（px）与字符串（如 `"1.4em"`），默认继承父级字号（`1em`）；`color` 支持任意 CSS 颜色。
 
-点下面的色板可直接切换颜色。图标默认跟随父级文字颜色（`currentColor`），所以传入主题变量（如 `var(--vl-primary)`）时，切换品牌配色它也会跟着变。
+点下面的色板可直接切换颜色。图标默认跟随父级文字颜色（`currentColor`），所以传入主题变量（如 `var(--x-primary)`）时，切换品牌配色它也会跟着变。
 
 <DemoBlock title="颜色与尺寸" description="点击色板切换颜色；最后一组展示 size 的缩放" :code="colorCode" background="card">
   <IconColor />
 </DemoBlock>
 
 ```vue
-<vl-icon name="star" :size="16" />
-<vl-icon name="star" size="32" color="var(--vl-warning)" />
-<vl-icon name="like" color="#ef4444" />
+<x-icon name="star" :size="16" />
+<x-icon name="star" size="32" color="var(--x-warning)" />
+<x-icon name="like" color="#ef4444" />
 ```
 
 ## 旋转
@@ -36,15 +36,15 @@
 `spin` 会添加匀速旋转动画，适合表示加载中。
 
 ```vue
-<vl-icon name="spinner" spin />
+<x-icon name="spinner" spin />
 ```
 
 ## 红点与角标
 
 ```vue
-<vl-icon name="bell" dot />
-<vl-icon name="comment" :badge="5" />
-<vl-icon name="cart" :badge="120" />
+<x-icon name="bell" dot />
+<x-icon name="comment" :badge="5" />
+<x-icon name="cart" :badge="120" />
 ```
 
 ## 自定义图标
@@ -56,11 +56,11 @@
 3. 直接使用默认插槽放入自定义 SVG。
 
 ```vue
-<vl-icon name="https://example.com/logo.png" size="24" />
+<x-icon name="https://example.com/logo.png" size="24" />
 
-<vl-icon :size="20">
-  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="var(--vl-primary)" /></svg>
-</vl-icon>
+<x-icon :size="20">
+  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="var(--x-primary)" /></svg>
+</x-icon>
 ```
 
 ## 图标命名约定

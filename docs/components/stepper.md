@@ -11,7 +11,7 @@
 ## 范围与步长
 
 ```vue
-<vl-stepper v-model="count" :min="0" :max="10" :step="0.5" :decimal-length="1" />
+<x-stepper v-model="count" :min="0" :max="10" :step="0.5" :decimal-length="1" />
 ```
 
 ::: tip 关于 min
@@ -23,7 +23,7 @@
 默认允许直接输入数值，失焦时自动格式化（取整、四舍五入、范围限制）。设置 `disable-input` 后只保留加减按钮。
 
 ```vue
-<vl-stepper v-model="count" integer disable-input />
+<x-stepper v-model="count" integer disable-input />
 ```
 
 ## 拦截变更

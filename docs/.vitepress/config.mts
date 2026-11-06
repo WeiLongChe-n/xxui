@@ -26,7 +26,7 @@ const base = (() => {
 
 export default defineConfig({
   lang: 'zh-CN',
-  title: 'Vela UI',
+  title: 'XXUI',
   description: '轻量、可定制的 Vue 3 移动端组件库，内置多套主题与暗色模式',
   base,
   cleanUrls: !isStaticDeploy,
@@ -44,8 +44,8 @@ export default defineConfig({
     },
     resolve: {
       alias: {
-        '@vela/mobile': `${libRoot}/index.ts`,
-        '@vela': libRoot,
+        '@xxui/mobile': `${libRoot}/index.ts`,
+        '@xxui': libRoot,
         '@demos': fileURLToPath(new URL('../demos', import.meta.url)),
       },
     },
@@ -186,7 +186,7 @@ export default defineConfig({
     lastUpdatedText: '最后更新',
     footer: {
       message: '基于 MIT 协议发布 · 使用 Vue 3 + TypeScript 构建',
-      copyright: '© 2026 Vela UI',
+      copyright: '© 2026 XXUI',
     },
   },
 })

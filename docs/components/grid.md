@@ -13,9 +13,9 @@
 `columns` 控制每行个数，内部使用 CSS Grid 实现，因此最后一行不足时会自动留空，不会拉伸变形。
 
 ```vue
-<vl-grid :columns="3">
-  <vl-grid-item icon="coupon" text="优惠券" />
-</vl-grid>
+<x-grid :columns="3">
+  <x-grid-item icon="coupon" text="优惠券" />
+</x-grid>
 ```
 
 ## 描边与间距
@@ -23,7 +23,7 @@
 `border` 会在格子之间绘制 1px 分割线（默认开启）；关闭后可用 `gap` 设置间距，此时格子之间会露出容器背景。
 
 ```vue
-<vl-grid :columns="4" :gap="10" :border="false" />
+<x-grid :columns="4" :gap="10" :border="false" />
 ```
 
 ## 正方形与点击反馈
@@ -31,16 +31,16 @@
 `square` 会强制每个格子为 1:1；`clickable` 会为所有子项开启按下反馈。
 
 ```vue
-<vl-grid square clickable @click="onClick">
-  <vl-grid-item icon="phone" text="话费充值" />
-</vl-grid>
+<x-grid square clickable @click="onClick">
+  <x-grid-item icon="phone" text="话费充值" />
+</x-grid>
 ```
 
 ## 角标
 
 ```vue
-<vl-grid-item icon="cart" text="购物车" :badge="12" />
-<vl-grid-item icon="gift" text="积分商城" dot />
+<x-grid-item icon="cart" text="购物车" :badge="12" />
+<x-grid-item icon="gift" text="积分商城" dot />
 ```
 
 ## API

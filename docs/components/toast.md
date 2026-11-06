@@ -11,7 +11,7 @@
 ## 函数式调用
 
 ```ts
-import { Toast } from '@vela/mobile'
+import { Toast } from '@xxui/mobile'
 
 Toast('这是一条提示')
 Toast.success('保存成功')
@@ -45,12 +45,12 @@ Toast.resetDefaultOptions()
 
 ## 组件式调用
 
-需要自定义内容（如带按钮的提示）时，使用 `<vl-toast>`：
+需要自定义内容（如带按钮的提示）时，使用 `<x-toast>`：
 
 ```vue
-<vl-toast v-model:show="visible">
+<x-toast v-model:show="visible">
   <div>自定义内容</div>
-</vl-toast>
+</x-toast>
 ```
 
 ## API

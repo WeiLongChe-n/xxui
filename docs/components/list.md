@@ -11,15 +11,15 @@
 ## 基本结构
 
 ```vue
-<vl-list
+<x-list
   :loading="loading"
   :finished="finished"
   :error="error"
   finished-text="没有更多了"
   @load="onLoad"
 >
-  <vl-cell v-for="item in list" :key="item.id" :title="item.title" />
-</vl-list>
+  <x-cell v-for="item in list" :key="item.id" :title="item.title" />
+</x-list>
 ```
 
 `@load` 会在以下时机触发：
@@ -54,7 +54,7 @@ const onLoad = async () => {
 `error` 为 `true` 时会展示错误文案，点击后触发 `update:error(false)`，随后自动重新检查是否需要加载。
 
 ```vue
-<vl-list v-model:error="error" :loading="loading" :finished="finished" @load="onLoad" />
+<x-list v-model:error="error" :loading="loading" :finished="finished" @load="onLoad" />
 ```
 
 ## API

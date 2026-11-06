@@ -11,9 +11,9 @@
 ## 基本用法
 
 ```vue
-<vl-sticky :offset-top="0">
+<x-sticky :offset-top="0">
   <div class="bar">吸顶内容</div>
-</vl-sticky>
+</x-sticky>
 ```
 
 - `offset-top`：距离视口（或容器）顶部的固定距离，常与导航栏高度配合，如 `:offset-top="46"`；
@@ -25,9 +25,9 @@
 
 ```vue
 <div ref="host" class="scroll-container">
-  <vl-sticky :container="host" :offset-top="0">
+  <x-sticky :container="host" :offset-top="0">
     <div class="bar">容器内吸顶</div>
-  </vl-sticky>
+  </x-sticky>
   ...
 </div>
 ```
@@ -35,7 +35,7 @@
 ## 事件
 
 ```vue
-<vl-sticky @change="(fixed) => console.log('是否固定', fixed)">
+<x-sticky @change="(fixed) => console.log('是否固定', fixed)">
 ```
 
 ## API

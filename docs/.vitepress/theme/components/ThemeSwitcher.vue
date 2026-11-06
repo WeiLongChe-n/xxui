@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useData } from 'vitepress'
-import { brandOptions, setMode, setBrand, useTheme } from '@vela/mobile'
+import { brandOptions, setMode, setBrand, useTheme } from '@xxui/mobile'
 
 const { isDark } = useData()
 const { mode, brand } = useTheme()
@@ -82,7 +82,7 @@ onBeforeUnmount(() => {
       <span class="theme-switcher__label">主题</span>
     </button>
 
-    <transition name="vl-fade">
+    <transition name="x-fade">
       <div v-if="open" class="theme-switcher__panel">
         <div class="theme-switcher__group">
           <p class="theme-switcher__caption">外观模式</p>

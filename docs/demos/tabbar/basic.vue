@@ -4,23 +4,23 @@
       <div class="tabbar-host__content">
         <p class="tabbar-host__title">{{ currentTitle }}</p>
       </div>
-      <vl-tabbar v-model="active" :fixed="false">
-        <vl-tabbar-item name="home" icon="home" text="首页" />
-        <vl-tabbar-item name="cart" icon="cart" text="购物车" :badge="3" />
-        <vl-tabbar-item name="message" icon="comment" text="消息" dot />
-        <vl-tabbar-item name="user" icon="user" text="我的" />
-      </vl-tabbar>
+      <x-tabbar v-model="active" :fixed="false">
+        <x-tabbar-item name="home" icon="home" text="首页" />
+        <x-tabbar-item name="cart" icon="cart" text="购物车" :badge="3" />
+        <x-tabbar-item name="message" icon="comment" text="消息" dot />
+        <x-tabbar-item name="user" icon="user" text="我的" />
+      </x-tabbar>
     </div>
 
     <div class="tabbar-host">
       <div class="tabbar-host__content">
         <p class="tabbar-host__title">自定义选中色</p>
       </div>
-      <vl-tabbar v-model="active2" :fixed="false" active-color="#16a34a" inactive-color="#9699a6">
-        <vl-tabbar-item name="a" icon="star" active-icon="like" text="收藏" />
-        <vl-tabbar-item name="b" icon="shop" text="店铺" />
-        <vl-tabbar-item name="c" icon="setting" text="设置" />
-      </vl-tabbar>
+      <x-tabbar v-model="active2" :fixed="false" active-color="#16a34a" inactive-color="#9699a6">
+        <x-tabbar-item name="a" icon="star" active-icon="like" text="收藏" />
+        <x-tabbar-item name="b" icon="shop" text="店铺" />
+        <x-tabbar-item name="c" icon="setting" text="设置" />
+      </x-tabbar>
     </div>
   </div>
 </template>
@@ -48,7 +48,7 @@ const currentTitle = computed(() => titles[String(active.value)])
 
 .tabbar-host {
   overflow: hidden;
-  border: 1px solid var(--vl-border-color);
+  border: 1px solid var(--x-border-color);
   border-radius: 12px;
 }
 
@@ -57,12 +57,12 @@ const currentTitle = computed(() => titles[String(active.value)])
   align-items: center;
   justify-content: center;
   height: 120px;
-  background: var(--vl-background);
+  background: var(--x-background);
 }
 
 .tabbar-host__title {
   margin: 0;
   font-size: 13px;
-  color: var(--vl-text-color-3);
+  color: var(--x-text-color-3);
 }
 </style>

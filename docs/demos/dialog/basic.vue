@@ -1,18 +1,18 @@
 <template>
   <div class="demo-col">
     <div class="demo-row">
-      <vl-button size="small" type="primary" @click="onConfirm">确认对话框</vl-button>
-      <vl-button size="small" @click="onAlert">提示对话框</vl-button>
-      <vl-button size="small" @click="onRound">圆角按钮</vl-button>
+      <x-button size="small" type="primary" @click="onConfirm">确认对话框</x-button>
+      <x-button size="small" @click="onAlert">提示对话框</x-button>
+      <x-button size="small" @click="onRound">圆角按钮</x-button>
     </div>
 
     <div class="demo-row">
-      <vl-button size="small" @click="onAsync">异步关闭</vl-button>
-      <vl-button size="small" @click="onComponent">组件式调用</vl-button>
-      <vl-button size="small" @click="onCustom">自定义内容</vl-button>
+      <x-button size="small" @click="onAsync">异步关闭</x-button>
+      <x-button size="small" @click="onComponent">组件式调用</x-button>
+      <x-button size="small" @click="onCustom">自定义内容</x-button>
     </div>
 
-    <vl-dialog
+    <x-dialog
       v-model:show="visible"
       title="组件式对话框"
       message="通过 v-model:show 控制显隐，适合需要嵌入表单或复杂内容的场景。"
@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Dialog, Toast } from '@vela/mobile'
+import { Dialog, Toast } from '@xxui/mobile'
 
 const visible = ref(false)
 

@@ -3,7 +3,7 @@
  *
  * 演示内容渲染在 iframe 里，与文档站样式天然隔离。
  * 但组件库的样式需要显式注入沙箱，这里从父文档的样式表中筛选出
- * 只属于组件库的规则（`.vl-*` 选择器、`--vl-*` 令牌、`vl-*` 关键帧），
+ * 只属于组件库的规则（`.x-*` 选择器、`--x-*` 令牌、`x-*` 关键帧），
  * 拼成一份可直接写入 iframe 的样式表。
  *
  * 之所以不用「整份 CSS 都拷进去」：那样文档站样式会一起进去，
@@ -12,15 +12,15 @@
 
 let cached: string | null = null
 
-const VL_CLASS = /\.vl-[a-zA-Z]/
-const VL_TOKEN_DECL = /--vl-[a-z]/
+const LIB_CLASS = /\.x-[a-zA-Z]/
+const LIB_TOKEN_DECL = /--x-[a-z]/
 /** 令牌块：:root / [data-theme] / [data-brand] */
 const TOKEN_SELECTOR = /^(\[data-theme|\[data-brand|:root)/
 
-function isVelaRule(rule: CSSStyleRule) {
+function isLibRule(rule: CSSStyleRule) {
   const sel = rule.selectorText || ''
-  if (VL_CLASS.test(sel)) return true
-  if (TOKEN_SELECTOR.test(sel.trim()) && VL_TOKEN_DECL.test(rule.cssText)) return true
+  if (LIB_CLASS.test(sel)) return true
+  if (TOKEN_SELECTOR.test(sel.trim()) && LIB_TOKEN_DECL.test(rule.cssText)) return true
   return false
 }
 
@@ -44,7 +44,7 @@ function walk(
 }
 
 /** 收集组件库样式；结果做缓存，多台设备共用一份 */
-export function collectVelaStyles() {
+export function collectXXUIStyles() {
   if (cached !== null) return cached
 
   const out: string[] = []
@@ -57,7 +57,7 @@ export function collectVelaStyles() {
       continue
     }
     if (!rules) continue
-    walk(rules, out, isVelaRule, (name) => name.startsWith('vl-'))
+    walk(rules, out, isLibRule, (name) => name.startsWith('x-'))
   }
 
   cached = out.join('\n')
@@ -121,10 +121,10 @@ export const SANDBOX_BASE_STYLES = `
 *, *::before, *::after { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {
-  font-family: var(--vl-font-family, -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif);
-  font-size: var(--vl-font-size, 14px);
-  color: var(--vl-text-color, #1f2233);
-  background: var(--vl-background-2, #fff);
+  font-family: var(--x-font-family, -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif);
+  font-size: var(--x-font-size, 14px);
+  color: var(--x-text-color, #1f2233);
+  background: var(--x-background-2, #fff);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   overflow-y: auto;
@@ -135,10 +135,10 @@ body {
 body::-webkit-scrollbar { display: none; width: 0; height: 0; }
 .demo-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
 .demo-col { display: flex; flex-direction: column; gap: 12px; }
-.demo-label { margin: 0 0 8px; font-size: 12px; color: var(--vl-text-color-3, #9699a6); }
-.demo-note { margin: 8px 0 0; font-size: 12px; color: var(--vl-text-color-3, #9699a6); }
+.demo-label { margin: 0 0 8px; font-size: 12px; color: var(--x-text-color-3, #9699a6); }
+.demo-note { margin: 8px 0 0; font-size: 12px; color: var(--x-text-color-3, #9699a6); }
 
 /* 右侧舞台：多个示例都挂在同一个沙箱里，只显示当前激活的那个 */
-.vl-demo-hold { display: none; }
-.vl-demo-hold.is-active { display: block; }
+.x-demo-hold { display: none; }
+.x-demo-hold.is-active { display: block; }
 `

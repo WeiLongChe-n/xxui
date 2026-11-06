@@ -1,20 +1,20 @@
 <template>
   <div class="demo-col">
     <div class="demo-row">
-      <vl-button size="small" type="primary" @click="show = true">显示遮罩</vl-button>
-      <vl-button size="small" @click="show = false">关闭遮罩</vl-button>
+      <x-button size="small" type="primary" @click="show = true">显示遮罩</x-button>
+      <x-button size="small" @click="show = false">关闭遮罩</x-button>
     </div>
 
     <div class="overlay-stage">
       <p>遮罩层固定定位在视口之上，用于强调浮层内容或阻断交互。</p>
     </div>
 
-    <vl-overlay :show="show" :z-index="3000" @click="show = false" />
+    <x-overlay :show="show" :z-index="3000" @click="show = false" />
 
-    <transition name="vl-fade">
+    <transition name="x-fade">
       <div v-if="show" class="overlay-content">
         <p>点击遮罩关闭</p>
-        <vl-button size="small" @click="show = false">知道了</vl-button>
+        <x-button size="small" @click="show = false">知道了</x-button>
       </div>
     </transition>
   </div>
@@ -34,8 +34,8 @@ const show = ref(false)
 .overlay-stage {
   padding: 16px;
   font-size: 12px;
-  color: var(--vl-text-color-3);
-  background: var(--vl-background-3);
+  color: var(--x-text-color-3);
+  background: var(--x-background-3);
   border-radius: 10px;
 }
 
@@ -52,13 +52,13 @@ const show = ref(false)
   padding: 20px 24px;
   font-size: 13px;
   text-align: center;
-  background: var(--vl-background-2);
+  background: var(--x-background-2);
   border-radius: 14px;
   transform: translate(-50%, -50%);
 }
 
 .overlay-content p {
   margin: 0 0 12px;
-  color: var(--vl-text-color);
+  color: var(--x-text-color);
 }
 </style>

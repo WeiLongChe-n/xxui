@@ -11,19 +11,19 @@
 ## 语义类型
 
 ```vue
-<vl-tag type="primary">主要</vl-tag>
-<vl-tag type="success">成功</vl-tag>
-<vl-tag type="warning">警告</vl-tag>
-<vl-tag type="danger">危险</vl-tag>
-<vl-tag>默认</vl-tag>
+<x-tag type="primary">主要</x-tag>
+<x-tag type="success">成功</x-tag>
+<x-tag type="warning">警告</x-tag>
+<x-tag type="danger">危险</x-tag>
+<x-tag>默认</x-tag>
 ```
 
 ## 朴素与尺寸
 
 ```vue
-<vl-tag type="primary" plain>朴素标签</vl-tag>
-<vl-tag type="primary" size="small">小号</vl-tag>
-<vl-tag type="primary" size="large">大号</vl-tag>
+<x-tag type="primary" plain>朴素标签</x-tag>
+<x-tag type="primary" size="small">小号</x-tag>
+<x-tag type="primary" size="large">大号</x-tag>
 ```
 
 ## 圆角与标记
@@ -31,14 +31,14 @@
 `round` 为全圆角，`mark` 为左侧直角的「书签」样式，适合列表左上角的角标。
 
 ```vue
-<vl-tag type="primary" round>圆角</vl-tag>
-<vl-tag type="danger" mark>热卖</vl-tag>
+<x-tag type="primary" round>圆角</x-tag>
+<x-tag type="danger" mark>热卖</x-tag>
 ```
 
 ## 可关闭
 
 ```vue
-<vl-tag type="primary" closeable @close="onClose">可关闭</vl-tag>
+<x-tag type="primary" closeable @close="onClose">可关闭</x-tag>
 ```
 
 ## API

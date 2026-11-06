@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { addUnit, createNamespace } from '../../utils'
-import VlIcon from '../icon/Icon.vue'
+import XIcon from '../icon/Icon.vue'
 
-defineOptions({ name: 'VlRate' })
+defineOptions({ name: 'XRate' })
 
 const props = withDefaults(
   defineProps<{
@@ -74,19 +74,19 @@ const onHover = (index: number, event: MouseEvent) => {
       @click="select(index, $event)"
       @mousemove="onHover(index, $event)"
     >
-      <VlIcon :name="voidIcon" :style="{ color: voidColor || 'var(--vl-text-color-4)' }" />
+      <XIcon :name="voidIcon" :style="{ color: voidColor || 'var(--x-text-color-4)' }" />
       <span
         :class="bem('active')"
         :style="{ width: isActive(index) ? '100%' : isHalf(index) ? '50%' : '0%', color }"
       >
-        <VlIcon :name="icon" />
+        <XIcon :name="icon" />
       </span>
     </div>
   </div>
 </template>
 
 <style lang="scss">
-.vl-rate {
+.x-rate {
   display: inline-flex;
   align-items: center;
 
@@ -94,7 +94,7 @@ const onHover = (index: number, event: MouseEvent) => {
     position: relative;
     display: inline-flex;
     cursor: pointer;
-    transition: transform var(--vl-duration-fast);
+    transition: transform var(--x-duration-fast);
 
     &:active {
       transform: scale(1.15);
@@ -108,13 +108,13 @@ const onHover = (index: number, event: MouseEvent) => {
     display: flex;
     height: 100%;
     overflow: hidden;
-    transition: width var(--vl-duration-fast) var(--vl-ease);
+    transition: width var(--x-duration-fast) var(--x-ease);
 
-    .vl-icon__svg {
+    .x-icon__svg {
       fill: currentColor;
     }
 
-    & > .vl-icon {
+    & > .x-icon {
       flex: none;
       width: 1em;
       color: inherit;

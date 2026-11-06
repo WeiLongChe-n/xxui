@@ -128,7 +128,7 @@ const lines = computed(() => (props.code ? props.code.trim().split('\n').length 
     <Teleport v-if="useStage && stageBody" :to="stageBody">
       <div
         :key="renderKey"
-        class="vl-demo-hold"
+        class="x-demo-hold"
         :class="{ 'is-active': active }"
         :data-demo="demoId"
       >
@@ -265,7 +265,7 @@ const lines = computed(() => (props.code ? props.code.trim().split('\n').length 
 }
 
 .demo-block__body--page {
-  background: var(--vl-background);
+  background: var(--x-background);
 }
 
 .demo-block__body--transparent {

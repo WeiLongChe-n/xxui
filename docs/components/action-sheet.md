@@ -11,7 +11,7 @@
 ## 数据结构
 
 ```ts
-import type { ActionSheetAction } from '@vela/mobile'
+import type { ActionSheetAction } from '@xxui/mobile'
 
 const actions: ActionSheetAction[] = [
   { name: '微信支付', subname: '推荐使用', icon: 'service' },
@@ -34,7 +34,7 @@ const actions: ActionSheetAction[] = [
 默认点击选项后会自动关闭面板（`close-on-click-action`），若需要保留面板（例如切换支付方式后再确认），设为 `false`。
 
 ```vue
-<vl-action-sheet v-model:show="show" :actions="actions" :close-on-click-action="false" @select="onSelect" />
+<x-action-sheet v-model:show="show" :actions="actions" :close-on-click-action="false" @select="onSelect" />
 ```
 
 ## 面板间距
@@ -42,7 +42,7 @@ const actions: ActionSheetAction[] = [
 `gap` 会在面板与取消按钮之间留出空隙，空隙处透出页面背景，常见于 iOS 风格设计。
 
 ```vue
-<vl-action-sheet v-model:show="show" :actions="actions" :gap="12" />
+<x-action-sheet v-model:show="show" :actions="actions" :gap="12" />
 ```
 
 ## API

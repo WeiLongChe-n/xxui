@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { createNamespace } from '../../utils'
-import VlIcon from '../icon/Icon.vue'
+import XIcon from '../icon/Icon.vue'
 
-defineOptions({ name: 'VlSearch' })
+defineOptions({ name: 'XSearch' })
 
 const props = withDefaults(
   defineProps<{
@@ -27,7 +27,7 @@ const props = withDefaults(
     showAction: true,
     actionText: '取消',
     clearable: true,
-    background: 'var(--vl-background)',
+    background: 'var(--x-background)',
   },
 )
 
@@ -78,7 +78,7 @@ const onBlur = (event: FocusEvent) => {
 <template>
   <div :class="bem()" :style="{ background }">
     <div :class="[bem('content'), bem('content', shape), { [bem('content', 'focus')]: focused }]">
-      <VlIcon :name="leftIcon || 'search'" :class="bem('left-icon')" />
+      <XIcon :name="leftIcon || 'search'" :class="bem('left-icon')" />
       <input
         ref="inputRef"
         :class="bem('input')"
@@ -93,14 +93,14 @@ const onBlur = (event: FocusEvent) => {
         @blur="onBlur"
         @keyup.enter="onSearch"
       />
-      <VlIcon
+      <XIcon
         v-if="clearable && value && !disabled"
         name="clear"
         :class="bem('clear')"
         @click="onClear"
       />
       <slot name="right-icon">
-        <VlIcon
+        <XIcon
           v-if="rightIcon"
           :name="rightIcon"
           :class="bem('right-icon')"
@@ -119,7 +119,7 @@ const onBlur = (event: FocusEvent) => {
 </template>
 
 <style lang="scss">
-.vl-search {
+.x-search {
   display: flex;
   align-items: center;
   padding: 10px 12px;
@@ -130,16 +130,16 @@ const onBlur = (event: FocusEvent) => {
     align-items: center;
     height: 34px;
     padding: 0 10px;
-    background: var(--vl-background-2);
-    border-radius: var(--vl-radius);
-    transition: box-shadow var(--vl-duration-fast);
+    background: var(--x-background-2);
+    border-radius: var(--x-radius);
+    transition: box-shadow var(--x-duration-fast);
 
     &--round {
       border-radius: 999px;
     }
 
     &--focus {
-      box-shadow: 0 0 0 1.5px var(--vl-primary);
+      box-shadow: 0 0 0 1.5px var(--x-primary);
     }
   }
 
@@ -147,7 +147,7 @@ const onBlur = (event: FocusEvent) => {
     flex: none;
     margin-right: 6px;
     font-size: 16px;
-    color: var(--vl-text-color-3);
+    color: var(--x-text-color-3);
   }
 
   &__input {
@@ -155,14 +155,14 @@ const onBlur = (event: FocusEvent) => {
     width: 100%;
     min-width: 0;
     padding: 0;
-    font-size: var(--vl-font-size);
-    color: var(--vl-text-color);
+    font-size: var(--x-font-size);
+    color: var(--x-text-color);
     background: transparent;
     border: 0;
     outline: none;
 
     &::placeholder {
-      color: var(--vl-text-color-4);
+      color: var(--x-text-color-4);
     }
 
     &::-webkit-search-cancel-button {
@@ -174,7 +174,7 @@ const onBlur = (event: FocusEvent) => {
     flex: none;
     margin-left: 4px;
     font-size: 15px;
-    color: var(--vl-text-color-4);
+    color: var(--x-text-color-4);
     cursor: pointer;
   }
 
@@ -182,14 +182,14 @@ const onBlur = (event: FocusEvent) => {
     flex: none;
     margin-left: 4px;
     font-size: 16px;
-    color: var(--vl-text-color-3);
+    color: var(--x-text-color-3);
   }
 
   &__action {
     flex: none;
     padding-left: 12px;
-    font-size: var(--vl-font-size);
-    color: var(--vl-primary);
+    font-size: var(--x-font-size);
+    color: var(--x-primary);
     cursor: pointer;
   }
 }

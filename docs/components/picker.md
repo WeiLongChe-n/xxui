@@ -11,7 +11,7 @@
 </DemoBlock>
 
 ```vue
-<vl-picker v-model:show="show" v-model="value" :columns="columns" title="选择城市" @confirm="onConfirm" />
+<x-picker v-model:show="show" v-model="value" :columns="columns" title="选择城市" @confirm="onConfirm" />
 ```
 
 ## 多列

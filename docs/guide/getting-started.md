@@ -26,13 +26,13 @@
 
 ```bash
 # npm
-npm i @vela/mobile
+npm i @xxui/mobile
 
 # pnpm
-pnpm add @vela/mobile
+pnpm add @xxui/mobile
 
 # yarn
-yarn add @vela/mobile
+yarn add @xxui/mobile
 ```
 
 ::: tip 本地开发本仓库
@@ -45,21 +45,21 @@ yarn add @vela/mobile
 
 ```ts
 import { createApp } from 'vue'
-import VelaUI from '@vela/mobile'
-import '@vela/mobile/style.css'
+import XXUI from '@xxui/mobile'
+import '@xxui/mobile/style.css'
 import App from './App.vue'
 
 const app = createApp(App)
-app.use(VelaUI)
+app.use(XXUI)
 app.mount('#app')
 ```
 
-全量引入后会注册全部组件（`<vl-button>`、`<vl-cell>`……），并自动初始化主题（读取本地存储的偏好）。
+全量引入后会注册全部组件（`<x-button>`、`<x-cell>`……），并自动初始化主题（读取本地存储的偏好）。
 
 `app.use` 的第二个参数可以指定默认主题，仅在用户没有本地偏好时生效：
 
 ```ts
-app.use(VelaUI, { theme: 'light', brand: 'ocean' })
+app.use(XXUI, { theme: 'light', brand: 'ocean' })
 ```
 
 ### 按需引入
@@ -70,7 +70,7 @@ app.use(VelaUI, { theme: 'light', brand: 'ocean' })
 
 <DemoBlock title="订单数量" description="导航栏 + 单元格 + 步进器 + 命令式提示，组合出一个最小可用页面" :code="demoCode">
   <div class="demo-block-host">
-    <VelaHomeDemo />
+    <XXUIHomeDemo />
   </div>
 </DemoBlock>
 
@@ -80,7 +80,7 @@ app.use(VelaUI, { theme: 'light', brand: 'ocean' })
 组件库使用 TypeScript 编写，构建时会输出 `dist/types`，无需额外配置即可获得类型提示：
 
 ```ts
-import type { FieldRule, ThemeConfig, BrandName } from '@vela/mobile'
+import type { FieldRule, ThemeConfig, BrandName } from '@xxui/mobile'
 ```
 
 如果 `vue-tsc` 报找不到 `*.vue` 的类型，请在 `tsconfig.json` 中加入：
@@ -110,7 +110,7 @@ import type { FieldRule, ThemeConfig, BrandName } from '@vela/mobile'
 - [组件总览](/components/button)：55 个组件的用法与 API
 
 <script setup>
-import VelaHomeDemo from '../demos/home/basic.vue'
+import XXUIHomeDemo from '../demos/home/basic.vue'
 import demoCode from '../demos/home/basic.vue?raw'
 </script>
 

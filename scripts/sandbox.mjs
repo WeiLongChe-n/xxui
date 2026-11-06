@@ -41,8 +41,8 @@ async function goto(path) {
     record('slider: 内容已注入沙箱', before.includes('音量'), before.slice(0, 40))
 
     const changed = await frame.evaluate(() => {
-      const track = document.querySelector('.vl-slider__track')
-      const handle = document.querySelector('.vl-slider__button-wrap')
+      const track = document.querySelector('.x-slider__track')
+      const handle = document.querySelector('.x-slider__button-wrap')
       if (!track || !handle) return 'no-track'
       const r = track.getBoundingClientRect()
       const win = document.defaultView
@@ -68,7 +68,7 @@ async function goto(path) {
   const frame = await goto('/components/tabs')
   if (frame) {
     const ok = await frame.evaluate(() => {
-      const items = [...document.querySelectorAll('.vl-tabs__nav-item')]
+      const items = [...document.querySelectorAll('.x-tabs__nav-item')]
       const target = items.find((el) => el.textContent.includes('关注'))
       if (!target) return 'no-tab'
       target.click()
@@ -77,7 +77,7 @@ async function goto(path) {
     await new Promise((r) => setTimeout(r, 300))
     const active = await frame.evaluate(() => {
       // 页面里有多组 Tabs，只关心被点击的那一组
-      return [...document.querySelectorAll('.vl-tabs__nav-item--active')]
+      return [...document.querySelectorAll('.x-tabs__nav-item--active')]
         .map((el) => el.textContent.trim())
         .join('|')
     })
@@ -116,7 +116,7 @@ async function goto(path) {
     record('button: 沙箱内不存在文档站节点', !leaked.docNodes)
     record('button: 沙箱内无 --vp-* 令牌', leaked.vpVar === '(empty)', leaked.vpVar)
     const vlVar = await frame.evaluate(() =>
-      getComputedStyle(document.documentElement).getPropertyValue('--vl-primary').trim(),
+      getComputedStyle(document.documentElement).getPropertyValue('--x-primary').trim(),
     )
     record('button: 组件库令牌已注入', vlVar.length > 0, vlVar)
   }

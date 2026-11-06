@@ -11,10 +11,10 @@
 ## 基本结构
 
 ```vue
-<vl-swipe :autoplay="3000" height="160">
-  <vl-swipe-item>第一屏</vl-swipe-item>
-  <vl-swipe-item>第二屏</vl-swipe-item>
-</vl-swipe>
+<x-swipe :autoplay="3000" height="160">
+  <x-swipe-item>第一屏</x-swipe-item>
+  <x-swipe-item>第二屏</x-swipe-item>
+</x-swipe>
 ```
 
 - `height` 建议显式指定，避免内容高度不一致导致跳动；
@@ -34,7 +34,7 @@ swipeRef.value.swipeTo(2)  // 跳到索引 2
 ## 指示点
 
 ```vue
-<vl-swipe indicator-color="#3b82f6" :show-indicators="false" />
+<x-swipe indicator-color="#3b82f6" :show-indicators="false" />
 ```
 
 ## 手势

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { computed, watch, ref } from 'vue'
 import { clamp, createNamespace } from '../../utils'
-import VlPopup from '../popup/Popup.vue'
-import VlLoading from '../loading/Loading.vue'
+import XPopup from '../popup/Popup.vue'
+import XLoading from '../loading/Loading.vue'
 import type { PickerOption, PickerValue, PickerConfirmPayload } from './types'
 
-defineOptions({ name: 'VlPicker' })
+defineOptions({ name: 'XPicker' })
 
 const props = withDefaults(
   defineProps<{
@@ -60,8 +60,8 @@ const moving = ref(false)
 
 const wrapperHeight = computed(() => props.optionHeight * props.visibleOptionNum)
 const rootStyle = computed(() => ({
-  '--vl-picker-option-height': `${props.optionHeight}px`,
-  '--vl-picker-column-height': `${wrapperHeight.value}px`,
+  '--x-picker-option-height': `${props.optionHeight}px`,
+  '--x-picker-column-height': `${wrapperHeight.value}px`,
 }))
 
 /** 规范成「列数组」：单列数据包一层，二维数据直接作为多列 */
@@ -231,7 +231,7 @@ watch(
 </script>
 
 <template>
-  <VlPopup
+  <XPopup
     :show="show"
     position="bottom"
     round
@@ -293,23 +293,23 @@ watch(
       </div>
 
       <div v-if="loading" :class="bem('loading')">
-        <VlLoading size="20px" :text="'加载中'" />
+        <XLoading size="20px" :text="'加载中'" />
       </div>
     </div>
-  </VlPopup>
+  </XPopup>
 </template>
 
 <style lang="scss">
-.vl-picker {
+.x-picker {
   position: relative;
-  background: var(--vl-background-2);
+  background: var(--x-background-2);
 
   &__toolbar {
     display: flex;
     align-items: center;
     height: 48px;
     padding: 0 6px;
-    border-bottom: 1px solid var(--vl-border-color);
+    border-bottom: 1px solid var(--x-border-color);
   }
 
   &__title {
@@ -318,7 +318,7 @@ watch(
     overflow: hidden;
     font-size: 15px;
     font-weight: 600;
-    color: var(--vl-text-color);
+    color: var(--x-text-color);
     text-align: center;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -328,14 +328,14 @@ watch(
     flex: 0 0 64px;
     padding: 10px 8px;
     font-size: 14px;
-    color: var(--vl-text-color-2);
+    color: var(--x-text-color-2);
     cursor: pointer;
     background: none;
     border: 0;
 
     &--confirm {
       font-weight: 500;
-      color: var(--vl-primary);
+      color: var(--x-primary);
     }
 
     &:disabled {
@@ -346,19 +346,19 @@ watch(
   &__columns {
     position: relative;
     display: flex;
-    height: var(--vl-picker-column-height);
+    height: var(--x-picker-column-height);
   }
 
   &__column {
     position: relative;
     flex: 1;
-    height: var(--vl-picker-column-height);
+    height: var(--x-picker-column-height);
     overflow: hidden;
   }
 
   &__list {
     margin: 0;
-    padding: calc((var(--vl-picker-column-height) - var(--vl-picker-option-height)) / 2) 0;
+    padding: calc((var(--x-picker-column-height) - var(--x-picker-option-height)) / 2) 0;
     list-style: none;
     will-change: transform;
   }
@@ -367,52 +367,52 @@ watch(
     display: flex;
     align-items: center;
     justify-content: center;
-    height: var(--vl-picker-option-height);
+    height: var(--x-picker-option-height);
     padding: 0 6px;
     overflow: hidden;
     font-size: 15px;
-    color: var(--vl-text-color);
+    color: var(--x-text-color);
     white-space: nowrap;
     text-overflow: ellipsis;
     cursor: pointer;
 
     &--selected {
       font-weight: 600;
-      color: var(--vl-text-color);
+      color: var(--x-text-color);
     }
 
     &--disabled {
-      color: var(--vl-text-color-4);
+      color: var(--x-text-color-4);
       cursor: not-allowed;
     }
   }
 
   &__indicator {
     position: absolute;
-    top: calc((var(--vl-picker-column-height) - var(--vl-picker-option-height)) / 2);
+    top: calc((var(--x-picker-column-height) - var(--x-picker-option-height)) / 2);
     right: 0;
     left: 0;
-    height: var(--vl-picker-option-height);
+    height: var(--x-picker-option-height);
     pointer-events: none;
-    border-top: 1px solid var(--vl-text-color-4);
-    border-bottom: 1px solid var(--vl-text-color-4);
+    border-top: 1px solid var(--x-text-color-4);
+    border-bottom: 1px solid var(--x-text-color-4);
   }
 
   &__mask {
     position: absolute;
     right: 0;
     left: 0;
-    height: calc(var(--vl-picker-option-height) * 1.6);
+    height: calc(var(--x-picker-option-height) * 1.6);
     pointer-events: none;
 
     &--top {
       top: 0;
-      background: linear-gradient(180deg, var(--vl-background-2), transparent);
+      background: linear-gradient(180deg, var(--x-background-2), transparent);
     }
 
     &--bottom {
       bottom: 0;
-      background: linear-gradient(0deg, var(--vl-background-2), transparent);
+      background: linear-gradient(0deg, var(--x-background-2), transparent);
     }
   }
 
@@ -425,7 +425,7 @@ watch(
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--vl-background-2);
+    background: var(--x-background-2);
     opacity: 0.9;
   }
 }

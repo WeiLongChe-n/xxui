@@ -18,7 +18,7 @@ import {
  */
 export type TeleportTarget = string | HTMLElement | null | undefined
 
-export const TELEPORT_TARGET_KEY: InjectionKey<Ref<TeleportTarget>> = Symbol('vl-teleport')
+export const TELEPORT_TARGET_KEY: InjectionKey<Ref<TeleportTarget>> = Symbol('x-teleport')
 
 const fallback = shallowRef<TeleportTarget>('body')
 

@@ -2,9 +2,9 @@
 import { computed, inject } from 'vue'
 import { createNamespace } from '../../utils'
 import { COLLAPSE_KEY, type CollapseName } from './context'
-import VlIcon from '../icon/Icon.vue'
+import XIcon from '../icon/Icon.vue'
 
-defineOptions({ name: 'VlCollapseItem' })
+defineOptions({ name: 'XCollapseItem' })
 
 const props = withDefaults(
   defineProps<{
@@ -28,7 +28,7 @@ const emit = defineEmits<{
 
 const parent = inject(COLLAPSE_KEY, null)
 if (!parent) {
-  throw new Error('[Vela UI] <vl-collapse-item> 必须放在 <vl-collapse> 内部使用')
+  throw new Error('[XXUI] <x-collapse-item> 必须放在 <x-collapse> 内部使用')
 }
 
 const { bem } = createNamespace('collapse-item')
@@ -55,14 +55,14 @@ const onClick = (event: MouseEvent) => {
       :aria-expanded="expanded"
       @click="onClick"
     >
-      <VlIcon v-if="icon" :name="icon" :class="bem('icon')" />
+      <XIcon v-if="icon" :name="icon" :class="bem('icon')" />
       <div :class="bem('title')">
         <slot name="title">{{ title }}</slot>
       </div>
       <div :class="bem('value')">
         <slot name="value">{{ value }}</slot>
       </div>
-      <VlIcon v-if="isLink" name="arrow-down" :class="bem('arrow')" />
+      <XIcon v-if="isLink" name="arrow-down" :class="bem('arrow')" />
     </div>
     <div :class="bem('wrapper')">
       <div :class="bem('content')">
@@ -77,14 +77,14 @@ const onClick = (event: MouseEvent) => {
 <style lang="scss">
 @use '../../styles/mixins' as *;
 
-.vl-collapse-item {
+.x-collapse-item {
   &__header {
     position: relative;
     display: flex;
     align-items: center;
     padding: 13px 16px;
-    font-size: var(--vl-cell-font-size);
-    color: var(--vl-text-color);
+    font-size: var(--x-cell-font-size);
+    color: var(--x-text-color);
     cursor: pointer;
 
     @include hairline(bottom);
@@ -94,14 +94,14 @@ const onClick = (event: MouseEvent) => {
     }
 
     &:active {
-      background: var(--vl-active-color);
+      background: var(--x-active-color);
     }
   }
 
   &__icon {
     margin-right: 8px;
     font-size: 18px;
-    color: var(--vl-text-color-2);
+    color: var(--x-text-color-2);
   }
 
   &__title {
@@ -111,15 +111,15 @@ const onClick = (event: MouseEvent) => {
 
   &__value {
     margin-left: 8px;
-    font-size: var(--vl-font-size);
-    color: var(--vl-text-color-3);
+    font-size: var(--x-font-size);
+    color: var(--x-text-color-3);
   }
 
   &__arrow {
     margin-left: 6px;
     font-size: 14px;
-    color: var(--vl-text-color-4);
-    transition: transform var(--vl-duration) var(--vl-ease);
+    color: var(--x-text-color-4);
+    transition: transform var(--x-duration) var(--x-ease);
   }
 
   &--expanded &__arrow {
@@ -129,7 +129,7 @@ const onClick = (event: MouseEvent) => {
   &__wrapper {
     display: grid;
     grid-template-rows: 0fr;
-    transition: grid-template-rows var(--vl-duration) var(--vl-ease);
+    transition: grid-template-rows var(--x-duration) var(--x-ease);
   }
 
   &--expanded &__wrapper {
@@ -138,14 +138,14 @@ const onClick = (event: MouseEvent) => {
 
   &__content {
     overflow: hidden;
-    background: var(--vl-background-2);
+    background: var(--x-background-2);
   }
 
   &__inner {
     padding: 0 16px;
-    font-size: var(--vl-font-size);
+    font-size: var(--x-font-size);
     line-height: 22px;
-    color: var(--vl-text-color-2);
+    color: var(--x-text-color-2);
   }
 
   &--expanded &__inner {
@@ -153,7 +153,7 @@ const onClick = (event: MouseEvent) => {
   }
 
   &--disabled &__header {
-    color: var(--vl-text-color-4);
+    color: var(--x-text-color-4);
     cursor: not-allowed;
   }
 }

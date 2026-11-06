@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { addUnit, createNamespace } from '../../utils'
-import VlIcon from '../icon/Icon.vue'
+import XIcon from '../icon/Icon.vue'
 
-defineOptions({ name: 'VlEmpty' })
+defineOptions({ name: 'XEmpty' })
 
 const props = withDefaults(
   defineProps<{
@@ -31,7 +31,7 @@ const iconName = computed(() => iconMap[props.image])
   <div :class="bem()">
     <div :class="bem('image')" :style="{ width: addUnit(imageSize) }">
       <slot name="image">
-        <VlIcon v-if="iconName" :name="iconName" :class="bem('icon')" />
+        <XIcon v-if="iconName" :name="iconName" :class="bem('icon')" />
         <svg v-else :class="bem('svg')" viewBox="0 0 120 96" fill="none">
           <ellipse cx="60" cy="86" rx="38" ry="5" fill="currentColor" opacity="0.06" />
           <rect x="26" y="24" width="68" height="52" rx="10" fill="currentColor" opacity="0.08" />
@@ -57,13 +57,13 @@ const iconName = computed(() => iconMap[props.image])
 </template>
 
 <style lang="scss">
-.vl-empty {
+.x-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
-  color: var(--vl-text-color-4);
+  color: var(--x-text-color-4);
 
   &__image {
     display: flex;
@@ -78,13 +78,13 @@ const iconName = computed(() => iconMap[props.image])
 
   &__icon {
     font-size: 64px;
-    color: var(--vl-text-color-4);
+    color: var(--x-text-color-4);
   }
 
   &__description {
     margin-top: 14px;
-    font-size: var(--vl-font-size);
-    color: var(--vl-text-color-3);
+    font-size: var(--x-font-size);
+    color: var(--x-text-color-3);
     text-align: center;
   }
 

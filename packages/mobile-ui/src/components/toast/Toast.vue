@@ -2,10 +2,10 @@
 import { computed } from 'vue'
 import { createNamespace } from '../../utils'
 import { useTeleportTarget } from '../../utils/teleport'
-import VlIcon from '../icon/Icon.vue'
-import VlLoading from '../loading/Loading.vue'
+import XIcon from '../icon/Icon.vue'
+import XLoading from '../loading/Loading.vue'
 
-defineOptions({ name: 'VlToast' })
+defineOptions({ name: 'XToast' })
 
 const props = withDefaults(
   defineProps<{
@@ -57,7 +57,7 @@ const classes = computed(() => [
 
 <template>
   <Teleport :to="teleportTarget">
-    <Transition name="vl-fade">
+    <Transition name="x-fade">
       <div
         v-if="show"
         :class="classes"
@@ -65,14 +65,14 @@ const classes = computed(() => [
         @click="mask && forbidClick ? null : emit('update:show', false)"
       >
         <div :class="[bem('box'), transparent && bem('box', 'transparent')]">
-          <VlLoading
+          <XLoading
             v-if="type === 'loading'"
             :class="bem('icon')"
             :size="iconSize || 26"
             color="#fff"
             type="spinner"
           />
-          <VlIcon
+          <XIcon
             v-else-if="iconName"
             :name="iconName"
             :class="bem('icon')"
@@ -88,7 +88,7 @@ const classes = computed(() => [
 </template>
 
 <style lang="scss">
-.vl-toast {
+.x-toast {
   position: fixed;
   inset: 0;
   display: flex;
@@ -124,7 +124,7 @@ const classes = computed(() => [
     text-align: center;
     background: rgba(17, 19, 26, 0.82);
     backdrop-filter: blur(6px);
-    border-radius: var(--vl-radius-lg);
+    border-radius: var(--x-radius-lg);
     pointer-events: auto;
 
     &--transparent {
@@ -139,7 +139,7 @@ const classes = computed(() => [
   }
 
   &__text {
-    font-size: var(--vl-font-size);
+    font-size: var(--x-font-size);
     line-height: 20px;
     word-break: break-word;
 

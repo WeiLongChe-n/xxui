@@ -1,26 +1,26 @@
 <template>
   <div class="demo-col">
-    <vl-grid>
-      <vl-grid-item v-for="item in items" :key="item.text" :icon="item.icon" :text="item.text" />
-    </vl-grid>
+    <x-grid>
+      <x-grid-item v-for="item in items" :key="item.text" :icon="item.icon" :text="item.text" />
+    </x-grid>
 
-    <vl-grid :columns="3" border>
-      <vl-grid-item icon="coupon" text="优惠券" :badge="2" />
-      <vl-grid-item icon="cart" text="购物车" :badge="12" />
-      <vl-grid-item icon="gift" text="积分商城" dot />
-    </vl-grid>
+    <x-grid :columns="3" border>
+      <x-grid-item icon="coupon" text="优惠券" :badge="2" />
+      <x-grid-item icon="cart" text="购物车" :badge="12" />
+      <x-grid-item icon="gift" text="积分商城" dot />
+    </x-grid>
 
-    <vl-grid :columns="4" :gap="10" :border="false" square clickable @click="onClick">
-      <vl-grid-item icon="phone" text="话费充值" />
-      <vl-grid-item icon="service" text="在线客服" />
-      <vl-grid-item icon="location" text="附近门店" />
-      <vl-grid-item icon="setting" text="设置" />
-    </vl-grid>
+    <x-grid :columns="4" :gap="10" :border="false" square clickable @click="onClick">
+      <x-grid-item icon="phone" text="话费充值" />
+      <x-grid-item icon="service" text="在线客服" />
+      <x-grid-item icon="location" text="附近门店" />
+      <x-grid-item icon="setting" text="设置" />
+    </x-grid>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Toast } from '@vela/mobile'
+import { Toast } from '@xxui/mobile'
 
 const items = [
   { icon: 'home', text: '首页' },

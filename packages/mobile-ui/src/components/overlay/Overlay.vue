@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { addUnit, createNamespace } from '../../utils'
 
-defineOptions({ name: 'VlOverlay' })
+defineOptions({ name: 'XOverlay' })
 
 const props = withDefaults(
   defineProps<{
@@ -26,7 +26,7 @@ const style = computed(() => ({
 </script>
 
 <template>
-  <Transition name="vl-fade">
+  <Transition name="x-fade">
     <div
       v-if="show"
       :class="[bem(), props.overlayClass]"
@@ -39,13 +39,13 @@ const style = computed(() => ({
 </template>
 
 <style lang="scss">
-.vl-overlay {
+.x-overlay {
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background: var(--vl-overlay-bg);
+  background: var(--x-overlay-bg);
   touch-action: none;
 }
 </style>

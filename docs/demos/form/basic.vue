@@ -1,51 +1,51 @@
 <template>
-  <vl-form ref="formRef" :model="form" :rules="rules" label-width="76" @submit="onSubmit">
-    <vl-cell-group inset title="收货信息">
-      <vl-form-item label="收货人" name="name">
-        <vl-field v-model="form.name" placeholder="请输入收货人姓名" />
-      </vl-form-item>
+  <x-form ref="formRef" :model="form" :rules="rules" label-width="76" @submit="onSubmit">
+    <x-cell-group inset title="收货信息">
+      <x-form-item label="收货人" name="name">
+        <x-field v-model="form.name" placeholder="请输入收货人姓名" />
+      </x-form-item>
 
-      <vl-form-item label="手机号" name="phone">
-        <vl-field v-model="form.phone" type="tel" placeholder="请输入手机号" />
-      </vl-form-item>
+      <x-form-item label="手机号" name="phone">
+        <x-field v-model="form.phone" type="tel" placeholder="请输入手机号" />
+      </x-form-item>
 
-      <vl-form-item label="所在地区" name="region">
-        <vl-field v-model="form.region" placeholder="请选择省 / 市 / 区" readonly right-icon="arrow-right" />
-      </vl-form-item>
+      <x-form-item label="所在地区" name="region">
+        <x-field v-model="form.region" placeholder="请选择省 / 市 / 区" readonly right-icon="arrow-right" />
+      </x-form-item>
 
-      <vl-form-item label="详细地址" name="address">
-        <vl-field v-model="form.address" type="textarea" placeholder="街道、门牌号" autosize />
-      </vl-form-item>
-    </vl-cell-group>
+      <x-form-item label="详细地址" name="address">
+        <x-field v-model="form.address" type="textarea" placeholder="街道、门牌号" autosize />
+      </x-form-item>
+    </x-cell-group>
 
-    <vl-cell-group inset title="其他">
-      <vl-form-item label="发票" name="invoice">
-        <vl-radio-group v-model="form.invoice">
-          <vl-radio name="none">不需要</vl-radio>
-          <vl-radio name="personal">个人</vl-radio>
-          <vl-radio name="company">企业</vl-radio>
-        </vl-radio-group>
-      </vl-form-item>
+    <x-cell-group inset title="其他">
+      <x-form-item label="发票" name="invoice">
+        <x-radio-group v-model="form.invoice">
+          <x-radio name="none">不需要</x-radio>
+          <x-radio name="personal">个人</x-radio>
+          <x-radio name="company">企业</x-radio>
+        </x-radio-group>
+      </x-form-item>
 
-      <vl-form-item
+      <x-form-item
         label=""
         name="agree"
         :rules="[{ validator: (value) => value === true || '请先同意服务协议' }]"
       >
-        <vl-checkbox v-model="form.agree">我已阅读并同意《服务协议》</vl-checkbox>
-      </vl-form-item>
-    </vl-cell-group>
+        <x-checkbox v-model="form.agree">我已阅读并同意《服务协议》</x-checkbox>
+      </x-form-item>
+    </x-cell-group>
 
     <div class="form-actions">
-      <vl-button block @click="onReset">重置</vl-button>
-      <vl-button type="primary" block native-type="submit">提交</vl-button>
+      <x-button block @click="onReset">重置</x-button>
+      <x-button type="primary" block native-type="submit">提交</x-button>
     </div>
-  </vl-form>
+  </x-form>
 </template>
 
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
-import { Toast, type FieldRule } from '@vela/mobile'
+import { Toast, type FieldRule } from '@xxui/mobile'
 
 const formRef = ref<{ validate: () => Promise<boolean>; resetFields: () => void }>()
 

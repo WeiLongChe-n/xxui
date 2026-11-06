@@ -9,7 +9,7 @@ export interface CheckboxGroupContext {
   toggle: (value: CheckboxValue) => void
 }
 
-export const CHECKBOX_GROUP_KEY: InjectionKey<CheckboxGroupContext> = Symbol('vl-checkbox-group')
+export const CHECKBOX_GROUP_KEY: InjectionKey<CheckboxGroupContext> = Symbol('x-checkbox-group')
 
 export type RadioValue = string | number | boolean
 
@@ -19,4 +19,4 @@ export interface RadioGroupContext {
   setValue: (value: RadioValue) => void
 }
 
-export const RADIO_GROUP_KEY: InjectionKey<RadioGroupContext> = Symbol('vl-radio-group')
+export const RADIO_GROUP_KEY: InjectionKey<RadioGroupContext> = Symbol('x-radio-group')

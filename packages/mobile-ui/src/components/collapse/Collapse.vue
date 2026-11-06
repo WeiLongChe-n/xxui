@@ -3,7 +3,7 @@ import { computed, provide } from 'vue'
 import { createNamespace } from '../../utils'
 import { COLLAPSE_KEY, type CollapseName } from './context'
 
-defineOptions({ name: 'VlCollapse' })
+defineOptions({ name: 'XCollapse' })
 
 const props = withDefaults(
   defineProps<{
@@ -57,11 +57,11 @@ provide(COLLAPSE_KEY, {
 </template>
 
 <style lang="scss">
-.vl-collapse {
+.x-collapse {
   overflow: hidden;
-  background: var(--vl-background-2);
+  background: var(--x-background-2);
 
-  &--borderless .vl-collapse-item__header::after {
+  &--borderless .x-collapse-item__header::after {
     display: none;
   }
 }

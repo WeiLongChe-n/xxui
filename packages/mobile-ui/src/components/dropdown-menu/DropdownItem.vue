@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { computed, getCurrentInstance, inject, ref, watch } from 'vue'
 import { createNamespace } from '../../utils'
-import VlIcon from '../icon/Icon.vue'
+import XIcon from '../icon/Icon.vue'
 import type { DropdownOption, DropdownValue } from './types'
 
-defineOptions({ name: 'VlDropdownItem' })
+defineOptions({ name: 'XDropdownItem' })
 
 const props = withDefaults(
   defineProps<{
@@ -48,7 +48,7 @@ interface MenuContext {
   toggle: (key: number) => void
 }
 
-const menu = inject<MenuContext>('vl-dropdown-menu')
+const menu = inject<MenuContext>('x-dropdown-menu')
 const uid = getCurrentInstance()?.uid ?? 0
 
 const expanded = computed(() => menu?.activeKey.value === uid)
@@ -146,14 +146,14 @@ const onConfirm = () => {
       @click="onToggle"
     >
       <span :class="bem('text')">{{ displayTitle }}</span>
-      <VlIcon
+      <XIcon
         v-if="rotateArrow"
         name="arrow-down"
         :class="[bem('arrow'), { [bem('arrow', 'up')]: expanded }]"
       />
     </button>
 
-    <Transition name="vl-dropdown-panel">
+    <Transition name="x-dropdown-panel">
       <div v-if="expanded" :class="bem('panel')">
         <slot>
           <ul :class="bem('options')">
@@ -169,9 +169,9 @@ const onConfirm = () => {
               ]"
               @click="onSelect(option)"
             >
-              <VlIcon v-if="option.icon" :name="option.icon" :class="bem('option-icon')" />
+              <XIcon v-if="option.icon" :name="option.icon" :class="bem('option-icon')" />
               <span :class="bem('option-text')">{{ option.text }}</span>
-              <VlIcon v-if="isActive(option)" name="check" :class="bem('option-check')" />
+              <XIcon v-if="isActive(option)" name="check" :class="bem('option-check')" />
             </li>
           </ul>
         </slot>
@@ -190,7 +190,7 @@ const onConfirm = () => {
 </template>
 
 <style lang="scss">
-.vl-dropdown-item {
+.x-dropdown-item {
   flex: 1;
   min-width: 0;
 
@@ -204,7 +204,7 @@ const onConfirm = () => {
     padding: 0 8px;
     overflow: hidden;
     font-size: 14px;
-    color: var(--vl-text-color);
+    color: var(--x-text-color);
     cursor: pointer;
     background: none;
     border: 0;
@@ -212,11 +212,11 @@ const onConfirm = () => {
     &--active,
     &--selected {
       font-weight: 500;
-      color: var(--vl-primary);
+      color: var(--x-primary);
     }
 
     &--disabled {
-      color: var(--vl-text-color-4);
+      color: var(--x-text-color-4);
       cursor: not-allowed;
     }
   }
@@ -230,7 +230,7 @@ const onConfirm = () => {
   &__arrow {
     flex: none;
     font-size: 12px;
-    transition: transform var(--vl-duration-fast) var(--vl-ease);
+    transition: transform var(--x-duration-fast) var(--x-ease);
 
     &--up {
       transform: rotate(180deg);
@@ -245,9 +245,9 @@ const onConfirm = () => {
     z-index: 2;
     max-height: 420px;
     overflow-y: auto;
-    background: var(--vl-background-2);
-    border-radius: 0 0 var(--vl-radius) var(--vl-radius);
-    box-shadow: var(--vl-shadow-2);
+    background: var(--x-background-2);
+    border-radius: 0 0 var(--x-radius) var(--x-radius);
+    box-shadow: var(--x-shadow-2);
   }
 
   &__options {
@@ -265,20 +265,20 @@ const onConfirm = () => {
     height: 46px;
     padding: 0 16px;
     font-size: 14px;
-    color: var(--vl-text-color);
+    color: var(--x-text-color);
     cursor: pointer;
 
     &:active {
-      background: var(--vl-active-color);
+      background: var(--x-active-color);
     }
 
     &--active {
       font-weight: 500;
-      color: var(--vl-primary);
+      color: var(--x-primary);
     }
 
     &--disabled {
-      color: var(--vl-text-color-4);
+      color: var(--x-text-color-4);
       cursor: not-allowed;
     }
   }
@@ -286,7 +286,7 @@ const onConfirm = () => {
   &__option-icon {
     flex: none;
     font-size: 16px;
-    color: var(--vl-text-color-2);
+    color: var(--x-text-color-2);
   }
 
   &__option-text {
@@ -299,14 +299,14 @@ const onConfirm = () => {
   &__option-check {
     flex: none;
     font-size: 16px;
-    color: var(--vl-primary);
+    color: var(--x-primary);
   }
 
   &__footer {
     display: flex;
     gap: 12px;
     padding: 10px 16px;
-    border-top: 1px solid var(--vl-border-color);
+    border-top: 1px solid var(--x-border-color);
   }
 
   &__btn {
@@ -318,26 +318,26 @@ const onConfirm = () => {
     border-radius: 999px;
 
     &--reset {
-      color: var(--vl-text-color-2);
-      background: var(--vl-background-3);
+      color: var(--x-text-color-2);
+      background: var(--x-background-3);
     }
 
     &--confirm {
       color: #fff;
-      background: var(--vl-primary);
+      background: var(--x-primary);
     }
   }
 }
 
-.vl-dropdown-panel-enter-active,
-.vl-dropdown-panel-leave-active {
+.x-dropdown-panel-enter-active,
+.x-dropdown-panel-leave-active {
   transition:
-    opacity var(--vl-duration-fast) var(--vl-ease),
-    transform var(--vl-duration-fast) var(--vl-ease);
+    opacity var(--x-duration-fast) var(--x-ease),
+    transform var(--x-duration-fast) var(--x-ease);
 }
 
-.vl-dropdown-panel-enter-from,
-.vl-dropdown-panel-leave-to {
+.x-dropdown-panel-enter-from,
+.x-dropdown-panel-leave-to {
   opacity: 0;
   transform: translateY(-8px);
 }

@@ -11,15 +11,15 @@
 ## 文字位置
 
 ```vue
-<vl-divider>文字居中</vl-divider>
-<vl-divider content-position="left">左侧文字</vl-divider>
-<vl-divider content-position="right">右侧文字</vl-divider>
+<x-divider>文字居中</x-divider>
+<x-divider content-position="left">左侧文字</x-divider>
+<x-divider content-position="right">右侧文字</x-divider>
 ```
 
 ## 虚线
 
 ```vue
-<vl-divider dashed>虚线分割</vl-divider>
+<x-divider dashed>虚线分割</x-divider>
 ```
 
 ## API
@@ -30,7 +30,7 @@
 | dashed | 是否为虚线 | `boolean` | `false` |
 | hairline | 是否使用 0.5px 细线 | `boolean` | `true` |
 | color | 文字颜色 | `string` | - |
-| border-color | 线条颜色 | `string` | `--vl-border-color` |
+| border-color | 线条颜色 | `string` | `--x-border-color` |
 
 ## Slots
 
