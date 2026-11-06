@@ -1,0 +1,154 @@
+# Vela UI
+
+Vue 3 + TypeScript 移动端组件库，内置多套主题与暗色模式，附带完整的技术文档站。
+
+- 46 个组件，覆盖基础 / 表单 / 反馈 / 导航 / 展示五大类
+- 主题由 CSS 变量与色相令牌驱动：6 套品牌配色 × 明暗双模式，运行时切换无需重新编译
+- 命令式组件（Toast / Dialog）与组件式并存
+- 移动端细节：0.5px 细边框、安全区、滚动锁定、手势拖拽、懒渲染
+
+## 环境要求
+
+| 环境 | 最低版本 | 推荐版本 | 说明 |
+| --- | --- | --- | --- |
+| Node.js | `>= 18.0.0` | `20 LTS` / `22 LTS` | Vite 6、VitePress 1.6 的运行前提 |
+| npm | `>= 9.0.0` | `10.x` | 也可使用 pnpm 8+ / yarn 1.22+ |
+| Vue | `>= 3.3.0` | `3.5.x` | 组件使用 `<script setup>`、`defineOptions` |
+| TypeScript | `>= 5.0` | `5.9.x` | 可选 |
+| Vite | `>= 5.0` | `6.4.x` | 仅开发与构建需要 |
+
+> 当前仓库的开发与验证环境：**Node.js v22.22.2 / npm 10.9.7 / Vue 3.5.44 / Vite 6.4.5 / VitePress 1.6.4 / TypeScript 5.9.3 / Sass 1.107.1**
+>
+> 根目录提供 `.nvmrc`（`22.22.2`），执行 `nvm use` 即可对齐版本。`package.json` 中的 `engines` 声明了 `node >= 18`，低于该版本安装会失败。
+
+## 快速开始
+
+```bash
+# 安装依赖
+npm install
+
+# 启动文档站（默认 http://localhost:5173）
+npm run dev
+
+# 构建组件库（ES + UMD + d.ts）
+npm run build
+
+# 构建文档站静态产物
+npm run docs:build
+```
+
+## 目录结构
+
+```
+vela-ui/
+├── packages/mobile-ui/        # 组件库源码
+│   ├── src/
+│   │   ├── components/        # 46 个组件
+│   │   ├── styles/            # 主题变量、mixin、过渡动效
+│   │   ├── theme/             # 主题运行时（切换 / 持久化 / 跟随系统）
+│   │   ├── utils/             # BEM、手势、滚动锁定、挂载工具
+│   │   └── index.ts           # 库入口
+│   ├── vite.config.ts         # 库构建配置
+│   └── tsconfig.json
+├── docs/                      # VitePress 文档站
+│   ├── guide/                 # 指南：上手、主题、暗色、适配、FAQ、更新日志
+│   ├── components/            # 36 篇组件文档
+│   ├── demos/                 # 在线示例（通过 ?raw 展示源码）
+│   └── .vitepress/            # 站点配置、自定义主题与主题切换器
+└── scripts/                   # 截图与页面巡检脚本（开发辅助）
+```
+
+## 在项目中使用
+
+```ts
+import { createApp } from 'vue'
+import VelaUI from '@vela/mobile'
+import '@vela/mobile/style.css'
+import App from './App.vue'
+
+createApp(App).use(VelaUI).mount('#app')
+```
+
+```vue
+<vl-button type="primary" block @click="Toast.success('保存成功')">提交</vl-button>
+```
+
+```ts
+import { setTheme, useTheme, Toast } from '@vela/mobile'
+
+setTheme({ mode: 'dark', brand: 'ocean' })
+
+const { isDark, brand, setBrand, toggleMode } = useTheme()
+```
+
+## 主题
+
+主题 = 明暗模式（`light` / `dark` / `auto`）× 品牌配色（`default` / `ocean` / `emerald` / `violet` / `sunset` / `graphite`），共 12 种预设组合。实现方式：
+
+- `html[data-theme='dark']` 覆盖一整套颜色令牌；
+- `html[data-brand='ocean']` 只切换 `--vl-hue`，主色及其所有状态色由 `hsl()` 推导；
+- 任意作用域覆盖 CSS 变量即可实现局部定制，`<vl-config-provider>` 提供组件化封装。
+
+详见文档「[主题定制](docs/guide/theme.md)」。
+
+## 文档
+
+```bash
+npm run dev
+```
+
+- 指南：`/guide/introduction`
+- 主题定制：`/guide/theme`
+- 组件：`/components/button` 起共 36 篇
+
+文档站内右上角提供主题切换器，可实时预览 6 套配色与明暗模式。
+
+### 交互预览
+
+每个组件页顶部都有一个手机形态的实时预览：组件真实渲染、可直接点击，外层套了 iPhone 样式的机身、状态栏与 Home 指示条。
+
+预览内容跑在 **iframe 沙箱**里 —— 组件库样式被注入沙箱内部，文档站样式不会进入，两边互不干扰。预览上方工具条只作用于沙箱：
+
+- 六个色点切换预览内品牌配色；
+- 「深色 / 浅色」切换预览内明暗，不影响文档站；
+- 「重置」重新挂载演示，复位弹窗 / 开关等状态；
+- 「全屏」放大预览，`Esc` 退出。
+
+Toast、Dialog、ActionSheet、Popup、Overlay 的演示挂在页面根节点，放进手机框会被裁切，所以这几个页面用整页演示（`<DemoBlock :mobile="false">`）。
+
+为了让组件在沙箱（其他 document）里也能正常工作，`Slider`、`Sticky`、`Tabs`、`List`、`PullRefresh` 已改为通过 `getOwnerWindow(el)` 获取元素所属 window，而非直接用全局 `window`。
+
+## 脚本
+
+| 命令 | 说明 |
+| --- | --- |
+| `npm run dev` | 启动文档站开发服务器（5173） |
+| `npm run docs:build` | 构建文档站到 `docs/.vitepress/dist` |
+| `npm run docs:preview` | 预览文档站构建产物（4173） |
+| `npm run build` | 构建组件库到 `packages/mobile-ui/dist` |
+| `npm run typecheck` | 使用 vue-tsc 做类型检查 |
+
+### 开发辅助脚本
+
+`scripts/` 下是开发期用来做视觉回归与控制台巡检的脚本，不在 npm scripts 中，需要时直接 `node` 运行。它们依赖 `puppeteer-core` 与本机已安装的 Chrome（路径写在脚本顶部的 `CHROME` 常量里），仅在开发文档站运行时才有意义。
+
+| 脚本 | 用法 | 作用 |
+| --- | --- | --- |
+| `shot.mjs` | `PAGES='[["/","home"]]' node scripts/shot.mjs` | 批量截图页面，并汇总控制台报错；支持 `FULL=1` 整页、`MOBILE=1` 移动视口、`DARK=1` 暗色 |
+| `clip.mjs` | `node scripts/clip.mjs <url> <selector> <out.png> [宽度]` | 截取单个元素并输出自身与子元素的尺寸、溢出情况，用于核对局部排版；`DARK=1` 走暗色 |
+| `interact.mjs` | `node scripts/interact.mjs` | 自动打开 Dialog / ActionSheet / Popup / Toast 并截图，验证命令式组件 |
+| `inspect2.mjs` | `node scripts/inspect2.mjs` | 通过主题切换器切到暗色，读取关键节点的计算样式，确认主题令牌真正生效 |
+| `check404.mjs` | `node scripts/check404.mjs` | 从首页广度优先爬取全部站内链接，报告 >=400 的页面；`BASE=` 可指向预览服务 |
+| `sandbox.mjs` | `node scripts/sandbox.mjs` | 沙箱自检：确认演示确实渲染在 iframe 内、指针拖拽在沙箱 window 上生效、换肤不影响文档站、`--vp-*` 未泄漏 |
+
+> 这些脚本只在本地开发时使用，不影响 `build` 与 `docs:build` 的产物。
+
+## 说明与限制
+
+- 按需引入目前只作用于 JS，CSS 仍为一次性引入；
+- 未内置 RTL 布局支持；
+- Tabs 在隐藏容器中首次渲染时，下划线位置需要容器可见后重新计算。
+
+## License
+
+MIT

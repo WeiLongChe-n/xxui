@@ -1,0 +1,63 @@
+@use './var.scss';
+@use './transition.scss';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--vl-font-family);
+  font-size: var(--vl-font-size);
+  line-height: 1.5;
+  color: var(--vl-text-color);
+  background: var(--vl-background);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: var(--vl-primary);
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+input,
+textarea {
+  font-family: inherit;
+}
+
+.vl-hairline-bottom {
+  position: relative;
+
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    content: '';
+    background: var(--vl-border-color);
+    transform: scaleY(0.5);
+    transform-origin: 0 100%;
+  }
+}
+
+.vl-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.vl-safe-bottom {
+  padding-bottom: var(--vl-safe-bottom);
+}

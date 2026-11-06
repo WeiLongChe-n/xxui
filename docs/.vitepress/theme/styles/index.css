@@ -1,0 +1,165 @@
+/* ------------------------------
+ * Vela UI 文档站样式
+ * 与组件库主题共享 CSS 变量，切换品牌色时同步高亮色
+ * ------------------------------ */
+
+:root {
+  --vp-c-brand-1: #2563eb;
+  --vp-c-brand-2: #3b82f6;
+  --vp-c-brand-3: #60a5fa;
+  --vp-c-brand-soft: rgba(59, 130, 246, 0.14);
+  --vp-c-brand-softer: rgba(59, 130, 246, 0.08);
+
+  --vp-font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --vp-code-font-size: 0.85em;
+  --vp-layout-max-width: 1440px;
+}
+
+/* 文档内容宽度，让 API 表格更舒展 */
+.VPDoc.has-aside .content-container {
+  max-width: 820px;
+}
+
+/* 首页 Hero */
+.VPHero .name .clip {
+  background: linear-gradient(120deg, hsl(var(--vl-hue, 217) 90% 62%), hsl(var(--vl-hue, 217) 80% 45%) 60%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.VPHero .tagline {
+  max-width: 560px;
+  line-height: 1.7;
+}
+
+/* 表格 */
+.vp-doc table {
+  display: table;
+  width: 100%;
+  margin: 16px 0;
+  font-size: 13px;
+  border-collapse: collapse;
+}
+
+.vp-doc th {
+  font-weight: 600;
+  background: var(--vp-c-bg-soft);
+}
+
+.vp-doc th,
+.vp-doc td {
+  padding: 9px 12px;
+  border: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc tr {
+  background: transparent;
+}
+
+.vp-doc td code,
+.vp-doc th code {
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* 行内代码 */
+.vp-doc :not(pre) > code {
+  padding: 3px 6px;
+  font-size: 12.5px;
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-softer);
+  border-radius: 5px;
+}
+
+/* 提示块 */
+.vp-doc .custom-block {
+  font-size: 13.5px;
+  border-radius: 10px;
+}
+
+.vp-doc .custom-block .custom-block-title {
+  font-weight: 600;
+}
+
+/* 组件演示中常用的小工具类 */
+.demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.demo-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.demo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.demo-label {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: var(--vp-c-text-3);
+}
+
+.demo-note {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--vp-c-text-3);
+}
+
+/* 手机预览框：用于整页布局类组件 */
+.phone-frame {
+  position: relative;
+  width: 320px;
+  max-width: 100%;
+  height: 580px;
+  overflow: hidden;
+  background: var(--vl-background);
+  border: 8px solid #1f2233;
+  border-radius: 32px;
+  box-shadow: var(--vp-shadow-3);
+}
+
+.phone-frame__screen {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* 主题色卡片 */
+.brand-swatch {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  vertical-align: -3px;
+  border-radius: 50%;
+}
+
+/* 首页特性卡片微调 */
+.vp-feature-tag {
+  display: inline-block;
+  padding: 1px 6px;
+  margin-left: 6px;
+  font-size: 11px;
+  color: var(--vp-c-brand-1);
+  background: var(--vp-c-brand-softer);
+  border-radius: 999px;
+}
+
+@media (max-width: 640px) {
+  .phone-frame {
+    height: 480px;
+  }
+
+  .vp-doc table {
+    font-size: 12px;
+  }
+}

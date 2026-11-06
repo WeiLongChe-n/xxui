@@ -1,0 +1,96 @@
+/* 通用 mixin */
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin multi-ellipsis($lines: 2) {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+}
+
+/* 1px 细线（高清屏 0.5px） */
+@mixin hairline($position: bottom, $color: var(--vl-border-color)) {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    background-color: $color;
+    transform-origin: 0 0;
+
+    @if $position == bottom {
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 1px;
+      transform: scaleY(0.5);
+    } @else if $position == top {
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 1px;
+      transform: scaleY(0.5);
+    } @else if $position == left {
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 1px;
+      transform: scaleX(0.5);
+    } @else if $position == right {
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 1px;
+      transform: scaleX(0.5);
+    } @else if $position == all {
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border: 1px solid $color;
+      transform: none;
+      background: none;
+      pointer-events: none;
+    }
+  }
+}
+
+@mixin hairline-none {
+  &::after {
+    display: none;
+  }
+}
+
+@mixin safe-area-bottom($extra: 0px) {
+  padding-bottom: calc(#{$extra} + var(--vl-safe-bottom));
+}
+
+@mixin disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@mixin reset-button {
+  padding: 0;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  outline: none;
+  appearance: none;
+}

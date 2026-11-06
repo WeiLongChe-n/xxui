@@ -1,0 +1,55 @@
+/* 通用过渡动效 */
+
+.vl-fade-enter-active,
+.vl-fade-leave-active {
+  transition: opacity var(--vl-duration) var(--vl-ease);
+}
+
+.vl-fade-enter-from,
+.vl-fade-leave-to {
+  opacity: 0;
+}
+
+.vl-slide-up-enter-active,
+.vl-slide-up-leave-active,
+.vl-slide-down-enter-active,
+.vl-slide-down-leave-active,
+.vl-slide-left-enter-active,
+.vl-slide-left-leave-active,
+.vl-slide-right-enter-active,
+.vl-slide-right-leave-active,
+.vl-zoom-enter-active,
+.vl-zoom-leave-active {
+  transition: transform var(--vl-duration) var(--vl-ease), opacity var(--vl-duration) var(--vl-ease);
+}
+
+.vl-slide-up-enter-from,
+.vl-slide-up-leave-to {
+  transform: translate3d(0, 100%, 0);
+}
+
+.vl-slide-down-enter-from,
+.vl-slide-down-leave-to {
+  transform: translate3d(0, -100%, 0);
+}
+
+.vl-slide-left-enter-from,
+.vl-slide-left-leave-to {
+  transform: translate3d(100%, 0, 0);
+}
+
+.vl-slide-right-enter-from,
+.vl-slide-right-leave-to {
+  transform: translate3d(-100%, 0, 0);
+}
+
+.vl-zoom-enter-active,
+.vl-zoom-leave-active {
+  transition: opacity var(--vl-duration) var(--vl-ease), scale var(--vl-duration) var(--vl-ease);
+}
+
+.vl-zoom-enter-from,
+.vl-zoom-leave-to {
+  opacity: 0;
+  scale: 0.88;
+}

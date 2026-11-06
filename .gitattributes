@@ -1,0 +1,21 @@
+# 统一换行符：仓库内使用 LF，检出时按平台转换
+* text=auto eol=lf
+
+# 明确二进制文件，避免被当成文本处理
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+
+# 锁文件与脚本
+package-lock.json text eol=lf
+*.mjs text eol=lf
+*.ts text eol=lf
+*.vue text eol=lf
+*.scss text eol=lf
+*.md text eol=lf

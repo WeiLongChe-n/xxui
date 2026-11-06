@@ -1,0 +1,42 @@
+{
+  "name": "@vela/mobile",
+  "version": "0.1.0",
+  "description": "Vela UI - 轻量、可定制的 Vue 3 移动端组件库，支持多主题与暗色模式",
+  "type": "module",
+  "main": "./dist/vela-ui.umd.js",
+  "module": "./dist/vela-ui.es.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/vela-ui.es.js",
+      "require": "./dist/vela-ui.umd.js"
+    },
+    "./style.css": "./dist/vela-ui.css",
+    "./es": "./dist/vela-ui.es.js"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss",
+    "**/*.vue"
+  ],
+  "keywords": [
+    "vue3",
+    "mobile",
+    "ui",
+    "component-library",
+    "vant-like",
+    "theme"
+  ],
+  "peerDependencies": {
+    "vue": "^3.3.0"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,125 @@
+/* ---------------------------------------------
+ * Vela UI 主题变量（设计令牌）
+ * 所有组件样式均通过 CSS 变量取值，可直接覆盖
+ * 主题切换：html[data-theme='dark'] / html[data-brand='ocean']
+ * ------------------------------------------- */
+:root {
+  /* 品牌色由色相驱动，换肤只需切换 --vl-hue */
+  --vl-hue: 217;
+  --vl-saturation: 88%;
+  --vl-primary: hsl(var(--vl-hue) var(--vl-saturation) 55%);
+  --vl-primary-dark: hsl(var(--vl-hue) var(--vl-saturation) 46%);
+  --vl-primary-light: hsl(var(--vl-hue) 92% 95%);
+  --vl-success: #16a34a;
+  --vl-danger: #ef4444;
+  --vl-warning: #f59e0b;
+  --vl-info: #64748b;
+
+  /* 文本 */
+  --vl-text-color: #1f2233;
+  --vl-text-color-2: #646b81;
+  --vl-text-color-3: #9699a6;
+  --vl-text-color-4: #c8ccd4;
+
+  /* 背景与边框 */
+  --vl-background: #f7f8fa;
+  --vl-background-2: #ffffff;
+  --vl-background-3: #f2f3f5;
+  --vl-border-color: #ebedf0;
+  --vl-active-color: #f2f3f5;
+  --vl-overlay-bg: rgba(0, 0, 0, 0.62);
+
+  /* 字体 */
+  --vl-font-size: 14px;
+  --vl-font-size-xs: 10px;
+  --vl-font-size-sm: 12px;
+  --vl-font-size-md: 14px;
+  --vl-font-size-lg: 16px;
+  --vl-font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica,
+    'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', Arial, sans-serif;
+
+  /* 圆角 */
+  --vl-radius-sm: 4px;
+  --vl-radius: 8px;
+  --vl-radius-lg: 12px;
+  --vl-radius-xl: 20px;
+
+  /* 间距 */
+  --vl-padding-xs: 4px;
+  --vl-padding-sm: 8px;
+  --vl-padding: 12px;
+  --vl-padding-md: 16px;
+  --vl-padding-lg: 24px;
+  --vl-padding-xl: 32px;
+
+  /* 布局 */
+  --vl-navbar-height: 46px;
+  --vl-tabbar-height: 50px;
+  --vl-cell-font-size: 15px;
+  --vl-cell-padding: 12px 16px;
+  --vl-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --vl-safe-top: env(safe-area-inset-top, 0px);
+
+  /* 动效 */
+  --vl-duration-fast: 0.2s;
+  --vl-duration: 0.3s;
+  --vl-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  /* 阴影 */
+  --vl-shadow-1: 0 1px 2px rgba(31, 34, 51, 0.04), 0 2px 8px rgba(31, 34, 51, 0.04);
+  --vl-shadow-2: 0 4px 16px rgba(31, 34, 51, 0.1);
+  --vl-shadow-3: 0 8px 28px rgba(31, 34, 51, 0.14);
+
+  color-scheme: light;
+}
+
+/* ---------------- 暗色主题 ---------------- */
+[data-theme='dark'] {
+  --vl-primary: hsl(var(--vl-hue) var(--vl-saturation) 64%);
+  --vl-primary-dark: hsl(var(--vl-hue) var(--vl-saturation) 72%);
+  --vl-primary-light: hsl(var(--vl-hue) 40% 24%);
+
+  --vl-text-color: #e9ebf0;
+  --vl-text-color-2: #b2b8c4;
+  --vl-text-color-3: #838a99;
+  --vl-text-color-4: #565d6b;
+
+  --vl-background: #0f1115;
+  --vl-background-2: #191c22;
+  --vl-background-3: #232730;
+  --vl-border-color: #2a2f39;
+  --vl-active-color: #232730;
+  --vl-overlay-bg: rgba(0, 0, 0, 0.78);
+
+  --vl-shadow-1: 0 1px 2px rgba(0, 0, 0, 0.2), 0 2px 8px rgba(0, 0, 0, 0.24);
+  --vl-shadow-2: 0 4px 16px rgba(0, 0, 0, 0.36);
+  --vl-shadow-3: 0 8px 28px rgba(0, 0, 0, 0.44);
+
+  color-scheme: dark;
+}
+
+/* ---------------- 品牌配色（换肤） ---------------- */
+[data-brand='default'] {
+  --vl-hue: 217;
+}
+
+[data-brand='ocean'] {
+  --vl-hue: 195;
+}
+
+[data-brand='emerald'] {
+  --vl-hue: 158;
+}
+
+[data-brand='violet'] {
+  --vl-hue: 262;
+}
+
+[data-brand='sunset'] {
+  --vl-hue: 12;
+}
+
+[data-brand='graphite'] {
+  --vl-hue: 218;
+  --vl-saturation: 12%;
+}
