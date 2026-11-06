@@ -82,15 +82,32 @@ jobs:
           done
           ls -lh packages/mobile-ui/dist
 
-      - name: 发布到 npm
+      - name: 检查该版本是否已发布
+        id: check
         run: |
-          # 不传 --otp、不读 .npmrc 里的 token：npm 会自动检测 GitHub Actions 的 OIDC 环境
-          npm publish packages/mobile-ui \
+          VER=$(node -p "require('./packages/mobile-ui/package.json').version")
+          if npm view "xxui-mobile@$VER" version --registry https://registry.npmjs.org/ >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::xxui-mobile@$VER 已存在于 npm，跳过发布（不会覆盖已发布版本）"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: 发布到 npm
+        if: steps.check.outputs.exists == 'false'
+        run: |
+          # 必须写 ./ 前缀：npm 会把 packages/mobile-ui 当成 GitHub 的 owner/repo 简写去 ls-remote
+          # 不传 --otp、不读 token：npm 自动检测 GitHub Actions 的 OIDC 环境
+          npm publish ./packages/mobile-ui \
             --registry https://registry.npmjs.org/ \
             --tag "${{ inputs.dist-tag || 'latest' }}"
 
       - name: 输出结果
         run: |
           VER=$(node -p "require('./packages/mobile-ui/package.json').version")
-          echo "### 已发布 xxui-mobile@$VER" >> "$GITHUB_STEP_SUMMARY"
-          echo "https://www.npmjs.com/package/xxui-mobile/v/$VER" >> "$GITHUB_STEP_SUMMARY"
+          if [ "${{ steps.check.outputs.exists }}" = "true" ]; then
+            echo "### xxui-mobile@$VER 已存在，本次跳过发布" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "### 已发布 xxui-mobile@$VER" >> "$GITHUB_STEP_SUMMARY"
+            echo "https://www.npmjs.com/package/xxui-mobile/v/$VER" >> "$GITHUB_STEP_SUMMARY"
+          fi
