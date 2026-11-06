@@ -12,7 +12,7 @@
  *
  * 常用参数：
  *   --tag <dist-tag>  发布到指定 dist-tag，如 beta / next（默认 latest）
- *   --otp <code>      两步验证码
+ *   --otp <code>      两步验证码（被 2FA 拦下时，脚本也会在终端里询问一次）
  *   --yes             跳过发布前确认
  *   --skip-check      跳过 git 工作区干净检查
  *   --no-typecheck    跳过 vue-tsc 类型检查
@@ -99,6 +99,8 @@ const run = (cmd, args, extra = {}) => {
   } catch (error) {
     const output = [error.stdout, error.stderr].filter(Boolean).join('\n').trim()
     if (output) console.error(c.dim(output.split('\n').slice(-12).join('\n')))
+    // 调用方需要靠这段文本来区分 2FA / 包名被占用等失败原因
+    error.output = output
     throw error
   }
 }
@@ -435,6 +437,14 @@ const confirm = async (summary) => {
   if (answer.trim().toLowerCase() !== 'yes') fail('已取消发布')
 }
 
+/** 发布遇到 2FA 时在终端里问一次验证码；留空表示放弃重试 */
+const askOtp = async () => {
+  const rl = createInterface({ input: process.stdin, output: process.stdout })
+  const code = await rl.question('  请输入 npm 两步验证码（6 位，直接回车跳过）：')
+  rl.close()
+  return code.trim()
+}
+
 const gitRelease = (version) => {
   if (!options.git) {
     warn('已跳过 git 提交与 tag（--no-git）')
@@ -540,23 +550,70 @@ const main = async () => {
   if (pkg.name.startsWith('@')) publishArgs.push('--access', 'public')
 
   if (options.dryRun) {
-    info(`将执行：npm ${publishArgs.join(' ')}`)
+    const preview = [...publishArgs]
+    if (options.otp) preview.push('--otp', '<code>')
+    info(`将执行：npm ${preview.join(' ')}`)
     ok('dry-run 完成，未上传')
   } else {
     const args = [...publishArgs]
     if (options.otp) args.push('--otp', options.otp)
-    try {
-      npmX(args, { inherit: true })
-    } catch (error) {
-      const message = String(error.message || '')
-      if (/E403|forbidden|403/.test(message)) {
-        fail('npm 拒绝了发布（403）', '确认当前账号对自己名下的包名有发布权限；包名被他人占用也会返回 403')
-      }
-      if (/EOTP|one-time password/i.test(message)) {
-        fail('需要两步验证码', '重新执行并带上 --otp <code>')
-      }
-      throw error
+
+    // 用 pipe 而不是 inherit：2FA 的报错文本在 stdout/stderr 里，靠它才能给出准确建议
+    const publishOnce = () => {
+      const output = npmX(args)
+      if (output && output.trim()) console.log(c.dim(output.trim()))
     }
+
+    let failed = null
+    let detail = ''
+    try {
+      publishOnce()
+    } catch (error) {
+      failed = error
+      detail = String(error.output || error.message || '')
+    }
+
+    if (failed) {
+      const needsOtp = /two-factor|2fa|one-time password|EOTP/i.test(detail)
+      const forbidden = /E403|403 Forbidden|forbidden/i.test(detail)
+
+      // 开了 2FA 的账号：有终端就问一次验证码重试，省得手动加参数
+      if (needsOtp && !options.otp && process.stdin.isTTY) {
+        warn('账号开启了两步验证，需要验证码才能发布')
+        const code = await askOtp()
+        if (code) {
+          args.push('--otp', code)
+          try {
+            publishOnce()
+            failed = null
+          } catch (retryError) {
+            const retryDetail = String(retryError.output || retryError.message || '')
+            if (/EOTP|one-time password|two-factor|2fa/i.test(retryDetail)) {
+              fail('两步验证码无效或已过期', '重新执行并带上新的 --otp <code>')
+            }
+            throw retryError
+          }
+        }
+      }
+
+      if (failed) {
+        if (needsOtp || forbidden) {
+          fail(
+            needsOtp
+              ? 'npm 要求两步验证（403）'
+              : 'npm 拒绝了发布（403）：包名可能已被他人占用，或当前账号无权发布',
+            needsOtp
+              ? [
+                  '带上验证码重试：npm run publish:npm -- --otp <6 位验证码>',
+                  '想免验证码：npmjs.com → Access Tokens → Generate New Token，选 Automation（或 Granular 勾选 bypass 2FA），写进 ~/.npmrc',
+                ].join('\n    ')
+              : '确认当前账号对自己名下的包名有发布权限；包名被他人占用也会返回 403',
+          )
+        }
+        throw failed
+      }
+    }
+
     published = true
     ok(`已发布 ${pkg.name}@${targetVersion}`)
     info(`https://www.npmjs.com/package/${pkg.name}/v/${targetVersion}`)
