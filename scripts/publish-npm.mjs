@@ -534,11 +534,16 @@ const main = async () => {
   await confirm(`本次发布 ${pkg.name}@${targetVersion}（${(tarball.size / 1024).toFixed(0)} kB）`)
 
   step(`7/8 发布到 npm${options.dryRun ? c.yellow('（dry-run，跳过）') : ''}`)
+
+  // scoped 包默认是私有的，必须显式 --access public；无 scope 的包不需要这个参数
+  const publishArgs = ['publish', PKG_DIR, '--registry', REGISTRY, '--tag', options.tag]
+  if (pkg.name.startsWith('@')) publishArgs.push('--access', 'public')
+
   if (options.dryRun) {
-    info(`将执行：npm publish ${path.relative(ROOT, PKG_DIR)} --registry ${REGISTRY} --access public --tag ${options.tag}`)
+    info(`将执行：npm ${publishArgs.join(' ')}`)
     ok('dry-run 完成，未上传')
   } else {
-    const args = ['publish', PKG_DIR, '--registry', REGISTRY, '--access', 'public', '--tag', options.tag]
+    const args = [...publishArgs]
     if (options.otp) args.push('--otp', options.otp)
     try {
       npmX(args, { inherit: true })
