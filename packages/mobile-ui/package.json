@@ -16,11 +16,11 @@
   "homepage": "https://chenweilong_1025.gitee.io/vela-ui/",
   "repository": {
     "type": "git",
-    "url": "git+https://gitee.com/chenweilong_1025/vela-ui.git",
+    "url": "git+https://github.com/WeiLongChe-n/xxui.git",
     "directory": "packages/mobile-ui"
   },
   "bugs": {
-    "url": "https://gitee.com/chenweilong_1025/vela-ui/issues"
+    "url": "https://github.com/WeiLongChe-n/xxui/issues"
   },
   "author": "chenweilong",
   "license": "MIT",
