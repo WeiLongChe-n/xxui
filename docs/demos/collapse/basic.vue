@@ -46,7 +46,7 @@ const accordionActive = ref('a')
 
 .block {
   overflow: hidden;
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--vl-border-color);
   border-radius: 12px;
 }
 
@@ -54,7 +54,7 @@ const accordionActive = ref('a')
   padding: 12px 16px;
   margin: 0;
   font-size: 12px;
-  color: var(--vp-c-text-3);
-  background: var(--vp-c-bg-soft);
+  color: var(--vl-text-color-3);
+  background: var(--vl-background-3);
 }
 </style>

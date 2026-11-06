@@ -89,7 +89,7 @@ const currentModeLabel = computed(
   width: 64px;
   padding-top: 5px;
   font-size: 12px;
-  color: var(--vp-c-text-3);
+  color: var(--vl-text-color-3);
 }
 
 .theme-demo__chips,
@@ -102,10 +102,10 @@ const currentModeLabel = computed(
 .theme-demo__chip {
   padding: 5px 12px;
   font-size: 12px;
-  color: var(--vp-c-text-2);
+  color: var(--vl-text-color-2);
   cursor: pointer;
-  background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
+  background: var(--vl-background-3);
+  border: 1px solid var(--vl-border-color);
   border-radius: 999px;
 }
 
@@ -121,10 +121,10 @@ const currentModeLabel = computed(
   align-items: center;
   padding: 4px 10px;
   font-size: 12px;
-  color: var(--vp-c-text-2);
+  color: var(--vl-text-color-2);
   cursor: pointer;
   background: transparent;
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--vl-border-color);
   border-radius: 999px;
 }
 
@@ -135,7 +135,7 @@ const currentModeLabel = computed(
 }
 
 .theme-demo__brand.is-active {
-  color: var(--vp-c-text-1);
+  color: var(--vl-text-color);
   border-color: var(--vl-primary);
 }
 

@@ -34,8 +34,8 @@ const show = ref(false)
 .overlay-stage {
   padding: 16px;
   font-size: 12px;
-  color: var(--vp-c-text-3);
-  background: var(--vp-c-bg-soft);
+  color: var(--vl-text-color-3);
+  background: var(--vl-background-3);
   border-radius: 10px;
 }
 

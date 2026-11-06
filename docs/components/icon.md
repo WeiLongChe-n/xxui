@@ -19,9 +19,16 @@
 
 `size` 支持数字（px）与字符串（如 `"1.4em"`），默认继承父级字号（`1em`）；`color` 支持任意 CSS 颜色。
 
+点下面的色板可直接切换颜色。图标默认跟随父级文字颜色（`currentColor`），所以传入主题变量（如 `var(--vl-primary)`）时，切换品牌配色它也会跟着变。
+
+<DemoBlock title="颜色与尺寸" description="点击色板切换颜色；最后一组展示 size 的缩放" :code="colorCode" background="card">
+  <IconColor />
+</DemoBlock>
+
 ```vue
 <vl-icon name="star" :size="16" />
 <vl-icon name="star" size="32" color="var(--vl-warning)" />
+<vl-icon name="like" color="#ef4444" />
 ```
 
 ## 旋转
@@ -89,5 +96,7 @@
 
 <script setup>
 import IconBasic from '@demos/icon/basic.vue'
+import IconColor from '@demos/icon/color.vue'
 import code from '@demos/icon/basic.vue?raw'
+import colorCode from '@demos/icon/color.vue?raw'
 </script>

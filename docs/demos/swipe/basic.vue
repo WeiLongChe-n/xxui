@@ -52,8 +52,8 @@ const slides = [
 }
 
 .slide--plain {
-  color: var(--vp-c-text-1);
-  background: var(--vp-c-bg-soft);
+  color: var(--vl-text-color);
+  background: var(--vl-background-3);
 }
 
 .slide__title {

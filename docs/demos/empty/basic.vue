@@ -34,7 +34,7 @@ const onGo = () => Toast('跳转商品列表')
 .block {
   overflow: hidden;
   background: var(--vl-background-2);
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--vl-border-color);
   border-radius: 12px;
 }
 </style>

@@ -58,14 +58,14 @@ const onChange = (key: string | number) => Toast(`切换到 ${key}`)
 .tabs-host {
   overflow: hidden;
   background: var(--vl-background-2);
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--vl-border-color);
   border-radius: 12px;
 }
 
 .panel {
   padding: 24px 16px;
   font-size: 13px;
-  color: var(--vp-c-text-3);
+  color: var(--vl-text-color-3);
   text-align: center;
   background: var(--vl-background-2);
 }

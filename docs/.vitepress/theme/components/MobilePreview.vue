@@ -2,7 +2,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 import { useData } from 'vitepress'
 import { brandOptions } from '@vela/mobile'
-import { collectVelaStyles, SANDBOX_BASE_STYLES } from '../utils/sandbox'
+import { collectDemoStyles, collectVelaStyles, SANDBOX_BASE_STYLES } from '../utils/sandbox'
 
 type BrandName = (typeof brandOptions)[number]['name']
 
@@ -31,6 +31,9 @@ const frameBrand = ref<BrandName>('default')
 /** 递增即重新挂载演示内容，用于「重置」 */
 const resetKey = ref(0)
 const fullscreen = ref(false)
+
+/** 演示自身的 scoped 样式是否已注入（每个沙箱只注入一次） */
+let demoStylesInjected = false
 
 let resizeObserver: ResizeObserver | null = null
 
@@ -77,6 +80,8 @@ function setupSandbox() {
   const el = iframe.value
   const doc = el?.contentDocument
   if (!doc) return
+
+  demoStylesInjected = false
 
   doc.open()
   doc.write('<!doctype html><html><head><meta charset="utf-8"></head><body></body></html>')
@@ -130,9 +135,31 @@ function observeHeight() {
   resizeObserver.observe(doc.body)
 }
 
+/**
+ * 注入演示自己的 scoped 样式。
+ *
+ * 演示是 Teleport 进 iframe 的，插进去之后才能从节点上读到 data-v-* 标记，
+ * 所以这里等 body 有内容后再收集；命中一次就不再重复。
+ */
+function ensureDemoStyles() {
+  if (demoStylesInjected) return
+  const doc = sandboxDoc.value
+  if (!doc || !doc.body.children.length) return
+
+  const css = collectDemoStyles(doc.body)
+  if (!css) return
+
+  const style = doc.createElement('style')
+  style.dataset.vela = 'demo'
+  style.textContent = css
+  doc.head.appendChild(style)
+  demoStylesInjected = true
+}
+
 function syncHeight() {
   const doc = sandboxDoc.value
   if (!doc) return
+  ensureDemoStyles()
   contentHeight.value = doc.documentElement.scrollHeight
 }
 

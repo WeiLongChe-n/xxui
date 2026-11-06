@@ -27,10 +27,10 @@ const names = Object.keys(iconPaths)
   align-items: center;
   padding: 12px 4px;
   font-size: 11px;
-  color: var(--vp-c-text-2);
+  color: var(--vl-text-color-2);
   text-align: center;
   word-break: break-all;
-  background: var(--vp-c-bg-soft);
+  background: var(--vl-background-3);
   border-radius: 10px;
 }
 </style>

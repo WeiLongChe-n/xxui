@@ -24,16 +24,21 @@ function isVelaRule(rule: CSSStyleRule) {
   return false
 }
 
-function walk(rules: CSSRuleList, out: string[]) {
+function walk(
+  rules: CSSRuleList,
+  out: string[],
+  match: (rule: CSSStyleRule) => boolean,
+  keepKeyframes: (name: string, cssText: string) => boolean = () => false,
+) {
   for (const rule of Array.from(rules)) {
     if (rule instanceof CSSStyleRule) {
-      if (isVelaRule(rule)) out.push(rule.cssText)
+      if (match(rule)) out.push(rule.cssText)
     } else if (rule instanceof CSSMediaRule) {
       const inner: string[] = []
-      walk(rule.cssRules, inner)
+      walk(rule.cssRules, inner, match, keepKeyframes)
       if (inner.length) out.push(`@media ${rule.conditionText}{${inner.join('')}}`)
     } else if (rule instanceof CSSKeyframesRule) {
-      if (rule.name.startsWith('vl-')) out.push(rule.cssText)
+      if (keepKeyframes(rule.name, rule.cssText)) out.push(rule.cssText)
     }
   }
 }
@@ -52,11 +57,54 @@ export function collectVelaStyles() {
       continue
     }
     if (!rules) continue
-    walk(rules, out)
+    walk(rules, out, isVelaRule, (name) => name.startsWith('vl-'))
   }
 
   cached = out.join('\n')
   return cached
+}
+
+/**
+ * 收集「演示自己的样式」。
+ *
+ * 演示内容通过 Teleport 直接写进 iframe，父文档里没有对应节点，
+ * 因此没法按 DOM 结构定位它的 <style>。但 Vue 的 scoped 样式会给选择器
+ * 加上 `[data-v-xxxx]`，而演示节点上带着同名属性 —— 拿 iframe 里实际出现的
+ * hash 去父文档样式表中反查，就能精确取出这个演示的规则，
+ * 不会把文档站样式一起带进沙箱。
+ */
+export function collectDemoStyles(root: Element | null) {
+  if (!root) return ''
+
+  const hashes = new Set<string>()
+  const add = (el: Element) => {
+    for (const attr of Array.from(el.attributes)) {
+      if (attr.name.startsWith('data-v-')) hashes.add(attr.name)
+    }
+  }
+  add(root)
+  root.querySelectorAll('*').forEach(add)
+  if (!hashes.size) return ''
+
+  const list = Array.from(hashes)
+  const out: string[] = []
+  for (const sheet of Array.from(document.styleSheets)) {
+    let rules: CSSRuleList
+    try {
+      rules = sheet.cssRules
+    } catch {
+      continue
+    }
+    if (!rules) continue
+    walk(
+      rules,
+      out,
+      (rule) => list.some((h) => (rule.selectorText || '').includes(`[${h}]`)),
+      (name, cssText) => list.some((h) => name.includes(h) || cssText.includes(h)),
+    )
+  }
+
+  return out.join('\n')
 }
 
 /** 沙箱内部的基础样式：复位 + 演示辅助类（不依赖文档站 CSS） */

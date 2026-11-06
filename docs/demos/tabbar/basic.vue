@@ -48,7 +48,7 @@ const currentTitle = computed(() => titles[String(active.value)])
 
 .tabbar-host {
   overflow: hidden;
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--vl-border-color);
   border-radius: 12px;
 }
 
@@ -63,6 +63,6 @@ const currentTitle = computed(() => titles[String(active.value)])
 .tabbar-host__title {
   margin: 0;
   font-size: 13px;
-  color: var(--vp-c-text-3);
+  color: var(--vl-text-color-3);
 }
 </style>

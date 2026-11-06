@@ -39,14 +39,14 @@ const onEdit = () => Toast('编辑')
 
 .nav-host {
   overflow: hidden;
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--vl-border-color);
   border-radius: 12px;
 }
 
 .nav-host .demo-note {
   padding: 8px 12px 10px;
   margin: 0;
-  border-top: 1px dashed var(--vp-c-divider);
+  border-top: 1px dashed var(--vl-border-color);
 }
 
 .nav-action {

@@ -43,7 +43,7 @@
 .demo-label {
   margin: 0;
   font-size: 12px;
-  color: var(--vp-c-text-3);
+  color: var(--vl-text-color-3);
 }
 
 .panel {
@@ -54,7 +54,7 @@
 }
 
 .panel--light {
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--vl-border-color);
 }
 
 .actions {

@@ -44,7 +44,7 @@ const simulate = () => {
 .host {
   overflow: hidden;
   background: var(--vl-background-2);
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--vl-border-color);
   border-radius: 12px;
 }
 
@@ -57,12 +57,12 @@ const simulate = () => {
   padding: 16px;
   margin: 0;
   font-size: 12px;
-  color: var(--vp-c-text-3);
+  color: var(--vl-text-color-3);
   text-align: center;
 }
 
 .hint {
   font-size: 12px;
-  color: var(--vp-c-text-3);
+  color: var(--vl-text-color-3);
 }
 </style>

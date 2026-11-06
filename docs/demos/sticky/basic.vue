@@ -30,7 +30,7 @@ const active = ref('a')
   height: 320px;
   overflow-y: auto;
   background: var(--vl-background-2);
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--vl-border-color);
   border-radius: 12px;
 }
 
@@ -40,8 +40,8 @@ const active = ref('a')
   justify-content: center;
   height: 56px;
   font-size: 12px;
-  color: var(--vp-c-text-3);
-  background: var(--vp-c-bg-soft);
+  color: var(--vl-text-color-3);
+  background: var(--vl-background-3);
 }
 
 .sticky-bar {

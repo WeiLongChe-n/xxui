@@ -47,14 +47,14 @@ const warmVars = {
   padding: 12px 0 16px;
   overflow: hidden;
   background: var(--vl-background-2);
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--vl-border-color);
   border-radius: 14px;
 }
 
 .custom-theme__caption {
   margin: 0 16px 10px;
   font-size: 12px;
-  color: var(--vp-c-text-3);
+  color: var(--vl-text-color-3);
 }
 
 .custom-theme__actions {

@@ -46,6 +46,6 @@ const value = ref(50)
   flex: none;
   width: 40px;
   font-size: 12px;
-  color: var(--vp-c-text-3);
+  color: var(--vl-text-color-3);
 }
 </style>

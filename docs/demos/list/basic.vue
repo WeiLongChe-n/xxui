@@ -75,7 +75,7 @@ onMounted(() => {
 .list-host {
   overflow: hidden;
   background: var(--vl-background-2);
-  border: 1px solid var(--vp-c-divider);
+  border: 1px solid var(--vl-border-color);
   border-radius: 12px;
 }
 </style>
