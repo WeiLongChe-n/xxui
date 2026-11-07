@@ -1,0 +1,133 @@
+name: ci
+
+# 日常质量门禁：push / PR 都跑，不涉及发布
+on:
+  push:
+    branches: [master, main]
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: typecheck & build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 准备 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 类型检查
+        run: npm run typecheck
+
+      - name: 构建
+        run: npm run build
+
+      - name: 校验产物完整性
+        run: |
+          set -e
+          DIST=packages/mobile-ui/dist
+          missing=0
+          for f in xxui.mjs xxui.umd.js xxui.css types/index.d.ts; do
+            if [ ! -f "$DIST/$f" ]; then
+              echo "::error::缺少产物 dist/$f"
+              missing=1
+            fi
+          done
+          [ "$missing" = "0" ] || exit 1
+
+          # package.json 里声明的每个入口都必须真实存在，否则装包的人会拿到坏包
+          node -e '
+            const fs = require("fs"), path = require("path");
+            const pkg = require("./packages/mobile-ui/package.json");
+            const dist = "packages/mobile-ui/dist";
+            const entries = [
+              ["main", pkg.main], ["module", pkg.module], ["types", pkg.types],
+              ["style", pkg.style], ["unpkg", pkg.unpkg], ["jsdelivr", pkg.jsdelivr],
+            ];
+            const exp = pkg.exports || {};
+            for (const [k, v] of Object.entries(exp)) {
+              if (typeof v === "string") entries.push(["exports." + k, v]);
+              else for (const [cond, p] of Object.entries(v)) entries.push([`exports.${k}.${cond}`, p]);
+            }
+            let bad = 0;
+            for (const [label, rel] of entries) {
+              if (!rel || rel.includes("*")) continue;
+              const abs = path.resolve("packages/mobile-ui", rel.replace(/^\.\//, ""));
+              if (!fs.existsSync(abs)) { console.log(`::error::${label} 指向的文件不存在: ${rel}`); bad = 1; }
+            }
+            if (bad) process.exit(1);
+            console.log(`入口检查通过（${entries.length} 项）`);
+          '
+
+      - name: 产物冒烟测试（ESM 与 UMD 均可加载）
+        run: |
+          set -e
+          # 产物真的能被加载、关键导出都在，才算构建成功（避免发出一个装不上的包）
+          node -e '
+            import("./packages/mobile-ui/dist/xxui.mjs").then((m) => {
+              const keys = Object.keys(m).length;
+              if (keys < 10) throw new Error("ESM 导出数量异常: " + keys);
+              for (const name of ["XXUI", "default", "version", "XButton", "XTabbar"]) {
+                if (!(name in m)) throw new Error("ESM 缺少导出 " + name);
+              }
+              if (!Array.isArray(m.components)) throw new Error("ESM 的 components 不是数组");
+              console.log(`ESM OK，导出 ${keys} 项，版本 ${m.version}`);
+            });
+          '
+          node -e '
+            const m = require("./packages/mobile-ui/dist/xxui.umd.js");
+            const keys = Object.keys(m).length;
+            if (keys < 10) throw new Error("UMD 导出数量异常: " + keys);
+            for (const name of ["XXUI", "version", "XButton"]) {
+              if (!(name in m)) throw new Error("UMD 缺少导出 " + name);
+            }
+            console.log(`UMD OK，导出 ${keys} 项`);
+          '
+
+      - name: 检查发布内容（不真正发布）
+        run: |
+          npm pack ./packages/mobile-ui --dry-run --json > "$RUNNER_TEMP/pack.json"
+          node -e '
+            const path = require("path");
+            const d = require(path.join(process.env.RUNNER_TEMP, "pack.json"))[0];
+            console.log(`files=${d.entryCount}  packed=${(d.size / 1024).toFixed(1)}kB  unpacked=${(d.unpackedSize / 1024 / 1024).toFixed(2)}MB`);
+            const names = d.files.map((f) => f.path);
+            for (const need of ["dist/xxui.mjs", "dist/xxui.umd.js", "dist/xxui.css", "package.json", "README.md"]) {
+              if (!names.includes(need)) { console.error(`::error::发布内容缺少 ${need}`); process.exit(1); }
+            }
+            if (!names.some((n) => n.startsWith("dist/types/"))) { console.error("::error::发布内容缺少类型声明"); process.exit(1); }
+            console.log("发布内容检查通过");
+          '
+
+      - name: 汇总
+        run: |
+          DIST=packages/mobile-ui/dist
+          {
+            echo "### 构建产物"
+            echo ""
+            echo "| 文件 | 大小 |"
+            echo "| --- | --- |"
+            for f in xxui.mjs xxui.umd.js xxui.css; do
+              echo "| $f | $(du -h "$DIST/$f" | cut -f1) |"
+            done
+            echo "| types/ | $(find "$DIST/types" -name '*.d.ts' | wc -l) 个声明文件 |"
+          } >> "$GITHUB_STEP_SUMMARY"

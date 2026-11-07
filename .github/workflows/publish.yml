@@ -1,7 +1,7 @@
 name: publish
 
 # 触发方式：
-#   1. 推版本 tag（v0.3.0）→ 自动发布
+#   1. 推版本 tag（v0.3.1）→ 自动发布
 #   2. 手动触发（Actions 页面 Run workflow），可指定 dist-tag
 on:
   push:
@@ -27,6 +27,11 @@ permissions:
 concurrency:
   group: publish-${{ github.ref }}
   cancel-in-progress: false
+
+env:
+  PKG_DIR: packages/mobile-ui
+  PKG_NAME: xxui-mobile
+  REGISTRY: https://registry.npmjs.org/
 
 jobs:
   publish:
@@ -57,7 +62,7 @@ jobs:
           # npm 只会对「有 registry 条目、但没有 _authToken」的环境发起 OIDC 换取。
           # 只要存在任何 _authToken（哪怕是空串或占位符 XXXXX-XXXXX），
           # npm 就认为已登录，直接跳过 OIDC，报 ENEEDAUTH。
-          npm config set registry https://registry.npmjs.org/
+          npm config set registry "$REGISTRY"
           npm config delete //registry.npmjs.org/:_authToken 2>/dev/null || true
           echo "registry = $(npm config get registry)"
           echo "npm     = $(npm --version)"
@@ -67,9 +72,6 @@ jobs:
             echo "::error::缺少 ACTIONS_ID_TOKEN_REQUEST_URL，检查 permissions: id-token: write"
             exit 1
           fi
-          if npm config get //registry.npmjs.org/:_authToken >/dev/null 2>&1; then
-            echo "::warning::检测到残留 _authToken，可能阻断 OIDC"
-          fi
 
       - name: 安装依赖
         run: npm ci
@@ -78,10 +80,10 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
           TAG="${GITHUB_REF_NAME#v}"
-          PKG=$(node -p "require('./packages/mobile-ui/package.json').version")
+          PKG=$(node -p "require('./$PKG_DIR/package.json').version")
           echo "tag=$TAG  package.json=$PKG"
           if [ "$TAG" != "$PKG" ]; then
-            echo "::error::tag $TAG 与 packages/mobile-ui/package.json 的版本 $PKG 不一致"
+            echo "::error::tag $TAG 与 $PKG_DIR/package.json 的版本 $PKG 不一致"
             exit 1
           fi
 
@@ -94,40 +96,138 @@ jobs:
       - name: 校验构建产物
         run: |
           for f in xxui.mjs xxui.umd.js xxui.css types/index.d.ts; do
-            if [ ! -f "packages/mobile-ui/dist/$f" ]; then
+            if [ ! -f "$PKG_DIR/dist/$f" ]; then
               echo "::error::缺少产物 dist/$f"
               exit 1
             fi
           done
-          ls -lh packages/mobile-ui/dist
+          ls -lh "$PKG_DIR/dist"
 
       - name: 检查该版本是否已发布
         id: check
         run: |
-          VER=$(node -p "require('./packages/mobile-ui/package.json').version")
-          if npm view "xxui-mobile@$VER" version --registry https://registry.npmjs.org/ >/dev/null 2>&1; then
+          VER=$(node -p "require('./$PKG_DIR/package.json').version")
+          echo "version=$VER" >> "$GITHUB_OUTPUT"
+          if npm view "$PKG_NAME@$VER" version --registry "$REGISTRY" >/dev/null 2>&1; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
-            echo "::notice::xxui-mobile@$VER 已存在于 npm，跳过发布（不会覆盖已发布版本）"
+            echo "::notice::$PKG_NAME@$VER 已存在于 npm，跳过发布（不会覆盖已发布版本）"
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
           fi
 
+      # OIDC 401/404 的报错极其含糊（未授权写入会伪装成 404 package not found），
+      # 这里先把 GitHub 侧真正发出的身份 claim 打出来，方便和 npm 网页上的
+      # Trusted Publisher 三个字段逐字比对。失败不影响后续步骤。
+      - name: 诊断 OIDC 身份
+        if: steps.check.outputs.exists == 'false'
+        continue-on-error: true
+        run: |
+          if [ -n "${NPM_TOKEN}" ]; then
+            echo "已配置 NPM_TOKEN，将用 token 发布，跳过 OIDC 诊断"
+            exit 0
+          fi
+          cat > "$RUNNER_TEMP/oidc-diag.mjs" <<'JS'
+          const pkgName = process.env.PKG_NAME
+          const url = process.env.ACTIONS_ID_TOKEN_REQUEST_URL
+          const reqToken = process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN
+
+          const res = await fetch(`${url}&audience=${encodeURIComponent('npm:registry.npmjs.org')}`, {
+            headers: { authorization: `Bearer ${reqToken}` },
+          })
+          if (!res.ok) {
+            console.log(`获取 idtoken 失败: HTTP ${res.status}`)
+            process.exit(0)
+          }
+          const { value } = await res.json()
+          const claims = JSON.parse(Buffer.from(value.split('.')[1], 'base64url').toString())
+
+          console.log('=== GitHub OIDC claims（与 npm 网页配置逐字比对）===')
+          const fields = [
+            ['repository', '应等于「Repository」字段'],
+            ['repository_owner', '应等于「Organization or user」字段'],
+            ['workflow_ref', '文件名应等于「Workflow filename」字段'],
+            ['job_workflow_ref', '被复用的工作流（若有）'],
+            ['environment', '应等于「Environment name」字段（留空则这里应为未设置）'],
+            ['event_name', '触发事件'],
+            ['ref', '触发的 ref'],
+          ]
+          for (const [k, hint] of fields) {
+            console.log(`${k.padEnd(20)} = ${claims[k] ?? '(未设置)'}   # ${hint}`)
+          }
+          console.log('')
+          console.log('=== 试探 exchange（仅供参考）===')
+          try {
+            const ex = await fetch(
+              `https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/${encodeURIComponent(pkgName)}`,
+              { method: 'POST', headers: { authorization: `Bearer ${value}`, 'content-type': 'application/json' } },
+            )
+            const body = await ex.text()
+            if (ex.ok) {
+              console.log(`HTTP ${ex.status} 换取成功（拿到临时 token，长度 ${body.length}）→ Trusted Publisher 配置正确`)
+            } else {
+              console.log(`HTTP ${ex.status}`)
+              console.log(body.slice(0, 600))
+              console.log('')
+              console.log('→ 若为 404 package not found：npm 上这个包没有对应的 Trusted Publisher 记录，')
+              console.log('  或记录里的 组织/仓库/workflow 与本文件上方的 claims 不一致。')
+            }
+          } catch (e) {
+            console.log('exchange 请求异常:', e.message)
+          }
+          JS
+          node "$RUNNER_TEMP/oidc-diag.mjs"
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          PKG_NAME: ${{ env.PKG_NAME }}
+
       - name: 发布到 npm
         if: steps.check.outputs.exists == 'false'
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
+          if [ -n "$NPM_TOKEN" ]; then
+            # 兜底通道：细粒度 token（需在 npm 上勾 bypass 2FA，且仅短期有效）
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> "$HOME/.npmrc"
+            echo "使用 NPM_TOKEN 发布"
+          else
+            echo "未配置 NPM_TOKEN，走 Trusted Publishing (OIDC)"
+            npm config delete //registry.npmjs.org/:_authToken 2>/dev/null || true
+          fi
+
           # 必须写 ./ 前缀：npm 会把 packages/mobile-ui 当成 GitHub 的 owner/repo 简写去 ls-remote
-          # 不传 --otp、不传 token、也不传 --registry：registry 由上一步写入 .npmrc，
-          # npm 才会把它当作「可做 OIDC 交换的注册源」。
-          npm publish ./packages/mobile-ui \
+          npm publish "./$PKG_DIR" \
             --tag "${{ inputs.dist-tag || 'latest' }}" \
             --loglevel=verbose
 
-      - name: 输出结果
+      - name: 发布失败时输出排查指引
+        if: failure()
         run: |
-          VER=$(node -p "require('./packages/mobile-ui/package.json').version")
+          cat >> "$GITHUB_STEP_SUMMARY" <<'MD'
+          ### 发布失败：OIDC 换取被拒
+
+          npm 对「未授权写入」会伪装成 **404 package not found**，所以报错方向容易跑偏。
+          按下面顺序核对 `https://www.npmjs.com/package/xxui-mobile/access` 上的 **Trusted publisher** 配置：
+
+          | npm 网页字段 | 必须填成 | 说明 |
+          | --- | --- | --- |
+          | Provider | GitHub Actions | |
+          | Organization or user | `WeiLongChe-n` | **GitHub 用户名，不是 npm 账号 `chenwll`**，区分大小写 |
+          | Repository | `xxui` | 只填仓库名，不带 owner |
+          | Workflow filename | `publish.yml` | 只要文件名，含 `.yml`，不能写 `.github/workflows/publish.yml` |
+          | Environment name | 留空 | workflow 里没有 `environment`，这里填了反而会失配 |
+          | Allowed actions | 勾 `npm publish` | 只勾 `npm stage publish` 会导致普通 publish 被拒 |
+
+          另一条保底路径：在 npm 上建一个 **Granular Access Token**（勾 bypass 2FA、Read and write、限定 `xxui-mobile`），
+          存到仓库 Secrets 里命名为 `NPM_TOKEN`，本工作流会自动改用它发布。
+          MD
+
+      - name: 输出结果
+        if: success()
+        run: |
+          VER="${{ steps.check.outputs.version }}"
           if [ "${{ steps.check.outputs.exists }}" = "true" ]; then
-            echo "### xxui-mobile@$VER 已存在，本次跳过发布" >> "$GITHUB_STEP_SUMMARY"
+            echo "### $PKG_NAME@$VER 已存在，本次跳过发布" >> "$GITHUB_STEP_SUMMARY"
           else
-            echo "### 已发布 xxui-mobile@$VER" >> "$GITHUB_STEP_SUMMARY"
-            echo "https://www.npmjs.com/package/xxui-mobile/v/$VER" >> "$GITHUB_STEP_SUMMARY"
+            echo "### 已发布 $PKG_NAME@$VER" >> "$GITHUB_STEP_SUMMARY"
+            echo "https://www.npmjs.com/package/$PKG_NAME/v/$VER" >> "$GITHUB_STEP_SUMMARY"
           fi
