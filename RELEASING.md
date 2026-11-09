@@ -53,6 +53,29 @@ npm run publish:npm
 
 > 不要把 recovery code 塞进 `--otp`。
 
+`scripts/publish-npm.mjs` 的本地流程：
+
+```
+git 工作区干净 → npm 登录态 → 包名可用性 → 类型检查
+                → 构建 → 产物入口齐全 → npm pack 预检
+```
+
+任一步失败都会回滚版本号改动。可用参数：
+
+| 参数 | 作用 |
+| --- | --- |
+| `--tag beta` | 指定 dist-tag（默认 `latest`） |
+| `--yes` | 跳过交互确认 |
+| `--skip-check` | 跳过类型检查与预检，谨慎使用 |
+| `--no-git` | 不改动 git（不提交、不打 tag） |
+| `--push` | 发布后推送提交与 tag |
+
+### 包元数据约束
+
+- 包名 `xxui-mobile` 不带 scope，发布后归当前 npm 账号所有；
+- `publishConfig` 已固定 `access: public` 与官方 registry，本机镜像源不影响发布；
+- `repository.url` 必须与 GitHub 仓库完全一致，npm 靠它校验 OIDC 身份。
+
 ## 五、Trusted Publisher 配置
 
 当前已为本包配好：

@@ -17,22 +17,81 @@ const LIB_TOKEN_DECL = /--x-[a-z]/
 /** 令牌块：:root / [data-theme] / [data-brand] */
 const TOKEN_SELECTOR = /^(\[data-theme|\[data-brand|:root)/
 
-function isLibRule(rule: CSSStyleRule) {
-  const sel = rule.selectorText || ''
-  if (LIB_CLASS.test(sel)) return true
-  if (TOKEN_SELECTOR.test(sel.trim()) && LIB_TOKEN_DECL.test(rule.cssText)) return true
+function isLibRule(selector: string, cssText: string) {
+  if (LIB_CLASS.test(selector)) return true
+  if (TOKEN_SELECTOR.test(selector.trim()) && LIB_TOKEN_DECL.test(cssText)) return true
   return false
+}
+
+interface FlatRule {
+  selector: string
+  css: string
+}
+
+/** 把声明块序列化成文本，嵌套声明合并时用 */
+function declarationText(style: CSSStyleDeclaration) {
+  return Array.from(style)
+    .map((prop) => `${prop}:${style.getPropertyValue(prop)}`)
+    .join(';')
+}
+
+/** 拼接父子选择器：子选择器带 `&` 时替换，否则按后代选择器连接 */
+function joinSelector(parent: string, child: string) {
+  return child.includes('&') ? child.replace(/&/g, parent) : `${parent} ${child}`
+}
+
+/**
+ * 展开规则。
+ *
+ * 演示的 `<style scoped>` 里一旦用了嵌套写法，浏览器保留的是嵌套结构：
+ * 外层 `selectorText` 只有 `.preview-demo__item`，`[data-v-xxx]` 挂在子选择器上。
+ * 按 hash 匹配时外层就永远匹配不上，整条规则会连着子规则一起丢掉，
+ * 所以这里先扁平化，再交给调用方按选择器筛选。
+ *
+ * 没有嵌套的规则原样返回 `cssText`，避免把简写拆成 longhand 让样式体积翻倍。
+ */
+function flattenRule(rule: CSSStyleRule, parent = ''): FlatRule[] {
+  const nested = Array.from(rule.cssRules ?? [])
+
+  if (!parent && !nested.length) {
+    return [{ selector: rule.selectorText || '', css: rule.cssText }]
+  }
+
+  const selector = parent ? joinSelector(parent, rule.selectorText || '') : rule.selectorText || ''
+  const out: FlatRule[] = []
+
+  const own = declarationText(rule.style)
+  if (own) out.push({ selector, css: `${selector}{${own}}` })
+
+  // CSSNestedDeclarations：嵌套块里直接写的声明，归到当前选择器
+  let loose = ''
+  for (const child of nested) {
+    if (child instanceof CSSStyleRule && child.selectorText) {
+      out.push(...flattenRule(child, selector))
+      continue
+    }
+    const style = (child as CSSStyleRule).style
+    if (style) {
+      const text = declarationText(style)
+      if (text) loose += (loose ? ';' : '') + text
+    }
+  }
+  if (loose) out.push({ selector, css: `${selector}{${loose}}` })
+
+  return out
 }
 
 function walk(
   rules: CSSRuleList,
   out: string[],
-  match: (rule: CSSStyleRule) => boolean,
+  match: (selector: string, cssText: string) => boolean,
   keepKeyframes: (name: string, cssText: string) => boolean = () => false,
 ) {
   for (const rule of Array.from(rules)) {
     if (rule instanceof CSSStyleRule) {
-      if (match(rule)) out.push(rule.cssText)
+      for (const flat of flattenRule(rule)) {
+        if (match(flat.selector, flat.css)) out.push(flat.css)
+      }
     } else if (rule instanceof CSSMediaRule) {
       const inner: string[] = []
       walk(rule.cssRules, inner, match, keepKeyframes)
@@ -108,7 +167,7 @@ export function collectStylesByHashes(hashes: string[]): string {
     walk(
       rules,
       out,
-      (rule) => hashes.some((h) => (rule.selectorText || '').includes(`[${h}]`)),
+      (selector) => hashes.some((h) => selector.includes(`[${h}]`)),
       (name, cssText) => hashes.some((h) => name.includes(h) || cssText.includes(h)),
     )
   }

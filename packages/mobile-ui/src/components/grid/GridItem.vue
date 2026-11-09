@@ -53,11 +53,16 @@ const { bem } = createNamespace('grid-item')
   }
 
   &__text {
+    max-width: 100%;
+    padding: 0 2px;
     margin-top: 6px;
+    overflow: hidden;
     font-size: 12px;
     line-height: 17px;
     color: var(--x-text-color-2);
     text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &--clickable:active {

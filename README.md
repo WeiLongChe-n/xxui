@@ -178,8 +178,6 @@ node scripts/serve-static.mjs docs/.vitepress/dist xxui 4180
 
 **常规路径：GitHub Actions + Trusted Publishing（OIDC）。** 不需要 token、不需要验证码，凭证由 GitHub 每次发布时临时签发。
 
-> 所有发布、部署、排查命令的速查表见 **[RELEASING.md](./RELEASING.md)**。
-
 ```bash
 npm run release            # 自动定版本（有 feat 走 minor，否则 patch）→ 提交 → 打 tag → 推送
 npm run release:minor      # 强制次版本，0.3.0 → 0.4.0
@@ -187,58 +185,13 @@ npm run release:patch      # 强制补丁号，0.3.0 → 0.3.1
 npm run release:dry        # 预演，只打印不执行
 ```
 
-本地脚本 `scripts/release-tag.mjs` 只做四件事：同步版本号（`packages/mobile-ui/package.json`、根 `package.json`、`src/index.ts`、文档站导航栏）→ 提交 `chore(release): vX.Y.Z` → 打 `vX.Y.Z` tag → 推送。推送后 `.github/workflows/publish.yml` 接手，跑类型检查、构建、产物校验，再用 OIDC 身份 `npm publish`（自动附带 provenance）。
+推送后 `.github/workflows/publish.yml` 接手：类型检查 → 构建 → 产物校验 → OIDC 换临时凭证 → `npm publish`（自动附带 provenance）。
 
-CI 侧的前提是 npm 上存在一条匹配的 Trusted Publisher（本包已配好）：
+首次发布、Trusted Publisher 配置、本地应急发布、常见报错排查，见 **[RELEASING.md](./RELEASING.md)**。
 
-| 字段 | 值 |
-| --- | --- |
-| Provider | GitHub Actions |
-| Organization or user | `WeiLongChe-n`（GitHub 用户名，不是 npm 账号 `chenwll`） |
-| Repository | `xxui` |
-| Workflow filename | `publish.yml`（只填文件名，大小写敏感） |
-| Environment | 留空 |
-| Allowed actions | 勾选 `npm publish` |
+## 开发辅助脚本
 
-改配置用 CLI 比网页表单可靠（必须在真终端里跑，npm 会检测 TTY 并走 passkey）：
-
-```bash
-npx --yes npm@latest trust github xxui-mobile --file publish.yml --repository WeiLongChe-n/xxui --allow-publish -y --registry https://registry.npmjs.org/
-```
-
-包内 `repository.url` 必须与 GitHub 仓库完全一致，npm 靠它校验 OIDC 身份。
-
-### 首次发布
-
-npm 的 Trusted Publisher 只能挂在「已存在的包」上，所以新包的首发必须本地完成，且对新包首发 npm 会强制 2FA：
-
-```bash
-npm login --auth-type=web --registry https://registry.npmjs.org/   # 把终端给出的链接在手机上打开、用 passkey 确认
-npm run publish:npm
-```
-
-账号是 security key / passkey 时，`npm publish` 会打印 `https://www.npmjs.com/auth/cli/...`，在浏览器（或手机）确认即可，不要往 `--otp` 里塞 recovery code。首发成功后再配 trusted publisher，之后全部交给 CI。
-
-`scripts/publish-npm.mjs` 的本地流程：git 工作区干净 → npm 登录态 → 包名可用性 → 类型检查 → 构建 → 产物入口齐全 → `npm pack` 预检。任一步失败都会回滚版本号改动。可用参数：`--tag beta`、`--yes`、`--skip-check`、`--no-git`、`--push`。
-
-> 包名 `xxui-mobile` 不带 scope，发布后归当前 npm 账号所有。`publishConfig` 已固定 `access: public` 与官方 registry，本机镜像源不影响发布。
-
-### 开发辅助脚本
-
-`scripts/` 下是开发期用来做视觉回归与控制台巡检的脚本，不在 npm scripts 中，需要时直接 `node` 运行。它们依赖 `puppeteer-core` 与本机已安装的 Chrome（路径写在脚本顶部的 `CHROME` 常量里），仅在开发文档站运行时才有意义。
-
-| 脚本 | 用法 | 作用 |
-| --- | --- | --- |
-| `shot.mjs` | `PAGES='[["/","home"]]' node scripts/shot.mjs` | 批量截图页面，并汇总控制台报错；支持 `FULL=1` 整页、`MOBILE=1` 移动视口、`DARK=1` 暗色 |
-| `clip.mjs` | `node scripts/clip.mjs <url> <selector> <out.png> [宽度]` | 截取单个元素并输出自身与子元素的尺寸、溢出情况，用于核对局部排版；`DARK=1` 走暗色 |
-| `interact.mjs` | `node scripts/interact.mjs` | 自动打开 Dialog / ActionSheet / Popup / Toast 并截图，验证命令式组件 |
-| `inspect2.mjs` | `node scripts/inspect2.mjs` | 通过主题切换器切到暗色，读取关键节点的计算样式，确认主题令牌真正生效 |
-| `check404.mjs` | `node scripts/check404.mjs` | 从首页广度优先爬取全部站内链接，报告 >=400 的页面；`BASE=` 可指向预览服务 |
-| `sandbox.mjs` | `node scripts/sandbox.mjs` | 沙箱自检：确认演示确实渲染在 iframe 内、指针拖拽在沙箱 window 上生效、换肤不影响文档站、`--vp-*` 未泄漏 |
-| `verify-static.mjs` | `node scripts/verify-static.mjs <产物目录> <仓库名>` | 静态产物自检：确认 HTML 里所有带 base 前缀的绝对路径都能找到对应文件 |
-| `serve-static.mjs` | `node scripts/serve-static.mjs <产物目录> <仓库名> [端口]` | 极简静态服务器，把产物挂到子路径下，模拟 GitHub Pages 的访问方式 |
-
-> `verify-static.mjs` 与 `serve-static.mjs` 不依赖 Chrome，部署前排查与预览时使用；其余脚本只在本地开发时使用，不影响 `build` 与 `docs:build` 的产物。
+`scripts/` 下的截图、页面巡检与产物校验脚本不在 npm scripts 中，按需 `node` 直接运行。前置条件、脚本清单与典型用法见 **[DEVELOPMENT.md](./DEVELOPMENT.md)**。
 
 ## 说明与限制
 

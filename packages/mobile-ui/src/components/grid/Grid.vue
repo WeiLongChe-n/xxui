@@ -32,9 +32,10 @@ provide('x-grid', {
 </script>
 
 <template>
+  <!-- 列宽用 minmax(0, 1fr)：1fr 的最小值是 min-content，格子里的文字一长就会把列撑破 -->
   <div
     :class="[bem(), { [bem('', 'border')]: border, [bem('', 'square')]: square }]"
-    :style="{ gap: addUnit(gap), gridTemplateColumns: `repeat(${columns}, 1fr)` }"
+    :style="{ gap: addUnit(gap), gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }"
   >
     <slot />
   </div>

@@ -1,6 +1,6 @@
 {
   "name": "xxui-mobile",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "XXUI - 轻量、可定制的 Vue 3 移动端组件库，支持多主题与暗色模式",
   "keywords": [
     "vue",
@@ -8,7 +8,7 @@
     "mobile",
     "ui",
     "component-library",
-    "vant",
+    "xxui",
     "theme",
     "dark-mode",
     "typescript"

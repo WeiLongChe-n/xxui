@@ -90,7 +90,7 @@ const copy = async () => {
 
 const lines = computed(() => (props.code ? props.code.trim().split('\n').length : 0))
 
-/** 宽屏下整张卡片都可点：提示条本身就写着「点击本卡片可切换」 */
+/** 宽屏下整张卡片都可点：少了正文占位，点击是最直接的切换方式 */
 const onCardClick = () => {
   if (useStage.value) activateDemo(demoId)
 }
@@ -114,14 +114,8 @@ const onCardClick = () => {
       </span>
     </header>
 
-    <!-- 宽屏：交互内容 Teleport 进右侧唯一的沙箱，这里只留提示 -->
-    <div v-if="useStage" class="demo-block__hint">
-      <span class="demo-block__hint-arrow" aria-hidden="true">→</span>
-      <span>交互演示在右侧预览框中，点击本卡片可切换</span>
-    </div>
-
     <!-- 窄屏：卡片内嵌手机框，行为与之前一致 -->
-    <div v-else class="demo-block__body demo-block__body--mobile">
+    <div v-if="!useStage" class="demo-block__body demo-block__body--mobile">
       <MobilePreview :padding="padding" :background="background" :max-height="maxHeight">
         <slot />
       </MobilePreview>
@@ -227,32 +221,6 @@ const onCardClick = () => {
   color: var(--vp-c-brand-1);
   background: var(--vp-c-brand-soft);
   border-color: var(--vp-c-brand-2);
-}
-
-/* 宽屏提示条：说明交互去右侧看，同时撑起卡片高度，滚动联动更稳 */
-.demo-block__hint {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  margin: 0 20px 14px;
-  padding: 14px 16px;
-  font-size: 12.5px;
-  color: var(--vp-c-text-3);
-  background:
-    radial-gradient(circle at 1px 1px, var(--vp-c-divider) 1px, transparent 0) 0 0 / 16px 16px,
-    var(--vp-c-bg-soft);
-  border: 1px dashed var(--vp-c-divider);
-  border-radius: 10px;
-  transition: color 0.2s, border-color 0.2s;
-}
-
-.demo-block.is-active .demo-block__hint {
-  color: var(--vp-c-brand-1);
-  border-color: var(--vp-c-brand-2);
-}
-
-.demo-block__hint-arrow {
-  font-size: 14px;
 }
 
 .demo-block__body {

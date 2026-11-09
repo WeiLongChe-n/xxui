@@ -33,7 +33,17 @@ swipeRef.value.swipeTo(2)  // 跳到索引 2
 
 ## 指示点
 
-默认是底部居中的小圆点，当前项拉长。可以只改颜色：
+默认是底部居中的小圆点，当前项拉长。
+
+<DemoBlock
+  title="自定义指示点"
+  description="上：用 indicator 插槽换成可点击的胶囊页码；下：只调颜色与 CSS 变量"
+  :code="indicatorCode"
+>
+  <SwipeIndicator />
+</DemoBlock>
+
+只改颜色：
 
 ```vue
 <x-swipe indicator-color="#3b82f6" indicator-active-color="#ffffff" />
@@ -115,4 +125,6 @@ swipeRef.value.swipeTo(2)  // 跳到索引 2
 <script setup>
 import SwipeBasic from '@demos/swipe/basic.vue'
 import code from '@demos/swipe/basic.vue?raw'
+import SwipeIndicator from '@demos/swipe/indicator.vue'
+import indicatorCode from '@demos/swipe/indicator.vue?raw'
 </script>

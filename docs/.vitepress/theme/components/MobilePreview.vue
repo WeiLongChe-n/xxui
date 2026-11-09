@@ -9,6 +9,7 @@ import {
   SANDBOX_BASE_STYLES,
 } from '../utils/sandbox'
 import { resetStageDemo, stageActiveId, stageBody } from '../utils/demo-stage'
+import { bindSearchHotkey } from '../utils/search-hotkey'
 
 type BrandName = (typeof brandOptions)[number]['name']
 
@@ -71,6 +72,7 @@ onBeforeUnmount(() => {
   resizeObserver?.disconnect()
   document.body.style.overflow = ''
   detachPortal?.()
+  detachHotkey?.()
   setDefaultTeleportTarget('body')
   if (props.stage) stageBody.value = null
 })
@@ -111,6 +113,7 @@ function setupSandbox() {
   bodyTarget.value = doc.body
   if (props.stage) stageBody.value = doc.body
   bindPortalTarget(doc)
+  bindHotkey(doc)
 
   nextTick(() => {
     observeHeight()
@@ -119,6 +122,7 @@ function setupSandbox() {
 }
 
 let detachPortal: (() => void) | null = null
+let detachHotkey: (() => void) | null = null
 
 /**
  * 让弹层落进沙箱。
@@ -138,6 +142,17 @@ function bindPortalTarget(doc: Document) {
 
   doc.addEventListener('pointerdown', onPointerDown, true)
   detachPortal = () => doc.removeEventListener('pointerdown', onPointerDown, true)
+}
+
+/**
+ * 沙箱有自己的文档，键盘事件进不到宿主页面。
+ *
+ * 用户点过预览区之后焦点就留在手机里，这时按 Ctrl+K 会毫无反应，
+ * 所以把搜索热键从沙箱转发回宿主，行为与在正文里按保持一致。
+ */
+function bindHotkey(doc: Document) {
+  detachHotkey?.()
+  detachHotkey = bindSearchHotkey(doc, { forwardSlash: true })
 }
 
 function applyTheme(doc = sandboxDoc.value) {
