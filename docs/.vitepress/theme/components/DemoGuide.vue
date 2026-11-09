@@ -1,19 +1,18 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useRoute } from 'vitepress'
 import { stageHasDemos, stageWide } from '../utils/demo-stage'
-
-const route = useRoute()
 
 /**
  * 页面级引导：只在本页存在示例、且宽屏启用右侧预览盒时出现一次。
  *
  * 之前每个示例卡片里都放一条「交互演示在右侧预览框中，点击本卡片可切换」，
  * 一页重复六七次，把卡片正文挤成了空占位。规则讲一次就够。
+ *
+ * 这里只依据「有没有示例」判断，不按路由前缀过滤：构建产物用子路径部署时
+ * `route.path` 会带 base（`/xxui/components/button.html`），按前缀判断
+ * 会出现「本地开发正常、线上不显示」的差异。没有示例的页面本来也不会触发。
  */
-const visible = computed(
-  () => stageWide.value && stageHasDemos.value && route.path.startsWith('/components/'),
-)
+const visible = computed(() => stageWide.value && stageHasDemos.value)
 </script>
 
 <template>
