@@ -4,7 +4,7 @@
 
 ## 图标列表
 
-<DemoBlock title="内置图标" description="共 40+ 个常用图标，name 即为图标名" :code="code" background="card">
+<DemoBlock title="内置图标" description="共 40+ 个常用图标，name 即为图标名，点击任意图标可直接复制" :code="code" background="card">
   <IconBasic />
 </DemoBlock>
 

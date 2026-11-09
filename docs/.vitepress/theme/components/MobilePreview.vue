@@ -325,6 +325,7 @@ defineExpose({
             class="mp__frame"
             :style="stage ? undefined : { height: frameHeight }"
             sandbox="allow-same-origin"
+            allow="clipboard-write"
             title="组件交互预览"
           />
 
