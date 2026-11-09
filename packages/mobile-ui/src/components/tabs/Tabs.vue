@@ -187,16 +187,18 @@ const TitleSlot: Component = (slotProps: { tab: TabItem }) =>
           :aria-selected="(item.name ?? item.index) === activeKey"
           @click="onClickItem(item)"
         >
-          <span :class="bem('nav-title')">
-            <TitleSlot :tab="item" />
+          <span :class="bem('nav-label')">
+            <span :class="bem('nav-title')">
+              <TitleSlot :tab="item" />
+            </span>
+            <XBadge
+              v-if="item.dot || item.badge !== undefined"
+              :content="item.badge"
+              :dot="item.dot"
+              standalone
+              :class="bem('nav-badge')"
+            />
           </span>
-          <XBadge
-            v-if="item.dot || item.badge !== undefined"
-            :content="item.badge"
-            :dot="item.dot"
-            standalone
-            :class="bem('nav-badge')"
-          />
         </div>
         <div v-if="type === 'line'" :class="bem('line')" :style="lineStyle" />
       </div>
@@ -273,8 +275,20 @@ const TitleSlot: Component = (slotProps: { tab: TabItem }) =>
     align-items: center;
   }
 
-  &__nav-badge {
-    margin-left: 6px;
+  /** 文字 + 角标的定位参照：角标挂在这个盒子的右上角，不参与文字排版 */
+  &__nav-label {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* 权重需要压过 badge 自身的 .x-badge__wrap { position: relative } */
+  &__nav-label &__nav-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    pointer-events: none;
+    transform: translate(60%, -55%);
   }
 
   &__line {

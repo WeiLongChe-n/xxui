@@ -1,6 +1,6 @@
 {
   "name": "xxui",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "private": true,
   "type": "module",
   "description": "XXUI - 轻量、可定制的移动端组件库",

@@ -33,9 +33,46 @@ swipeRef.value.swipeTo(2)  // 跳到索引 2
 
 ## 指示点
 
+默认是底部居中的小圆点，当前项拉长。可以只改颜色：
+
 ```vue
-<x-swipe indicator-color="#3b82f6" :show-indicators="false" />
+<x-swipe indicator-color="#3b82f6" indicator-active-color="#ffffff" />
 ```
+
+也可以用 CSS 变量调尺寸、间距、圆角，不影响其它组件：
+
+```vue
+<x-swipe style="--x-swipe-indicator-size: 6px; --x-swipe-indicator-gap: 6px; --x-swipe-indicator-radius: 2px" />
+```
+
+| CSS 变量 | 说明 | 默认值 |
+| --- | --- | --- |
+| `--x-swipe-indicator-size` | 圆点尺寸 | `5px` |
+| `--x-swipe-indicator-active-width` | 当前项宽度 | `14px` |
+| `--x-swipe-indicator-gap` | 圆点间距 | `4px` |
+| `--x-swipe-indicator-radius` | 圆角 | `999px` |
+
+要完全自定义（数字页码、缩略图、条形进度等）时用 `indicator` 插槽，它替换整块指示器区域：
+
+```vue
+<x-swipe>
+  <x-swipe-item>...</x-swipe-item>
+  <template #indicator="{ active, total, to }">
+    <div class="my-dots">
+      <span
+        v-for="i in total"
+        :key="i"
+        :class="{ on: i - 1 === active }"
+        @click="to(i - 1)"
+      />
+    </div>
+  </template>
+</x-swipe>
+```
+
+插槽参数：`active`（当前索引）、`total`（总数）、`to(index)`（跳转方法）。
+
+不想要指示点时直接 `:show-indicators="false"`。
 
 ## 手势
 
@@ -52,7 +89,15 @@ swipeRef.value.swipeTo(2)  // 跳到索引 2
 | height | 高度 | `number \| string` | - |
 | showIndicators | 是否显示指示点 | `boolean` | `true` |
 | indicatorColor | 指示点颜色 | `string` | `#fff` |
+| indicatorActiveColor | 当前指示点颜色，不传则与 `indicatorColor` 相同（仅靠不透明度区分） | `string` | - |
 | touchable | 是否允许手势 | `boolean` | `true` |
+
+## Slots
+
+| 名称 | 说明 | 插槽参数 |
+| --- | --- | --- |
+| default | 轮播内容（`x-swipe-item`） | - |
+| indicator | 完全自定义指示器 | `active`、`total`、`to(index)` |
 
 ## Events
 

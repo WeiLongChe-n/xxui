@@ -231,7 +231,7 @@ export {
   XImagePreview,
 }
 
-export const version = '0.3.3'
+export const version = '0.3.4'
 
 const install = (app: App, options: { theme?: ThemeMode; brand?: BrandName } = {}) => {
   components.forEach((component) => {

@@ -14,6 +14,8 @@ const props = withDefaults(
     initialSwipe?: number
     showIndicators?: boolean
     indicatorColor?: string
+    /** 当前指示点的颜色，不传则沿用 indicatorColor（只靠不透明度区分） */
+    indicatorActiveColor?: string
     /** 自定义高度 */
     height?: number | string
     touchable?: boolean
@@ -159,13 +161,18 @@ defineExpose({ next, prev, swipeTo: (index: number) => setActive(index) })
       <slot />
     </div>
     <div v-if="showIndicators && count > 1" :class="bem('indicators')">
-      <i
-        v-for="index in count"
-        :key="index"
-        :class="[bem('indicator'), { [bem('indicator', 'active')]: index - 1 === active }]"
-        :style="{ background: indicatorColor }"
-        @click="setActive(index - 1)"
-      />
+      <!-- 想完全自定义指示点时用 indicator 插槽，默认圆点由 CSS 变量控制尺寸与间距 -->
+      <slot name="indicator" :active="active" :total="count" :to="setActive">
+        <i
+          v-for="index in count"
+          :key="index"
+          :class="[bem('indicator'), { [bem('indicator', 'active')]: index - 1 === active }]"
+          :style="{
+            background: index - 1 === active ? indicatorActiveColor || indicatorColor : indicatorColor,
+          }"
+          @click="setActive(index - 1)"
+        />
+      </slot>
     </div>
   </div>
 </template>
@@ -189,20 +196,23 @@ defineExpose({ next, prev, swipeTo: (index: number) => setActive(index) })
     bottom: 8px;
     left: 50%;
     display: flex;
-    gap: 4px;
+    gap: var(--x-swipe-indicator-gap, 4px);
+    align-items: center;
     transform: translateX(-50%);
   }
 
   &__indicator {
     display: block;
-    width: 5px;
-    height: 5px;
+    width: var(--x-swipe-indicator-size, 5px);
+    height: var(--x-swipe-indicator-size, 5px);
     opacity: 0.4;
-    border-radius: 999px;
-    transition: width var(--x-duration-fast), opacity var(--x-duration-fast);
+    border-radius: var(--x-swipe-indicator-radius, 999px);
+    transition:
+      width var(--x-duration-fast),
+      opacity var(--x-duration-fast);
 
     &--active {
-      width: 14px;
+      width: var(--x-swipe-indicator-active-width, 14px);
       opacity: 1;
     }
   }
