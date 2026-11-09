@@ -193,6 +193,45 @@ const onTouchEnd = () => {
   setIndex(column, index)
 }
 
+/* ---------------- 鼠标滚轮（PC 端） ---------------- */
+
+/**
+ * 触摸之外还要支持滚轮：PC 上鼠标/触控板滚动是主要交互方式。
+ * 滚轮是离散事件，不能像 touchmove 那样直接映射位移，所以按「累积到接近半个
+ * 选项高度才翻一格」的方式处理，并加一段冷却，避免一次滚动连续翻好几格。
+ */
+let wheelAccum = 0
+let wheelLastAt = 0
+let wheelCooling = false
+const WHEEL_COOLDOWN = 110
+const WHEEL_GAP = 220
+
+const onWheel = (event: WheelEvent, column: number) => {
+  const list = columnList.value[column] ?? []
+  if (!list.length || props.loading) return
+
+  // 滚轮在列上，阻止页面跟着一起滚
+  event.preventDefault()
+  if (wheelCooling) return
+
+  const now = Date.now()
+  if (now - wheelLastAt > WHEEL_GAP) wheelAccum = 0
+  wheelLastAt = now
+
+  wheelAccum += event.deltaY
+  const threshold = props.optionHeight * 0.6
+  if (Math.abs(wheelAccum) < threshold) return
+
+  const direction = wheelAccum > 0 ? 1 : -1
+  wheelAccum = 0
+  setIndex(column, (indexes.value[column] ?? 0) + direction)
+
+  wheelCooling = true
+  window.setTimeout(() => {
+    wheelCooling = false
+  }, WHEEL_COOLDOWN)
+}
+
 /* ---------------- 交互 ---------------- */
 
 const onConfirm = () => {
@@ -262,6 +301,7 @@ watch(
           @touchmove.prevent="onTouchMove"
           @touchend="onTouchEnd"
           @touchcancel="onTouchEnd"
+          @wheel.prevent="onWheel($event, columnIndex)"
         >
           <ul
             :class="bem('list')"

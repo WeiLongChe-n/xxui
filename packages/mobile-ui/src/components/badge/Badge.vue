@@ -77,6 +77,14 @@ const classes = computed(() => [
       top: 0;
       right: 0;
     }
+
+    // standalone 的徽标要留在文档流里：一旦被上面的绝对定位命中，
+    // 包裹容器就没有内容撑开宽度，多个独立徽标会全部塌到同一个点上重叠。
+    // 两条选择器权重相同（0,2,0），靠书写顺序覆盖，所以必须写在上面那条之后。
+    .x-badge--standalone {
+      position: static;
+      transform: none;
+    }
   }
 
   &--dot {

@@ -71,7 +71,7 @@ export default defineConfig({
       { text: '组件', link: '/components/button', activeMatch: '/components/' },
       { text: '主题', link: '/guide/theme' },
       {
-        text: 'v0.3.2',
+        text: 'v0.3.3',
         items: [
           { text: '更新日志', link: '/guide/changelog' },
           { text: '常见问题', link: '/guide/faq' },

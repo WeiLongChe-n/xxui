@@ -89,6 +89,11 @@ const copy = async () => {
 }
 
 const lines = computed(() => (props.code ? props.code.trim().split('\n').length : 0))
+
+/** 宽屏下整张卡片都可点：提示条本身就写着「点击本卡片可切换」 */
+const onCardClick = () => {
+  if (useStage.value) activateDemo(demoId)
+}
 </script>
 
 <template>
@@ -96,12 +101,9 @@ const lines = computed(() => (props.code ? props.code.trim().split('\n').length 
     ref="rootEl"
     class="demo-block"
     :class="{ 'is-active': active, 'is-stage': useStage }"
+    @click="onCardClick"
   >
-    <header
-      class="demo-block__header"
-      :class="{ 'demo-block__header--clickable': useStage }"
-      @click="useStage && activateDemo(demoId)"
-    >
+    <header class="demo-block__header" :class="{ 'demo-block__header--clickable': useStage }">
       <div class="demo-block__heading">
         <h3 v-if="title" class="demo-block__title">{{ title }}</h3>
         <p v-if="description" class="demo-block__desc">{{ description }}</p>
@@ -136,7 +138,7 @@ const lines = computed(() => (props.code ? props.code.trim().split('\n').length 
       </div>
     </Teleport>
 
-    <footer v-if="code" class="demo-block__footer">
+    <footer v-if="code" class="demo-block__footer" @click.stop>
       <button type="button" class="demo-block__action" @click="toggle">
         <span class="demo-block__chevron" :class="{ 'demo-block__chevron--open': open }">▾</span>
         {{ open ? '收起代码' : '查看代码' }}
@@ -165,6 +167,11 @@ const lines = computed(() => (props.code ? props.code.trim().split('\n').length 
 
 .demo-block:hover {
   border-color: var(--vp-c-brand-2);
+}
+
+/* 宽屏下整卡可点，给出手型光标；页脚的操作按钮由 @click.stop 挡掉 */
+.demo-block.is-stage {
+  cursor: pointer;
 }
 
 .demo-block.is-active {
