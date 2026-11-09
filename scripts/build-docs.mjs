@@ -3,8 +3,8 @@
  *
  * 用法：
  *   node scripts/build-docs.mjs              本地开发用，base 为 /，cleanUrls 开启
- *   node scripts/build-docs.mjs vela-ui      Gitee Pages 项目仓库，base 为 /vela-ui/，关闭 cleanUrls
- *   node scripts/build-docs.mjs --static     个人站点仓库（<user>.gitee.io），base 为 /，关闭 cleanUrls
+ *   node scripts/build-docs.mjs xxui         GitHub Pages 项目仓库，base 为 /xxui/，关闭 cleanUrls
+ *   node scripts/build-docs.mjs --static     个人站点仓库（<user>.github.io），base 为 /，关闭 cleanUrls
  *
  * 只要产物要放到纯静态托管（传仓库名或 --static），就会顺带校验资源引用是否完整。
  */

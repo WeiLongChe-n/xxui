@@ -1,10 +1,10 @@
 /**
  * 极简静态服务器，用于在「子路径」下预览部署产物。
- * 模拟 Gitee Pages 的访问方式：https://<user>.gitee.io/<repo>/...
+ * 模拟 GitHub Pages 的访问方式：https://<user>.github.io/<repo>/...
  *
  * 用法：node scripts/serve-static.mjs [产物目录] [base] [端口]
- *      node scripts/serve-static.mjs .vitepress/dist-gitee vela-ui 4180
- *      → http://localhost:4180/vela-ui/
+ *      node scripts/serve-static.mjs docs/.vitepress/dist xxui 4180
+ *      → http://localhost:4180/xxui/
  */
 import http from 'node:http'
 import fs from 'node:fs'

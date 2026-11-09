@@ -1,0 +1,80 @@
+name: docs
+
+# 文档站部署：推送到 master 且文档/组件源码/构建脚本有变化时，构建并发布到 GitHub Pages
+on:
+  push:
+    branches: [master, main]
+    paths:
+      - 'docs/**'
+      - 'packages/mobile-ui/src/**'
+      - 'scripts/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/docs.yml'
+  workflow_dispatch:
+
+# GitHub Pages 的官方部署方式需要这三个权限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: build docs
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 准备 Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 构建文档站（base = /xxui/）
+        run: npm run docs:build:pages
+
+      - name: 检查产物
+        run: |
+          if [ ! -f docs/.vitepress/dist/index.html ]; then
+            echo "::error::缺少 docs/.vitepress/dist/index.html"
+            exit 1
+          fi
+          # 子路径部署时，首页里必须带 /xxui/ 前缀，否则线上会 404
+          if ! grep -q '/xxui/' docs/.vitepress/dist/index.html; then
+            echo "::error::产物里没有 /xxui/ 前缀，base 没有生效"
+            exit 1
+          fi
+          echo "产物大小：$(du -sh docs/.vitepress/dist | cut -f1)，页面数：$(find docs/.vitepress/dist -name '*.html' | wc -l)"
+
+      - name: 配置 Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: 上传产物
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/.vitepress/dist
+
+  deploy:
+    name: deploy to pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 发布
+        id: deployment
+        uses: actions/deploy-pages@v4

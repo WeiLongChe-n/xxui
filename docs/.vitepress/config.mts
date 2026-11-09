@@ -4,15 +4,15 @@ import { defineConfig } from 'vitepress'
 const libRoot = fileURLToPath(new URL('../../packages/mobile-ui/src', import.meta.url))
 
 /**
- * 部署到纯静态托管（Gitee Pages / GitHub Pages 等）时的路径处理：
+ * 部署到纯静态托管（GitHub Pages 等）时的路径处理：
  *
- *   DOCS_BASE=/vela-ui/   → 项目型仓库，站点地址 https://<user>.gitee.io/vela-ui/
- *   DOCS_BASE=/            → 个人站点仓库（<user>.gitee.io），站点在根路径
- *   不设置                  → 本地开发，base 为 /，链接使用干净的目录形式
+ *   DOCS_BASE=/xxui/   → 项目型仓库，站点地址 https://weilongche-n.github.io/xxui/
+ *   DOCS_BASE=/        → 个人站点仓库（<user>.github.io），站点在根路径
+ *   不设置              → 本地开发，base 为 /，链接使用干净的目录形式
  *
  * DOCS_STATIC=1 表示「产物要放到纯静态托管」：即使 base 是根路径，也要关闭 cleanUrls。
  *
- * 静态托管还要求关闭 cleanUrls：Gitee Pages 不做 URL 重写，
+ * 静态托管还要求关闭 cleanUrls：GitHub Pages 不做 URL 重写，
  * 访问 /guide/theme 不会自动映射到 guide/theme.html，因此链接必须带 .html。
  */
 const rawBase = process.env.DOCS_BASE ?? ''

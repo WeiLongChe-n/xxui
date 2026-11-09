@@ -1,5 +1,5 @@
 /**
- * 构建文档站的公共逻辑，供 build-docs.mjs 与 deploy-gitee.mjs 复用。
+ * 构建文档站的公共逻辑，供 build-docs.mjs 等脚本复用。
  */
 import { execFileSync } from 'node:child_process'
 import fs from 'node:fs'
@@ -10,7 +10,7 @@ export const root = path.resolve(fileURLToPath(new URL('../..', import.meta.url)
 export const distDir = path.join(root, 'docs/.vitepress/dist')
 const vitepressBin = path.join(root, 'node_modules/vitepress/bin/vitepress.js')
 
-/** 把 'vela-ui' / '/vela-ui/' / '' 统一成 '/vela-ui/' 或 '/' */
+/** 把 'xxui' / '/xxui/' / '' 统一成 '/xxui/' 或 '/' */
 export function normalizeBase(raw) {
   const trimmed = (raw || '').replace(/^\/+|\/+$/g, '')
   return trimmed ? `/${trimmed}/` : '/'

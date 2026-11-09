@@ -3,10 +3,10 @@
  * 用于部署前发现缺失的 favicon、图片、字体与脚本。
  *
  * 用法：node scripts/verify-static.mjs [产物目录] [base]
- *      node scripts/verify-static.mjs .vitepress/dist-gitee vela-ui
+ *      node scripts/verify-static.mjs docs/.vitepress/dist xxui
  *
- * 注意：base 请传不带斜杠的仓库名（如 vela-ui），脚本会自行补成 /vela-ui/。
- * 在 Git Bash 下直接传 /vela-ui/ 会被 MSYS 当成路径做转换。
+ * 注意：base 请传不带斜杠的仓库名（如 xxui），脚本会自行补成 /xxui/。
+ * 在 Git Bash 下直接传 /xxui/ 会被 MSYS 当成路径做转换。
  */
 import fs from 'node:fs'
 import path from 'node:path'

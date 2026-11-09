@@ -40,7 +40,7 @@ npm run docs:build
 ## 目录结构
 
 ```
-vela-ui/
+xxui/
 ├── packages/mobile-ui/        # 组件库源码
 │   ├── src/
 │   │   ├── components/        # 55 个组件
@@ -123,59 +123,41 @@ npm run dev
 - `Slider`、`Sticky`、`Tabs`、`List`、`PullRefresh` 通过 `getOwnerWindow(el)` 获取元素所属 window，而非直接用全局 `window`；
 - 弹层组件的挂载目标可被宿主改写：`setDefaultTeleportTarget(el)` 与 `<ConfigProvider teleport="...">`，文档站据此把 Dialog / Toast / Popup / ImagePreview 挂进沙箱，弹层只覆盖手机屏幕。
 
-## 部署到 Gitee Pages
+## 部署到 GitHub Pages
 
-文档站是纯静态产物，可以直接托管在 Gitee Pages（需在 Gitee 完成实名认证后才能开启该服务）。
+文档站是纯静态产物，由 `.github/workflows/docs.yml` 自动构建并发布到 GitHub Pages：推送 `master` 且 `docs/`、`packages/` 或 `scripts/` 有变化时触发，也可在 Actions 页面手动运行。
+
+站点地址：**https://weilongche-n.github.io/xxui/**
 
 ### 一次性准备
 
-```bash
-# 1. 在 Gitee 新建仓库（不要勾选「使用 Readme 初始化」）
-# 2. 关联远程并推送源码
-git remote add origin https://gitee.com/<用户名>/<仓库名>.git
-git push -u origin master
-```
+仓库 **Settings → Pages → Build and deployment → Source** 选择 **GitHub Actions**。工作流里已带 `actions/configure-pages`（`enablement: true`），首次运行会自动开启，通常不用手动点。
 
-### 发布文档站
+### 本地预览产物
 
 ```bash
-# 只构建，先本地看效果
-npm run docs:build:gitee -- vela-ui
-node scripts/serve-static.mjs docs/.vitepress/dist vela-ui 4180
-# → http://localhost:4180/vela-ui/
+# 按 /xxui/ 子路径构建，并自检所有资源引用是否存在
+npm run docs:build:pages
 
-# 构建 + 校验 + 推送到 pages 分支
-npm run deploy:gitee -- https://gitee.com/<用户名>/<仓库名>.git
-```
-
-脚本会完成三件事：按 `/<仓库名>/` 子路径构建、校验所有资源引用是否存在、把产物推送到仓库的 `pages` 分支（独立提交历史，不污染源码分支）。
-
-推完之后在 Gitee 仓库页面 **服务 → Gitee Pages** 中选择分支 `pages`、部署目录留空，启动后地址为：
-
-```
-https://<用户名>.gitee.io/<仓库名>/
+# 把产物挂到子路径下模拟线上访问
+node scripts/serve-static.mjs docs/.vitepress/dist xxui 4180
+# → http://localhost:4180/xxui/
 ```
 
 ### 为什么需要单独一套构建参数
 
 纯静态托管有两处和本地开发不同，`docs/.vitepress/config.mts` 里已处理：
 
-| 问题 | 本地开发 | Gitee Pages | 处理方式 |
+| 问题 | 本地开发 | GitHub Pages | 处理方式 |
 | --- | --- | --- | --- |
-| 站点在子路径下 | `base` 为 `/` | `base` 为 `/<仓库名>/` | 读环境变量 `DOCS_BASE` |
-| 链接形式 | `cleanUrls`，`/guide/theme` | 静态服务器不做 URL 重写，必须 `/guide/theme.html` | 部署时关闭 `cleanUrls` |
+| 站点在子路径下 | `base` 为 `/` | `base` 为 `/xxui/` | 读环境变量 `DOCS_BASE` |
+| 链接形式 | `cleanUrls`，`/guide/theme` | 静态托管不做 URL 重写，必须 `/guide/theme.html` | 部署时关闭 `cleanUrls` |
 
-> 在 Git Bash 里请传**不带前导斜杠**的仓库名（`DOCS_BASE=vela-ui`），否则 MSYS 会把 `/vela-ui/` 当成路径转换成 Git 安装目录下的绝对路径。
-
-如果仓库名就是 `<用户名>.gitee.io`（个人站点仓库），站点位于根路径，用下面的命令构建，脚本会自动识别并省略 base 前缀：
-
-```bash
-node scripts/deploy-gitee.mjs https://gitee.com/<用户名>/<用户名>.gitee.io.git
-```
+> 在 Git Bash 里请传**不带前导斜杠**的仓库名（`DOCS_BASE=xxui`），否则 MSYS 会把 `/xxui/` 当成路径转换成 Git 安装目录下的绝对路径。
 
 ### 更新站点
 
-免费版 Gitee Pages 不会在推送后自动重新部署，每次 `npm run deploy:gitee` 之后需要在 Pages 页面手动点一次「更新」。绑定自定义域名或使用 Pro 版可自动部署。
+推送即部署，不需要手动操作。若在 Actions 里看到 `deploy` 任务被跳过，检查 Pages 的 Source 是否已切到 GitHub Actions。
 
 ## 脚本
 
@@ -184,8 +166,7 @@ node scripts/deploy-gitee.mjs https://gitee.com/<用户名>/<用户名>.gitee.io
 | `npm run dev` | 启动文档站开发服务器（5173） |
 | `npm run docs:build` | 构建文档站到 `docs/.vitepress/dist` |
 | `npm run docs:preview` | 预览文档站构建产物（4173） |
-| `npm run docs:build:gitee` | 按 Gitee Pages 子路径构建并自检资源 |
-| `npm run deploy:gitee` | 构建、自检并推送到 Gitee 的 `pages` 分支 |
+| `npm run docs:build:pages` | 按 GitHub Pages 子路径（`/xxui/`）构建并自检资源 |
 | `npm run build` | 构建组件库到 `packages/mobile-ui/dist` |
 | `npm run typecheck` | 使用 vue-tsc 做类型检查 |
 | `npm run publish:npm` | 本地发布（首发/应急）：自动定版本、构建并发布到 npm |
@@ -197,6 +178,8 @@ node scripts/deploy-gitee.mjs https://gitee.com/<用户名>/<用户名>.gitee.io
 
 **常规路径：GitHub Actions + Trusted Publishing（OIDC）。** 不需要 token、不需要验证码，凭证由 GitHub 每次发布时临时签发。
 
+> 所有发布、部署、排查命令的速查表见 **[RELEASING.md](./RELEASING.md)**。
+
 ```bash
 npm run release            # 自动定版本（有 feat 走 minor，否则 patch）→ 提交 → 打 tag → 推送
 npm run release:minor      # 强制次版本，0.3.0 → 0.4.0
@@ -204,13 +187,24 @@ npm run release:patch      # 强制补丁号，0.3.0 → 0.3.1
 npm run release:dry        # 预演，只打印不执行
 ```
 
-本地脚本 `scripts/release-tag.mjs` 只做四件事：同步版本号（`packages/mobile-ui/package.json`、根 `package.json`、`src/index.ts`、文档站导航栏）→ 提交 `chore(release): vX.Y.Z` → 打 `vX.Y.Z` tag → 推送。推送后 `.github/workflows/publish.yml` 接手，跑类型检查、构建、产物校验，再用 OIDC 身份 `npm publish`。
+本地脚本 `scripts/release-tag.mjs` 只做四件事：同步版本号（`packages/mobile-ui/package.json`、根 `package.json`、`src/index.ts`、文档站导航栏）→ 提交 `chore(release): vX.Y.Z` → 打 `vX.Y.Z` tag → 推送。推送后 `.github/workflows/publish.yml` 接手，跑类型检查、构建、产物校验，再用 OIDC 身份 `npm publish`（自动附带 provenance）。
 
-CI 侧有三个前提，都在 npm 网页上配一次：
+CI 侧的前提是 npm 上存在一条匹配的 Trusted Publisher（本包已配好）：
 
-1. 包的 **Settings → Trusted publisher** 加一条 GitHub Actions，填 `Organization or user`、`Repository`、`Workflow filename`（只填文件名 `publish.yml`，大小写必须完全一致）
-2. 勾上 **Allow npm publish**（2026-09-03 之后新建的配置默认只允许 `npm stage publish`，不勾就直接发布会被拒）
-3. 配好后 **2 天内**必须有一次性成功发布，否则配置过期作废，得删了重建
+| 字段 | 值 |
+| --- | --- |
+| Provider | GitHub Actions |
+| Organization or user | `WeiLongChe-n`（GitHub 用户名，不是 npm 账号 `chenwll`） |
+| Repository | `xxui` |
+| Workflow filename | `publish.yml`（只填文件名，大小写敏感） |
+| Environment | 留空 |
+| Allowed actions | 勾选 `npm publish` |
+
+改配置用 CLI 比网页表单可靠（必须在真终端里跑，npm 会检测 TTY 并走 passkey）：
+
+```bash
+npx --yes npm@latest trust github xxui-mobile --file publish.yml --repository WeiLongChe-n/xxui --allow-publish -y --registry https://registry.npmjs.org/
+```
 
 包内 `repository.url` 必须与 GitHub 仓库完全一致，npm 靠它校验 OIDC 身份。
 
@@ -242,7 +236,7 @@ npm run publish:npm
 | `check404.mjs` | `node scripts/check404.mjs` | 从首页广度优先爬取全部站内链接，报告 >=400 的页面；`BASE=` 可指向预览服务 |
 | `sandbox.mjs` | `node scripts/sandbox.mjs` | 沙箱自检：确认演示确实渲染在 iframe 内、指针拖拽在沙箱 window 上生效、换肤不影响文档站、`--vp-*` 未泄漏 |
 | `verify-static.mjs` | `node scripts/verify-static.mjs <产物目录> <仓库名>` | 静态产物自检：确认 HTML 里所有带 base 前缀的绝对路径都能找到对应文件 |
-| `serve-static.mjs` | `node scripts/serve-static.mjs <产物目录> <仓库名> [端口]` | 极简静态服务器，把产物挂到子路径下，模拟 Gitee Pages 的访问方式 |
+| `serve-static.mjs` | `node scripts/serve-static.mjs <产物目录> <仓库名> [端口]` | 极简静态服务器，把产物挂到子路径下，模拟 GitHub Pages 的访问方式 |
 
 > `verify-static.mjs` 与 `serve-static.mjs` 不依赖 Chrome，部署前排查与预览时使用；其余脚本只在本地开发时使用，不影响 `build` 与 `docs:build` 的产物。
 

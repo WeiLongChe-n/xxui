@@ -83,8 +83,9 @@ resetTheme()
 
 完整文档、可交互的手机预览与示例代码见：
 
-- Gitee Pages：https://chenweilong_1025.gitee.io/vela-ui/
-- 源码仓库：https://gitee.com/chenweilong_1025/vela-ui
+- 在线文档：https://weilongche-n.github.io/xxui/
+- 源码仓库：https://github.com/WeiLongChe-n/xxui
+- 问题反馈：https://github.com/WeiLongChe-n/xxui/issues
 
 ## 许可
 
